@@ -4,7 +4,7 @@
       <SidebarTabs />
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left>
+    <v-app-bar app clipped>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn to="Index">
         <v-icon left>mdi-home</v-icon>
@@ -12,7 +12,7 @@
       <v-toolbar-title>TXBA ProPlayer v8</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
+    <v-content app>
       <router-view></router-view>
     </v-content>
 
@@ -34,7 +34,7 @@ export default {
     SidebarTabs
   },
   data: () => ({
-    drawer: null
+    drawer: false
   }),
   created() {
     this.$vuetify.theme.dark = true;

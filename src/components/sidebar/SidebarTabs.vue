@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <v-tabs v-model="tab" centered dark icons-and-text>
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#favorites">
@@ -8,10 +7,11 @@
         <v-icon>mdi-heart</v-icon>
       </v-tab>
 
-    </v-tabs>
+    <v-tabs>
     <v-tabs-items v-model="tab">    
       <FavList />  
     </v-tabs-items>
+    </v-tabs>
   </v-container>
 </template>
 
@@ -25,9 +25,7 @@ export default {
   },
   data() {
     return {
-      tab: null,
-      text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      tab: true,
     };
   },
   computed: {
