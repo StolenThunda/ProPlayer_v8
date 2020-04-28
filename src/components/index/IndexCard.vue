@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <v-card>
@@ -27,8 +26,8 @@ export default {
     data: String,
     id: Number
   },
-  mouned() {
-    console.log("slice", this.getSliceBacon(Math.random()));
+  mounted() {
+    console.log("slice", this.getSliceBacon);
   },
   methods: {
     ...mapGetters["getSliceBacon"]

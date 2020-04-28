@@ -15,7 +15,11 @@
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      <v-tab-item id="announcements" v-for="item in announcements" :key="'a_' + item.id">
+      <v-tab-item
+        id="announcements"
+        v-for="item in announcements"
+        :key="'a_' + item.id"
+      >
         <ListItem v-bind="item" />
       </v-tab-item>
       <v-tab-item id="updates" v-for="item in updates" :key="'u_' + item.id">

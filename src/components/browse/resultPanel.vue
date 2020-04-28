@@ -1,21 +1,24 @@
 <template>
-  <v-list-item>
+  <v-list-item :to="{name: 'Proplayer', params: { packageID: this.id}}">
+    <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
+      <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
+    </v-btn>
     <v-img
-      max-height="125"
-      max-width="50"
+      max-height="150"
+      max-width="75"
       class="ma-5 "
       :src="this.avatar"
       v-if="this.avatar"
       contain
     />
-    <v-list-item-avatar v-else>
-      <v-icon dense large>mdi-email</v-icon>
-    </v-list-item-avatar>
+    
     <v-list-item-content>
       <v-list-item-title v-html="this.title"></v-list-item-title>
       <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
       <v-container v-if="this.data" v-html="this.data"></v-container>
     </v-list-item-content>
+
+    
   </v-list-item>
 </template>
 
@@ -26,19 +29,29 @@ export default {
     show: false
   }),
   props: {
+    isFav: Boolean,
     avatar: String,
     data: String,
     subtitle: String,
     title: String,
     id: Number
+  },
+  computed:{
+ goto(id){
+      return `/proplayer/${id}`;
+    }
+  },
+  methods:{
+    toggleFavoriteInBrowser(){},
+   
   }
 };
 </script>
 
 <style>
-.v-icon {
+/* .v-icon {
   margin-right: 10px;
-}
+} */
 .browser-result-meta {
   font-size: 0.7em;
   font-weight: 700;

@@ -1,11 +1,14 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
+  <v-container fluid>
+    <v-row class="md-6"
+      justify="center"
+      no-gutters>
+      <v-col offset-md="2" >
         <div class="greeting">
           <H5>
             Welcome
-            <span>{{ user }}</span>,
+            <span>{{ user }}</span
+            >,
           </H5>
         </div>
       </v-col>

@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import { getField, updateField } from "vuex-map-fields";
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
@@ -15,13 +14,14 @@ export default new Vuex.Store({
     favsPopulated: false,
     favorites: {
       imported: [],
-      courses: [],
+      courses: []
     },
+    currentCourse: {},
+    previousCourses: []
   },
   mutations: {
     TOGGLE_SIDEBAR() {
       this.state.isSideBarOpen = !this.state.isSideBarOpen;
-      // this.$emit("toggleDrawer", true);
       return this.getters.isSideBarOpen;
     },
     SET_SPINNER() {
@@ -37,11 +37,10 @@ export default new Vuex.Store({
       // console.log("setting:", data);
       this.state.bacon = data;
     },
-    updateField,
   },
   actions: {
     toggleSidebar(ctx) {
-      return ctx.commit("TOGGLE_SIDEBAR");
+      return ctx.commit("TOGGLE_SIDEBAR", ctx);
     },
     setFavs(ctx, collection) {
       return ctx.commit("SET_FAVS", ctx, collection.favs);
@@ -51,12 +50,11 @@ export default new Vuex.Store({
       return axios.get("https://baconipsum.com/api/?callback=?", {
         type: "meat-and-filler",
         "start-with-lorem": "1",
-        paras: "10",
+        paras: "10"
       });
     },
     async fetchBacon(ctx) {
       return ctx.dispatch("fetchBaconData").then(response => {
-        // console.log("in Promise: ", response.data);
         const newData = response.data.map((info, idx) => {
           return {
             id: "bit_" + idx,
@@ -68,13 +66,27 @@ export default new Vuex.Store({
             data: info
               .split(" ")
               .splice(3)
-              .join(" "),
+              .join(" ")
           };
         });
         // console.log("obj", newData);
         ctx.commit("SET_BACON_DATA", { data: newData });
         ctx.commit("SET_SPINNER");
         return newData;
+      });
+    },
+    async fetchCourseData() {
+      return axios.get("https://baconipsum.com/api/?callback=?", {
+        type: "meat-and-filler",
+        "start-with-lorem": "1",
+        paras: "10"
+      });
+    },
+    async fetchCourse(ctx) {
+      return ctx.dispatch("fetchCourseData").then(response => {        
+        console.log("obj", response.data);
+        ctx.commit("SET_COURSE_DATA", { data: response.data });
+        return response.data;
       });
     },
     async fetchData({ commit }) {
@@ -95,16 +107,11 @@ export default new Vuex.Store({
     },
     isSideBarOpen(ctx) {
       return ctx.commit("TOGGLE_SIDEBAR");
-    },
+    }
   },
   getters: {
-    getSliceBacon(state, seed) {
-      const min = 0;
-      const max = state.bacon.length - 1;
-      const idx = Math.floor(seed * (max - min + 1)) + min;
-      // console.log(max);
-      // console.log("bacon bit", idx);
-      return state.bacon[idx];
+    getSliceBacon(state) {
+      return state.bacon[Math.floor(Math.random() * state.bacon.length)];
     },
     isSideBarOpen(state) {
       return state.isSideBarOpen;
@@ -118,16 +125,13 @@ export default new Vuex.Store({
     favImportedLoaded(state) {
       return state.favorites.imported.length > 0;
     },
-    getRand(state) {
-      const min = 0;
-      const max = state.bacon.length - 1;
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
     getBacon(state) {
       return state.bacon;
     },
-    getField,
+    getCurrentCourseData(state) {
+      return state.currentCourse;
+    }
   },
   setters: {},
-  modules: {},
+  modules: {}
 });

@@ -1,5 +1,4 @@
-
- <template>
+<template>
   <v-row dense>
     <v-col>
       <v-card v-for="item in info" :key="item.id">
@@ -20,7 +19,6 @@
     </v-col>
   </v-row>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -46,11 +44,11 @@ export default {
       return url;
     }
   },
-  methods: {   
+  methods: {
     getUrl(id) {
       return `https://randomuser.me/api/portraits/men/${id}.jpg`;
       // console.log(url);
-    },    
+    },
     buildInfo(data) {
       const info = [];
       data.forEach((text, idx) => {
@@ -82,5 +80,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

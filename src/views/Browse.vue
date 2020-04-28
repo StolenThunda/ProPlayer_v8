@@ -4,15 +4,9 @@
       <SearchPanels />
     </v-navigation-drawer>
 
-    <v-app-bar app clipped>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn to="Index">
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <AppBar />
-    </v-app-bar>
+    <AppBar :drawer="drawer" />
 
-    <v-content v-model="default_entries">
+    <v-content id="content" v-model="default_entries">
       <v-container
         v-for="default_entry in default_entries"
         :key="default_entry.id"
@@ -24,6 +18,9 @@
 </template>
 
 <script>
+/* 
+TODO - enable/disable favorites
+*/
 import AppBar from "@/components/browse/appBar";
 import ResultPanel from "@/components/browse/resultPanel";
 import SearchPanels from "@/components/browse/searchPanels";
@@ -69,8 +66,8 @@ export default {
         $("div[id^=browserResultItem]"),
         mode
       );
+      // console.log(html);
       // console.dir()
-      // console.log(mode);
     },
     getInfo($, group, mode) {
       let collection = [];
@@ -80,8 +77,13 @@ export default {
 
         default:
           group.each((idx, e) => {
+          const pkg = this.getIdx(($(e)
+                  .find(".browser-result-image a")
+                  .attr("onclick")));
             const itm = {
-              id: parseInt(idx),
+              id: pkg.packageID,
+              type: pkg.type,
+              isFav: false,
               avatar:
                 "http:" +
                 $(e)
@@ -104,7 +106,22 @@ export default {
       }
       console.log("col", collection);
       return collection;
+    },
+    getIdx(clickString){
+      clickString = clickString.replace(/'/g, '"');
+      const pkg = JSON.parse(clickString.match(/\{([^}]+)\}/g));
+      pkg.packageID = parseInt(pkg.packageID)
+      return pkg;
     }
   }
 };
 </script>
+
+<style scoped>
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+</style>

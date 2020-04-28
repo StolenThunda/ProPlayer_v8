@@ -4,13 +4,7 @@
       <SidebarTabs />
     </v-navigation-drawer>
 
-    <v-app-bar app clipped>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn to="Index">
-        <v-icon left>mdi-home</v-icon>
-      </v-btn>
-      <v-toolbar-title>TXBA ProPlayer v8</v-toolbar-title>
-    </v-app-bar>
+    <MainAppBar :drawer="drawer" />
 
     <v-content app>
       <router-view></router-view>
@@ -23,29 +17,32 @@
 </template>
 
 <script>
-import SidebarTabs from "@/components/sidebar/SidebarTabs";
-import { mapActions } from "vuex";
+import SidebarTabs from "@/components/index/SidebarTabs";
+import MainAppBar from "@/components/index/MainAppBar";
 export default {
   name: "AppFrame",
   props: {
     source: String
   },
   components: {
-    SidebarTabs
+    SidebarTabs,
+    MainAppBar
   },
-  data: () => ({
-    drawer: false
-  }),
   created() {
     this.$vuetify.theme.dark = true;
-    this.fetchBacon();
-    this.fetchFavorites();
+    this.$store.dispatch('fetchFavorites');
   },
-  methods: {
-    toggleDrawer(toggle) {
-      this.drawer = toggle;
+  computed: {
+    drawer: {
+      get: function() {
+        return this.$store.getters.isSideBarOpen;
+      },
+      set: function() {
+        return this.$store.dispatch('isSideBarOpen');
     },
-    ...mapActions(["fetchBacon", "fetchFavorites"])
+  },
+  // methods: {
+  // }
   }
 };
 </script>

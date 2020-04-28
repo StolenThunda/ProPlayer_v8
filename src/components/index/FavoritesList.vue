@@ -1,11 +1,16 @@
 <template>
   <v-expansion-panels>
-    <v-expansion-panel v-for="(item,i) in Object.keys(favorites)" :key="i">
+    <v-expansion-panel v-for="(item, i) in Object.keys(favorites)" :key="i">
       <v-expansion-panel-header class="text-capitalize">
         <v-badge :content="favorites[item].length">{{ item }}</v-badge>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-card class="fav_list" raised v-for="favorite in favorites[item]" :key="favorite.name">
+        <v-card
+          class="fav_list"
+          raised
+          v-for="favorite in favorites[item]"
+          :key="favorite.name"
+        >
           <v-avatar size="20">
             <v-icon>mdi-play-circle-outline</v-icon>
           </v-avatar>
