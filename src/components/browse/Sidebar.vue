@@ -1,6 +1,6 @@
 <template>
   <v-card>
-     <!-- <v-sheet class="pa-4 primary lighten-2">
+    <v-sheet class="pa-4 lighten-2">
       <v-text-field
         v-model="search"
         label="Search P"
@@ -17,20 +17,27 @@
         hide-details
         label="Case sensitive search"
       ></v-checkbox>
-    </v-sheet> -->
-  <v-expansion-panels>
-    <v-expansion-panel v-for="(item, i) in funnels" :key="i">
-      <v-expansion-panel-header class="capital">{{
-        i
-      }}</v-expansion-panel-header>
-      <v-expansion-panel-content
-        >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.</v-expansion-panel-content
-      >
-    </v-expansion-panel>
-  </v-expansion-panels>
+    </v-sheet>
+    <v-expansion-panels>
+      <v-expansion-panel v-for="(item, i) in funnels" :key="i">
+        <v-expansion-panel-header class="capital">{{
+          i
+        }}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+      <v-sheet elevation="10" class="pa-2">
+        <v-chip-group
+          column
+          active-class="primary--text"
+        >
+          <v-chip v-for="tag in tags" :key="tag">
+            {{ tag }}
+          </v-chip>
+        </v-chip-group>
+      </v-sheet>
+  </v-expansion-panel-content
+        >
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-card>
 </template>
 
@@ -39,6 +46,17 @@ import axios from "axios";
 export default {
   name: "BrowserSidebar",
   data: () => ({
+    tags: [
+        'Work',
+        'Home Improvement',
+        'Vacation',
+        'Food',
+        'Drawers',
+        'Shopping',
+        'Art',
+        'Tech',
+        'Creative Writing',
+      ],
     funnels: {
       collections: [],
       artists: [],

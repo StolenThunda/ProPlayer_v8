@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="{name: 'proplayer', params: { packageID: this.id}}">
+  <v-list-item :to="{ name: 'proplayer', params: { packageID: this.id } }">
     <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
       <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
     </v-btn>
@@ -11,14 +11,18 @@
       v-if="this.avatar"
       contain
     />
-    
+
     <v-list-item-content>
       <v-list-item-title v-html="this.title"></v-list-item-title>
       <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
       <v-container v-if="this.data" v-html="this.data"></v-container>
     </v-list-item-content>
 
-    
+    <v-list-item-action>
+          <v-btn icon>
+            <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
+          </v-btn>
+        </v-list-item-action>
   </v-list-item>
 </template>
 
@@ -36,14 +40,13 @@ export default {
     title: String,
     id: Number
   },
-  computed:{
- goto(id){
+  computed: {
+    goto(id) {
       return `/proplayer/${id}`;
     }
   },
-  methods:{
-    toggleFavoriteInBrowser(){},
-   
+  methods: {
+    toggleFavoriteInBrowser() {}
   }
 };
 </script>
@@ -51,7 +54,7 @@ export default {
 <style>
 /* .v-icon {
   margin-right: 10px;
-} */
+ } 
 .browser-result-meta {
   font-size: 0.7em;
   font-weight: 700;
@@ -69,5 +72,5 @@ export default {
 .meta-wrapper {
   white-space: nowrap;
   margin-right: 0.5em;
-}
+} */
 </style>

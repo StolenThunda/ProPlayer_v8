@@ -13,9 +13,7 @@
       <v-chip class="ma-2">Backing Tracks</v-chip>
       <v-chip class="ma-2">Imported</v-chip>
       <v-chip class="ma-2">
-        <v-avatar left>
-          <v-icon>mdi-youtube</v-icon>
-        </v-avatar>Youtube
+        <v-avatar left> <v-icon>mdi-youtube</v-icon> </v-avatar>Youtube
       </v-chip>
     </v-chip-group>
   </v-toolbar>

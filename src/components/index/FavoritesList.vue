@@ -1,29 +1,41 @@
 <template>
-  <v-expansion-panels>
+<v-container fluid>
+  <v-expansion-panels >
     <v-expansion-panel v-for="(item, i) in Object.keys(favorites)" :key="i">
       <v-expansion-panel-header class="text-capitalize">
         <v-badge :content="favorites[item].length">{{ item }}</v-badge>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-card
-          class="fav_list"
-          raised
+        <v-card>
+          <v-list dense>
+      <v-list-item-group v-model="model" mandatory color="indigo">
+        <v-list-item
           v-for="favorite in favorites[item]"
           :key="favorite.name"
         >
-          <v-avatar size="20">
-            <v-icon>mdi-play-circle-outline</v-icon>
-          </v-avatar>
-          <v-card-subtitle v-text="favorite.name"></v-card-subtitle>
+          <v-list-item-icon>
+            <v-icon small>mdi-play-circle</v-icon>
+          </v-list-item-icon>
 
-          <div class="my-2">
-            <v-btn>HERE</v-btn>
-          </div>
-          <!-- </v-card-actions> -->
-        </v-card>
+          <v-list-item-content>
+            <v-list-item-subtitle v-text="favorite.name"></v-list-item-subtitle>
+          </v-list-item-content>
+        <v-list-item-action>
+           <v-list-item-icon>
+             <v-avatar @click="removeFavorite">
+            <v-icon color="error" small>fas fa-minus-circle</v-icon>
+             </v-avatar>
+          </v-list-item-icon>
+        </v-list-item-action>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+     </v-card>
+       
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
+</v-container>
 </template>
 
 <script>
@@ -37,8 +49,8 @@ export default {
     ...mapState(["favorites", "favCoursesLoaded", "favImportedLoaded"])
   },
   methods: {
-    ucFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+    removeFavorite(id){
+      console.log(id ? id : 'hello')
     },
     ...mapActions(["fetchFavorites"])
   }

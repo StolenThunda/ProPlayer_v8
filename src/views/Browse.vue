@@ -1,9 +1,12 @@
 <template>
-    <v-content id="content" v-model="default_entries">
-      <v-container v-for="default_entry in default_entries" :key="default_entry.id">
-        <ResultPanel v-bind="default_entry" />
-      </v-container>
-    </v-content>
+  <v-content id="content" v-model="default_entries">
+    <v-list dense
+      v-for="default_entry in default_entries"
+      :key="default_entry.id"
+    >
+      <ResultPanel v-bind="default_entry" />
+    </v-list>
+  </v-content>
 </template>
 
 <script>
@@ -22,10 +25,10 @@ export default {
     default_entries: null
   }),
   components: {
-    ResultPanel,
+    ResultPanel
   },
   mounted() {
-    console.dir(this.$route)
+    console.dir(this.$route);
     this.getDefaults();
     this.$root.$on("navFilter", code => {
       return this.getFilteredByCode(code);
@@ -106,7 +109,7 @@ export default {
 };
 </script>
 
-<style >
+<style>
 #content {
   display: flex;
   justify-content: center;

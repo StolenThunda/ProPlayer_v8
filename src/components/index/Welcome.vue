@@ -5,7 +5,8 @@
         <div class="greeting">
           <H5>
             Welcome
-            <span>{{ user }}</span>,
+            <span>{{ user }}</span
+            >,
           </H5>
         </div>
       </v-col>

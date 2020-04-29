@@ -14,10 +14,10 @@ export default new Vuex.Store({
     favsPopulated: false,
     favorites: {
       imported: [],
-      courses: [],
+      courses: []
     },
     currentCourse: {},
-    previousCourses: [],
+    previousCourses: []
   },
   mutations: {
     TOGGLE_SIDEBAR(ctx, data) {
@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     SET_BACON_DATA(ctx, { data }) {
       this.state.bacon = data;
-    },
+    }
   },
   actions: {
     setFavs(ctx, collection) {
@@ -46,11 +46,11 @@ export default new Vuex.Store({
       return axios.get("https://baconipsum.com/api/?callback=?", {
         type: "meat-and-filler",
         "start-with-lorem": "1",
-        paras: "10",
+        paras: "10"
       });
     },
     async fetchBacon(ctx) {
-      return ctx.dispatch("fetchBaconData").then((response) => {
+      return ctx.dispatch("fetchBaconData").then(response => {
         const newData = response.data.map((info, idx) => {
           return {
             id: "bit_" + idx,
@@ -62,7 +62,7 @@ export default new Vuex.Store({
             data: info
               .split(" ")
               .splice(3)
-              .join(" "),
+              .join(" ")
           };
         });
         // console.log("obj", newData);
@@ -75,11 +75,11 @@ export default new Vuex.Store({
       return axios.get("https://baconipsum.com/api/?callback=?", {
         type: "meat-and-filler",
         "start-with-lorem": "1",
-        paras: "10",
+        paras: "10"
       });
     },
     async fetchCourse(ctx) {
-      return ctx.dispatch("fetchCourseData").then((response) => {
+      return ctx.dispatch("fetchCourseData").then(response => {
         console.log("obj", response.data);
         ctx.commit("SET_COURSE_DATA", { data: response.data });
         return response.data;
@@ -87,7 +87,7 @@ export default new Vuex.Store({
     },
     async fetchData({ commit }) {
       commit("SET_SPINNER");
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         setTimeout(async () => {
           const data = await fetch("./ipsum.json");
           const vals = await data.json();
@@ -97,20 +97,20 @@ export default new Vuex.Store({
       });
     },
     async fetchFavorites(ctx) {
-      await ctx.dispatch("fetchData").then((myJson) => {
+      await ctx.dispatch("fetchData").then(myJson => {
         ctx.commit("SET_FAVS", myJson);
       });
     },
-    drawerState: (ctx, data) => ctx.commit("TOGGLE_SIDEBAR", ctx, data),
+    drawerState: (ctx, data) => ctx.commit("TOGGLE_SIDEBAR", ctx, data)
   },
   getters: {
-    getSliceBacon: (state) =>
+    getSliceBacon: state =>
       state.bacon[Math.floor(Math.random() * state.bacon.length)],
-    drawerState: (state) => state.drawerState,
-    fetchFavorites: (state) => state.favorites,
-    favCoursesLoaded: (state) => state.favorites.courses.length > 0,
-    favImportedLoaded: (state) => state.favorites.imported.length > 0,
-    getBacon: (state) => state.bacon,
-    getCurrentCourseData: (state) => state.currentCourse,
-  },
+    drawerState: state => state.drawerState,
+    fetchFavorites: state => state.favorites,
+    favCoursesLoaded: state => state.favorites.courses.length > 0,
+    favImportedLoaded: state => state.favorites.imported.length > 0,
+    getBacon: state => state.bacon,
+    getCurrentCourseData: state => state.currentCourse
+  }
 });

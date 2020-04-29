@@ -28,3 +28,10 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 # ProPlayer_v8
+
+Functionality Checklist
+- [ ] Favorites button in Welcome.vue
+- [ ] Link to Orientaion
+- [ ] PULL Resume data
+- [ ] Add Links to InfoTabs
+- [ ] 

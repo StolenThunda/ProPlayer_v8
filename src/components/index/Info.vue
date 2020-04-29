@@ -1,9 +1,9 @@
 <template>
-    <v-row justify="center" no-gutters>
-      <v-col md="10" offset-md="1">
-          <ITabs />
-      </v-col>
-    </v-row>
+  <v-row justify="center" no-gutters>
+    <v-col md="10" offset-md="1">
+      <ITabs />
+    </v-col>
+  </v-row>
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 <template>
-  <v-container>
-    <v-tabs v-model="tab" centered dark icons-and-text>
+  <v-layout justify-center>
+    <v-card>
+    <v-tabs  id='site-updates' v-model="tab" centered dark icons-and-text>
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#announcements">
@@ -14,7 +15,7 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-model="tab" ou>
       <v-tab-item
         id="announcements"
         v-for="item in announcements"
@@ -22,11 +23,12 @@
       >
         <ListItem v-bind="item" />
       </v-tab-item>
-      <v-tab-item id="updates" v-for="item in updates" :key="'u_' + item.id">
+      <v-tab-item id="updates" v-for="item in updates" :key="'u_' + item.id" outlined>
         <ListItem v-bind="item" />
       </v-tab-item>
     </v-tabs-items>
-  </v-container>
+    </v-card>
+  </v-layout>
 </template>
 
 <script>
@@ -93,4 +95,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  #site-updates {
+
+  }
+</style>
