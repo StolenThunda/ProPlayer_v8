@@ -1,11 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-sheet fluid>
     <Welcome />
     <Resume />
     <Info>
       <InfoTabs />
     </Info>
-  </v-container>
+  </v-sheet>
 </template>
 
 <script>
@@ -23,11 +23,11 @@ export default {
     InfoTabs
   },
   computed: {
-    ...mapState(["showSpinner"])
+    ...mapState(["_spinnerState"])
   },
   methods: {
     spinner: () => {
-      if (this.showSpinner) {
+      if (this._spinnerState) {
         this.$vs.loading({
           background: this.backgroundLoading,
           color: this.colorLoading,

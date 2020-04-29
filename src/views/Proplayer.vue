@@ -1,21 +1,10 @@
-<template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
-     <SidebarTabs />
-    </v-navigation-drawer>
-
-     <MainAppBar />
-     
-
+<template>  
     <v-content v-if="this.packageID" >
       <CourseContent :packageID="this.packageID" />
     </v-content>
-  </v-app>
 </template>
 <script>
-    import MainAppBar from "@/components/index/MainAppBar";
     import CourseContent from "@/components/proplayer/CourseContent";
-    import SidebarTabs from "@/components/proplayer/SidebarTabs";
     export default {
         name: 'Proplayer',
         props: {
@@ -26,9 +15,10 @@
             
         }),
         components: {
-            MainAppBar,
             CourseContent,
-            SidebarTabs
+        },
+        mounted(){
+            console.dir(this.$route);
         },
         methods: {
             goBack(){

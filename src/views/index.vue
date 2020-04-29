@@ -5,7 +5,7 @@
 <script>
 import Default from "@/components/";
 export default {
-  name: "Index",
+  name: "index",
   components: { Default }
 };
 </script>

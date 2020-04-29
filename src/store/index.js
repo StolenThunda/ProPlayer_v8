@@ -9,39 +9,35 @@ Vue.use(VueAxios, axios);
 export default new Vuex.Store({
   state: {
     bacon: [],
-    isSideBarOpen: false,
-    showSpinner: false,
+    drawerState: false,
+    _spinnerState: false,
     favsPopulated: false,
     favorites: {
       imported: [],
-      courses: []
+      courses: [],
     },
     currentCourse: {},
-    previousCourses: []
+    previousCourses: [],
   },
   mutations: {
-    TOGGLE_SIDEBAR() {
-      this.state.isSideBarOpen = !this.state.isSideBarOpen;
-      return this.getters.isSideBarOpen;
+    TOGGLE_SIDEBAR(ctx, data) {
+      this.state.drawerState = data;
     },
     SET_SPINNER() {
-      this.state.showSpinner = !this.state.showSpinner;
+      this.state._spinnerState = !this.state._spinnerState;
     },
     SET_FAVS(ctx, { favs }) {
       // console.log("SettingFAVS:", favs);
       this.state.favorites = favs;
       this.state.favsPopulated =
         favs.courses.length > 0 || favs.imported.length > 0;
+      // console.log(this.state.favorites);
     },
     SET_BACON_DATA(ctx, { data }) {
-      // console.log("setting:", data);
       this.state.bacon = data;
     },
   },
   actions: {
-    toggleSidebar(ctx) {
-      return ctx.commit("TOGGLE_SIDEBAR", ctx);
-    },
     setFavs(ctx, collection) {
       return ctx.commit("SET_FAVS", ctx, collection.favs);
     },
@@ -50,11 +46,11 @@ export default new Vuex.Store({
       return axios.get("https://baconipsum.com/api/?callback=?", {
         type: "meat-and-filler",
         "start-with-lorem": "1",
-        paras: "10"
+        paras: "10",
       });
     },
     async fetchBacon(ctx) {
-      return ctx.dispatch("fetchBaconData").then(response => {
+      return ctx.dispatch("fetchBaconData").then((response) => {
         const newData = response.data.map((info, idx) => {
           return {
             id: "bit_" + idx,
@@ -66,7 +62,7 @@ export default new Vuex.Store({
             data: info
               .split(" ")
               .splice(3)
-              .join(" ")
+              .join(" "),
           };
         });
         // console.log("obj", newData);
@@ -79,11 +75,11 @@ export default new Vuex.Store({
       return axios.get("https://baconipsum.com/api/?callback=?", {
         type: "meat-and-filler",
         "start-with-lorem": "1",
-        paras: "10"
+        paras: "10",
       });
     },
     async fetchCourse(ctx) {
-      return ctx.dispatch("fetchCourseData").then(response => {        
+      return ctx.dispatch("fetchCourseData").then((response) => {
         console.log("obj", response.data);
         ctx.commit("SET_COURSE_DATA", { data: response.data });
         return response.data;
@@ -91,7 +87,7 @@ export default new Vuex.Store({
     },
     async fetchData({ commit }) {
       commit("SET_SPINNER");
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(async () => {
           const data = await fetch("./ipsum.json");
           const vals = await data.json();
@@ -101,37 +97,20 @@ export default new Vuex.Store({
       });
     },
     async fetchFavorites(ctx) {
-      await ctx.dispatch("fetchData").then(myJson => {
+      await ctx.dispatch("fetchData").then((myJson) => {
         ctx.commit("SET_FAVS", myJson);
       });
     },
-    isSideBarOpen(ctx) {
-      return ctx.commit("TOGGLE_SIDEBAR");
-    }
+    drawerState: (ctx, data) => ctx.commit("TOGGLE_SIDEBAR", ctx, data),
   },
   getters: {
-    getSliceBacon(state) {
-      return state.bacon[Math.floor(Math.random() * state.bacon.length)];
-    },
-    isSideBarOpen(state) {
-      return state.isSideBarOpen;
-    },
-    fetchFavorites(state) {
-      return state.favorites;
-    },
-    favCoursesLoaded(state) {
-      return state.favorites.courses.length > 0;
-    },
-    favImportedLoaded(state) {
-      return state.favorites.imported.length > 0;
-    },
-    getBacon(state) {
-      return state.bacon;
-    },
-    getCurrentCourseData(state) {
-      return state.currentCourse;
-    }
+    getSliceBacon: (state) =>
+      state.bacon[Math.floor(Math.random() * state.bacon.length)],
+    drawerState: (state) => state.drawerState,
+    fetchFavorites: (state) => state.favorites,
+    favCoursesLoaded: (state) => state.favorites.courses.length > 0,
+    favImportedLoaded: (state) => state.favorites.imported.length > 0,
+    getBacon: (state) => state.bacon,
+    getCurrentCourseData: (state) => state.currentCourse,
   },
-  setters: {},
-  modules: {}
 });

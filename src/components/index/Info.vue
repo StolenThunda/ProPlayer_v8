@@ -1,19 +1,9 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col>
-        <v-card class="pa-2" outlined tile> </v-card>
-      </v-col>
-      <v-col md="auto">
-        <v-card>
+    <v-row justify="center" no-gutters>
+      <v-col md="10" offset-md="1">
           <ITabs />
-        </v-card>
-      </v-col>
-      <v-col lg="2">
-        <v-card class="pa-2" outlined tile> </v-card>
       </v-col>
     </v-row>
-  </v-container>
 </template>
 
 <script>

@@ -1,29 +1,16 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
-      <SearchPanels />
-    </v-navigation-drawer>
-
-    <AppBar :drawer="drawer" />
-
     <v-content id="content" v-model="default_entries">
-      <v-container
-        v-for="default_entry in default_entries"
-        :key="default_entry.id"
-      >
+      <v-container v-for="default_entry in default_entries" :key="default_entry.id">
         <ResultPanel v-bind="default_entry" />
       </v-container>
     </v-content>
-  </v-app>
 </template>
 
 <script>
 /* 
 TODO - enable/disable favorites
 */
-import AppBar from "@/components/browse/appBar";
 import ResultPanel from "@/components/browse/resultPanel";
-import SearchPanels from "@/components/browse/searchPanels";
 import axios from "axios";
 
 export default {
@@ -35,16 +22,16 @@ export default {
     default_entries: null
   }),
   components: {
-    AppBar,
     ResultPanel,
-    SearchPanels
   },
   mounted() {
+    console.dir(this.$route)
     this.getDefaults();
     this.$root.$on("navFilter", code => {
       return this.getFilteredByCode(code);
     });
   },
+
   methods: {
     getDefaults() {
       axios
@@ -77,9 +64,11 @@ export default {
 
         default:
           group.each((idx, e) => {
-          const pkg = this.getIdx(($(e)
-                  .find(".browser-result-image a")
-                  .attr("onclick")));
+            const pkg = this.getIdx(
+              $(e)
+                .find(".browser-result-image a")
+                .attr("onclick")
+            );
             const itm = {
               id: pkg.packageID,
               type: pkg.type,
@@ -107,17 +96,17 @@ export default {
       console.log("col", collection);
       return collection;
     },
-    getIdx(clickString){
+    getIdx(clickString) {
       clickString = clickString.replace(/'/g, '"');
       const pkg = JSON.parse(clickString.match(/\{([^}]+)\}/g));
-      pkg.packageID = parseInt(pkg.packageID)
+      pkg.packageID = parseInt(pkg.packageID);
       return pkg;
     }
   }
 };
 </script>
 
-<style scoped>
+<style >
 #content {
   display: flex;
   justify-content: center;

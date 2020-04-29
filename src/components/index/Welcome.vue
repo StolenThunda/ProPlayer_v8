@@ -1,42 +1,38 @@
 <template>
-  <v-container fluid>
-    <v-row class="md-6"
-      justify="center"
-      no-gutters>
-      <v-col offset-md="2" >
+  <v-card>
+    <v-row class="md-6" justify="center" no-gutters>
+      <v-col offset-md="2">
         <div class="greeting">
           <H5>
             Welcome
-            <span>{{ user }}</span
-            >,
+            <span>{{ user }}</span>,
           </H5>
         </div>
       </v-col>
       <v-col>
         <div class="welcome">
           <div>
-            <v-btn color="success" @click="isSideBarOpen">
+            <v-btn color="success">
               <v-icon left>mdi-play-circle-outline</v-icon>Orientation
             </v-btn>
           </div>
           <div>
-            <v-btn color="primary" @click="isSideBarOpen">
+            <v-btn color="primary">
               <v-icon left>mdi-heart</v-icon>Favorites
             </v-btn>
           </div>
           <div>
-            <v-btn color="primary" to="Browse">
+            <v-btn color="primary" to="browse">
               <v-icon left>mdi-magnify</v-icon>Browse
             </v-btn>
           </div>
         </div>
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 export default {
   data: function() {
     return {
@@ -47,9 +43,7 @@ export default {
   methods: {
     loggedIn: () => {
       return true;
-    },
-    ...mapGetters(["browse"]),
-    ...mapActions(["isSideBarOpen"])
+    }
   }
 };
 </script>

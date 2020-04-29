@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="{name: 'Proplayer', params: { packageID: this.id}}">
+  <v-list-item :to="{name: 'proplayer', params: { packageID: this.id}}">
     <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
       <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
     </v-btn>
