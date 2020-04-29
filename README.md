@@ -1,5 +1,5 @@
 # vuetify_proplayer
-
+<!-- 
 ## Project setup
 ```
 npm install
@@ -26,7 +26,7 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://cli.vuejs.org/config/). -->
 # ProPlayer_v8
 
 Functionality Checklist
