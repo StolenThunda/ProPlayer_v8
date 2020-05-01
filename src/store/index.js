@@ -15,6 +15,7 @@ export default new Vuex.Store({
     favorites: null,
     currentCourse: {},
     previousCourses: [],
+    default_browser_entries: null
   },
   mutations: {
     TOGGLE_SIDEBAR(ctx, data) {
@@ -22,6 +23,10 @@ export default new Vuex.Store({
     },
     SET_SPINNER() {
       this.state._spinnerState = !this.state._spinnerState;
+    },
+    SET_DEFAULT_BROWSER_ENTRIES(ctx,  data ) {
+      console.log("SettingBrower:", data);
+      if (data) this.state.default_browser_entries = data;
     },
     SET_FAVS(ctx, { favs }) {
       // console.log("SettingFAVS:", favs);
@@ -76,17 +81,6 @@ export default new Vuex.Store({
         return response.data;
       });
     },
-    // async fetchFavoritesData({ commit }) {
-    //   commit("SET_SPINNER");
-    //   return new Promise((resolve) => {
-    //     setTimeout(async () => {
-    //       const data = await fetch("./ipsum.json");
-    //       const vals = await data.json();
-    //       resolve(vals[0]);
-    //       commit("SET_SPINNER");
-    //     }, 3000);
-    //   });
-    // },
 
     async fetchFavorites(ctx) {
       await ctx
@@ -102,6 +96,13 @@ export default new Vuex.Store({
     async fetchNotifications(ctx) {
       return await ctx.dispatch("fetchNotificationData");
     },
+    fetchDefaultSearchData() {
+      return new Vue.helpers.BrowserResults();
+    },
+    async fetchDefaultSearch(ctx) {
+      return await ctx.dispatch("fetchDefaultSearchData")
+        .then(data => ctx.commit("SET_DEFAULT_BROWSER_ENTRIES", data));
+    },
     drawerState: (ctx, data) => ctx.commit("TOGGLE_SIDEBAR", ctx, data),
   },
   getters: {
@@ -111,5 +112,6 @@ export default new Vuex.Store({
     fetchFavorites: (state) => state.favorites,
     getBacon: (state) => state.bacon,
     getCurrentCourseData: (state) => state.currentCourse,
+    default_browser_entries: (state) => state.default_browser_entries
   },
 });

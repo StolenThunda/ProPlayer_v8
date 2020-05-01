@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Helpers from "../components/helpers.js";
+import Helpers from "../middleware/txba_helpers.js";
 
 const plugin = {
   install() {
