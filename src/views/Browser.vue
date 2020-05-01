@@ -5,8 +5,14 @@
       <BrowserAppbar />
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" ref="drawer" :width="navCfg.width" app clipped>
-      <BrowserSidebar  />
+    <v-navigation-drawer
+      v-model="drawer"
+      ref="drawer"
+      :width="navCfg.width"
+      app
+      clipped
+    >
+      <BrowserSidebar />
     </v-navigation-drawer>
 
     <v-content>
@@ -20,10 +26,10 @@
 </template>
 
 <script>
-import BrowserSidebar from "@/components/browse/Sidebar";
+import BrowserSidebar from "@/components/browse/Search";
 import BrowserAppbar from "@/components/browse/appBar";
 import Browser from "@/components/browse/Browse";
-import Draggable from '@/views/lib/DraggableMixin';
+import Draggable from "@/views/lib/DraggableMixin";
 
 export default {
   name: "AppLayout",
@@ -32,22 +38,22 @@ export default {
     source: String,
   },
   data: () => ({
-    drawer: false,    
+    drawer: false,
     navCfg: {
       width: 350,
       borderSize: 3,
     },
   }),
-  components: {   
+  components: {
     BrowserSidebar,
     BrowserAppbar,
-    Browser
+    Browser,
   },
   created() {
     this.$vuetify.theme.dark = true;
     this.$store.dispatch("fetchFavorites");
   },
-  mounted(){
+  mounted() {
     this.setBorderWidth();
     this.setEvents();
   },

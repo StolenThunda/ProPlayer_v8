@@ -5,7 +5,7 @@
         <div class="greeting">
           <H5>
             Welcome
-            <span>{{ user }}</span
+            <span>{{ user || "Antonio" }}</span
             >,
           </H5>
         </div>
@@ -17,7 +17,7 @@
               <v-icon left>mdi-play-circle-outline</v-icon>Orientation
             </v-btn>
           </div>
-          <div>
+          <div @click="$root.$emit('toggleSidebar')">
             <v-btn color="primary">
               <v-icon left>mdi-heart</v-icon>Favorites
             </v-btn>
@@ -35,16 +35,8 @@
 
 <script>
 export default {
-  data: function () {
-    return {
-      drawer: null,
-      user: "bob",
-    };
-  },
-  methods: {
-    loggedIn: () => {
-      return true;
-    },
+  props: {
+    user: String,
   },
 };
 </script>

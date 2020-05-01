@@ -1,30 +1,30 @@
 <template>
-  <v-card class='searchResults'>
-  <v-list-item :to="{ name: 'proplayer', params: { packageID: this.id } }">
-    <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
-      <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
-    </v-btn>
-    <v-img
-      max-height="150"
-      max-width="75"
-      class="ma-5"
-      :src="this.avatar"
-      v-if="this.avatar"
-      contain
-    />
-
-    <v-list-item-content>
-      <v-list-item-title v-html="this.title"></v-list-item-title>
-      <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
-      <v-container v-if="this.data" v-html="this.data"></v-container>
-    </v-list-item-content>
-
-    <v-list-item-action>
-      <v-btn icon>
-        <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
+  <v-card class="searchResults">
+    <v-list-item :to="{ name: 'proplayer', params: { packageID: this.id } }">
+      <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
+        <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
       </v-btn>
-    </v-list-item-action>
-  </v-list-item>
+      <v-img
+        max-height="150"
+        max-width="75"
+        class="ma-5"
+        :src="this.avatar"
+        v-if="this.avatar"
+        contain
+      />
+
+      <v-list-item-content>
+        <v-list-item-title v-html="this.title"></v-list-item-title>
+        <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
+        <v-container v-if="this.data" v-html="this.data"></v-container>
+      </v-list-item-content>
+
+      <v-list-item-action>
+        <v-btn icon>
+          <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
+        </v-btn>
+      </v-list-item-action>
+    </v-list-item>
   </v-card>
 </template>
 
@@ -53,5 +53,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,10 +1,7 @@
 <template>
-  <v-sheet 
-    class="mx-auto"
-    max-width="75vw"
-    outlined
-    v-model="default_entries">
-    <v-list id="content"
+  <v-sheet class="mx-auto" max-width="75vw" outlined v-model="default_entries">
+    <v-list
+      id="content"
       dense
       v-for="default_entry in default_entries"
       :key="default_entry.id"

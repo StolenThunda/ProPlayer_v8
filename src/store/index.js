@@ -28,7 +28,7 @@ export default new Vuex.Store({
       this.state.favorites = favs;
 
       //TODO: remove hard coded favs
-      this.state.favsPopulated = 
+      this.state.favsPopulated =
         favs.Courses.length > 0 || favs.Imported.length > 0;
     },
     SET_BACON_DATA(ctx, { data }) {
@@ -87,9 +87,11 @@ export default new Vuex.Store({
     //     }, 3000);
     //   });
     // },
-   
+
     async fetchFavorites(ctx) {
-      await ctx.dispatch("fetchFavoritesData").then(myJson => ctx.commit("SET_FAVS", myJson));
+      await ctx
+        .dispatch("fetchFavoritesData")
+        .then((myJson) => ctx.commit("SET_FAVS", myJson));
     },
     fetchFavoritesData() {
       return new Vue.helpers.FavUtils();

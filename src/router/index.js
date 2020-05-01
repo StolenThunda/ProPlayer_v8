@@ -18,7 +18,7 @@ const routes = [
     // this generates a separate chunk (browser.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     meta: {
-      layout: 'browser'
+      layout: "browser",
     },
     component: () =>
       import(/* webpackChunkName: "browser" */ "../views/Browser.vue"),
@@ -28,7 +28,7 @@ const routes = [
     name: "proplayer",
     props: true,
     meta: {
-      layout: 'watch'
+      layout: "watch",
     },
     component: () =>
       import(/* webpackChunkName: "proplayer" */ "../views/Proplayer.vue"),

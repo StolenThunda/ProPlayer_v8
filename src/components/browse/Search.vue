@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-sheet class="pa-4 lighten-2">
-        <!-- v-model="search" -->
+      <!-- v-model="search" -->
       <v-text-field
         label="Search P"
         dark
@@ -11,12 +11,8 @@
         clearable
         clear-icon="mdi-close-circle-outline"
       ></v-text-field>
-        <!-- v-model="caseSensitive" -->
-      <v-checkbox
-        dark
-        hide-details
-        label="Case sensitive search"
-      ></v-checkbox>
+      <!-- v-model="caseSensitive" -->
+      <v-checkbox dark hide-details label="Case sensitive search"></v-checkbox>
     </v-sheet>
     <v-expansion-panels>
       <v-expansion-panel v-for="(item, i) in funnels" :key="i">
@@ -65,9 +61,7 @@ export default {
   },
   methods: {
     async getFunnels() {
-      return await new Promise(() => {
-       
-      })
+      return await new Promise(() => {});
     },
   },
 };

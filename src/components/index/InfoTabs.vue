@@ -51,16 +51,16 @@ export default {
     NotificationItem,
   },
   created() {
-   this.getNotifications()
+    this.getNotifications();
   },
   methods: {
-    async getNotifications(){
+    async getNotifications() {
       const notifications = await this.$store.dispatch("fetchNotifications");
       //  console.log(notifications);
       this.announcements = notifications.announcements;
       this.updates = notifications.updates;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,37 +1,61 @@
-# vuetify_proplayer
-<!-- 
-## Project setup
-```
-npm install
-```
+# ProPlayer_v8 <!-- omit in toc --> 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## **Functionality Checklist** <!-- omit in toc -->
 
-### Run your unit tests
-```
-npm run test:unit
-```
+- [***Index page***](#index-page)
+      - [Welcome.vue](#welcomevue)
+      - [Resume.vue (*Last course worked on*)](#resumevue-last-course-worked-on)
+      - [InfoTabs (*Notifications - announcements/course updates*)](#infotabs-notifications---announcementscourse-updates)
+    - [Appbar (*menu items*)](#appbar-menu-items)
+    - [*Sidebar*](#sidebar)
+      - [Favorites List](#favorites-list)
+- [Browser](#browser)
+      - [AppBar](#appbar)
+    - [*Sidebar*](#sidebar-1)
+      - [Search](#search)
 
-### Lints and fixes files
-```
-npm run lint
-```
+## ***Index page*** 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/). -->
-# ProPlayer_v8
+##### Welcome.vue
+        [x] Favorites button 
+        [x] Browse button
+        [x] Orientation button 
+        [x] Get "real" user name for welcome message
 
-Functionality Checklist
-- [ ] Favorites button in Welcome.vue
-- [ ] Link to Orientaion
-- [ ] PULL Resume data
-- [ ] Add Links to InfoTabs
-- [ ] 
+##### Resume.vue (*Last course worked on*)
+
+        [ ] PULL Resume data
+        [ ] Resume Button
+
+##### InfoTabs (*Notifications - announcements/course updates*)  
+
+        [ ] Add correct Links to InfoTabs
+
+#### Appbar (*menu items*)
+        [ ] Guitar Tuner
+        [ ] Spider Drills
+        [ ] Load Youtube
+        [ ] Account Dashboard
+        [ ] Locals Forums
+        [ ] Force Refresh
+
+#### *Sidebar*
+ ##### Favorites List
+        [ ] toggle favorites
+        [ ] play favorite from menu
+        
+---
+
+## Browser 
+
+##### AppBar
+        [ ] Working Chip filters 
+
+
+#### *Sidebar*
+##### Search
+        [ ] Injest/Generate search criteria
+        [ ] functional basic search
+        [ ] fuzzy search
+  

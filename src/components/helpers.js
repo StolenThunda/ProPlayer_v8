@@ -1,56 +1,55 @@
 import axios from "axios";
 // import Vue from 'vue';
 class FavUtils {
-    constructor() {
-        this.favs = this.getFavs();
-        return this.favs;
-    }
+  constructor() {
+    this.favs = this.getFavs();
+    return this.favs;
+  }
 
-    getFavs() {
-        // "https://texasbluesalley.com/proplayer74-tony/--ajax-load-favorites-list"
-        return this.parseFavoriteHtml(this.fakeFavHTML());
-    }
+  getFavs() {
+    // "https://texasbluesalley.com/proplayer74-tony/--ajax-load-favorites-list"
+    return this.parseFavoriteHtml(this.fakeFavHTML());
+  }
 
-    async parseFavoriteHtml(html) {
-        return await new Promise((resolve, reject) => {
-            try {
-                const cheerio = require("cheerio");
-                const $ = cheerio.load(html);
-                resolve(this.parseFavoriteData($('.accordion-title')))
-            } catch (error) {
-                reject(error)
-            }
+  async parseFavoriteHtml(html) {
+    return await new Promise((resolve, reject) => {
+      try {
+        const cheerio = require("cheerio");
+        const $ = cheerio.load(html);
+        resolve(this.parseFavoriteData($(".accordion-title")));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 
-        });
-    }
+  parseFavoriteData(group) {
+    const cheerio = require("cheerio");
+    const $ = cheerio.load(group.html());
+    let favOBJ = { favs: {} };
 
-    parseFavoriteData(group) {
-        const cheerio = require("cheerio")
-        const $ = cheerio.load(group.html());
-        let favOBJ = { favs: {} }
+    group.each((idx, e) => {
+      let title = $(e).text().split(" ")[0];
+      favOBJ.favs[title] = [];
+      let items = $(e).parent().find(".sidebar-list li");
+      items.each((index, val) => {
+        // console.log('val', $(val).find('.sidebar-list-item-link').text())
+        const itm = {
+          id: $(val).find("form").data("id"),
+          title: $(val).find(".sidebar-list-item-link").text(),
+          //subtitle: $(e).find(".notification-body p").text(),
+        };
+        // console.log('item', itm);
+        favOBJ.favs[title].push({ ...itm });
+      });
+    });
+    // console.log('obj', favOBJ)
+    return favOBJ;
+  }
 
-        group.each((idx, e) => {
-            let title = $(e).text().split(' ')[0];
-            favOBJ.favs[title] = [];
-            let items = $(e).parent().find('.sidebar-list li');
-            items.each((index, val) => {
-                // console.log('val', $(val).find('.sidebar-list-item-link').text())
-                const itm = {
-                    id: $(val).find('form').data('id'),
-                    title: $(val).find('.sidebar-list-item-link').text(),
-                    //subtitle: $(e).find(".notification-body p").text(),
-                };
-                // console.log('item', itm);
-                favOBJ.favs[title].push({ ...itm });
-            })
-        });
-        // console.log('obj', favOBJ)
-        return favOBJ;
-    }
-
-    fakeFavHTML() {
-        //#region 
-        return `<ul class="accordion sidebar-accordion" id="favoritesListAccordion" data-accordion data-allow-all-closed="true"
+  fakeFavHTML() {
+    //#region
+    return `<ul class="accordion sidebar-accordion" id="favoritesListAccordion" data-accordion data-allow-all-closed="true"
     data-multi-expand="false">
 
 
@@ -737,54 +736,58 @@ class FavUtils {
             </ul>
         </div>
     </li>
-</ul>`
-        //#endregion
-    }
+</ul>`;
+    //#endregion
+  }
 }
 
 class NoteUtils {
-    constructor() {
-        this.notification = this.getNotification();
-        return this.notification;
-    }
+  constructor() {
+    this.notification = this.getNotification();
+    return this.notification;
+  }
 
-    async getNotification() {
-        try {
-            const response = await axios.get("https://texasbluesalley.com/proplayer74-tony/--ajax-load-default-page");
-            return this.parseNotificationHtml(response.data);
-        }
-        catch (error) {
-            console.error(error);
-        }
+  async getNotification() {
+    try {
+      const response = await axios.get(
+        "https://texasbluesalley.com/proplayer74-tony/--ajax-load-default-page"
+      );
+      return this.parseNotificationHtml(response.data);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    parseNotificationHtml(html) {
-        // console.log(html)
-        const cheerio = require("cheerio");
-        const $ = cheerio.load(html);
-        // console.log('ann', $("#announcements li"))
-        return {
-            announcements: this.parseNotificationData($, $("#announcements li")),
-            updates: this.parseNotificationData($, $("#course-updates li.notification"))
-        }
-    }
+  parseNotificationHtml(html) {
+    // console.log(html)
+    const cheerio = require("cheerio");
+    const $ = cheerio.load(html);
+    // console.log('ann', $("#announcements li"))
+    return {
+      announcements: this.parseNotificationData($, $("#announcements li")),
+      updates: this.parseNotificationData(
+        $,
+        $("#course-updates li.notification")
+      ),
+    };
+  }
 
-    parseNotificationData($, group) {
-        // console.log(group)
-        let collection = [];
-        group.each((idx, e) => {
-            const itm = {
-                id: idx,
-                title: $(e).find(".notification-title span").text(),
-                subtitle: $(e).find(".notification-body p").text(),
-                actionText: $(e).find(".notification-body a").text(),
-                action: $(e).find(".notification-body a").attr('href'),
-            };
-            collection.push({ ...itm });
-        });
-        // console.log("col", collection);
-        return collection;
-    }
+  parseNotificationData($, group) {
+    // console.log(group)
+    let collection = [];
+    group.each((idx, e) => {
+      const itm = {
+        id: idx,
+        title: $(e).find(".notification-title span").text(),
+        subtitle: $(e).find(".notification-body p").text(),
+        actionText: $(e).find(".notification-body a").text(),
+        action: $(e).find(".notification-body a").attr("href"),
+      };
+      collection.push({ ...itm });
+    });
+    // console.log("col", collection);
+    return collection;
+  }
 }
 
-export default { NoteUtils, FavUtils }
+export default { NoteUtils, FavUtils };

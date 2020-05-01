@@ -23,7 +23,6 @@ export default {
   components: {
     FavList,
   },
-  data: () => ({tab: true})
-  }
-
+  data: () => ({ tab: true }),
+};
 </script>
