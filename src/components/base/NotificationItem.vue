@@ -15,6 +15,9 @@
       <v-list-item-title v-html="this.title"></v-list-item-title>
       <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
       <v-container v-if="this.data" v-html="this.data"></v-container>
+      <v-list-item-action v-if="this.action" left>
+        <router-link :to="this.action">{{ this.actionText }} </router-link>
+      </v-list-item-action>
     </v-list-item-content>
   </v-list-item>
 </template>
@@ -26,6 +29,8 @@ export default {
     show: false,
   }),
   props: {
+    action: String,
+    actionText: String,
     avatar: String,
     data: String,
     subtitle: String,

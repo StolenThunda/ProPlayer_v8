@@ -2,15 +2,15 @@
   <v-app id="inspire">
     <v-app-bar app flat>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <DefaultAppBar />
+      <BrowserAppbar />
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" ref="drawer" :width="navCfg.width" app clipped>
-      <DefaultNavBar />
+      <BrowserSidebar  />
     </v-navigation-drawer>
 
     <v-content>
-      <Default />
+      <Browser />
     </v-content>
 
     <v-footer>
@@ -20,43 +20,41 @@
 </template>
 
 <script>
-import DefaultNavBar from "@/components/index/DefaultNavBar";
-import DefaultAppBar from "@/components/index/DefaultAppBar";
-import Default from "@/components/index/";
-import Draggable from '@/views/lib/DraggableMixin.js';
+import BrowserSidebar from "@/components/browse/Sidebar";
+import BrowserAppbar from "@/components/browse/appBar";
+import Browser from "@/components/browse/Browse";
+import Draggable from '@/views/lib/DraggableMixin';
 
 export default {
-  name: "DefaultLayout",
+  name: "AppLayout",
   mixins: [Draggable],
   props: {
     source: String,
   },
   data: () => ({
-    drawer: false,   
+    drawer: false,    
     navCfg: {
       width: 350,
       borderSize: 3,
     },
   }),
-  components: {
-    DefaultNavBar,
-    DefaultAppBar,
-    Default
+  components: {   
+    BrowserSidebar,
+    BrowserAppbar,
+    Browser
   },
   created() {
     this.$vuetify.theme.dark = true;
     this.$store.dispatch("fetchFavorites");
   },
-  mounted() {
-      this.setBorderWidth();
-      this.setEvents();
-    },
+  mounted(){
+    this.setBorderWidth();
+    this.setEvents();
+  },
   computed: {
     direction() {
       return this.drawer === false ? "Open" : "Closed";
     },
-    
   },
-  
 };
 </script>

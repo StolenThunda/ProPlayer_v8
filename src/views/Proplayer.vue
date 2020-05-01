@@ -8,13 +8,13 @@ import CourseContent from "@/components/proplayer/CourseContent";
 export default {
   name: "Proplayer",
   props: {
-    packageID: null
+    packageID: null,
   },
   data: () => ({
-    drawer: false
+    drawer: false,
   }),
   components: {
-    CourseContent
+    CourseContent,
   },
   mounted() {
     console.dir(this.$route);
@@ -22,8 +22,8 @@ export default {
   methods: {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
-    }
-  }
+    },
+  },
 };
 </script>
 

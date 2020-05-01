@@ -7,13 +7,13 @@
 <script>
 export default {
   props: {
-    packageID: Number
+    packageID: Number,
   },
   computed: {
     playerContent() {
       return this.$store.commit("fetchCourse", this.packageID);
-    }
-  }
+    },
+  },
 };
 </script>
 

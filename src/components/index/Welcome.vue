@@ -23,7 +23,7 @@
             </v-btn>
           </div>
           <div>
-            <v-btn color="primary" to="browse">
+            <v-btn color="primary" to="browser">
               <v-icon left>mdi-magnify</v-icon>Browse
             </v-btn>
           </div>
@@ -35,17 +35,17 @@
 
 <script>
 export default {
-  data: function() {
+  data: function () {
     return {
       drawer: null,
-      user: "bob"
+      user: "bob",
     };
   },
   methods: {
     loggedIn: () => {
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 

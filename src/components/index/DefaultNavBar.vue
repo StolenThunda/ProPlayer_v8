@@ -12,7 +12,7 @@
         </v-tabs-items>
       </v-tabs>
     </v-card>
-    <v-card> </v-card>
+    <v-card></v-card>
   </v-card>
 </template>
 
@@ -21,15 +21,9 @@ import FavList from "@/components/index/FavoritesList";
 export default {
   name: "defaultSidebar",
   components: {
-    FavList
+    FavList,
   },
-  data() {
-    return {
-      tab: true
-    };
-  },
-  mounted() {
-    console.dir(this.$route);
+  data: () => ({tab: true})
   }
-};
+
 </script>

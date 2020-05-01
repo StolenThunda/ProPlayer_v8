@@ -8,41 +8,49 @@ const routes = [
   {
     path: "/",
     name: "index",
-    component: Index
+    component: Index,
   },
   {
-    path: "/browse",
-    name: "browse",
-    // component: Browse,
+    path: "/browser",
+    name: "browser",
+    // component: Browser,
     // route level code-splitting
-    // this generates a separate chunk (browse.[hash].js) for this route
+    // this generates a separate chunk (browser.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
+    meta: {
+      layout: 'browser'
+    },
     component: () =>
-      import(/* webpackChunkName: "browse" */ "../views/Browse.vue")
+      import(/* webpackChunkName: "browser" */ "../views/Browser.vue"),
   },
   {
     path: "/proplayer/:packageID",
     name: "proplayer",
     props: true,
+    meta: {
+      layout: 'watch'
+    },
     component: () =>
-      import(/* webpackChunkName: "proplayer" */ "../views/Proplayer.vue")
+      import(/* webpackChunkName: "proplayer" */ "../views/Proplayer.vue"),
   },
   {
     path: "/404",
     name: "404",
     component: () =>
-      import(/* webpackChunkName: "pagenotfound" */ "../views/PageNotFound.vue")
+      import(
+        /* webpackChunkName: "pagenotfound" */ "../views/PageNotFound.vue"
+      ),
   },
   {
     path: "*",
-    redirect: "/"
-  }
+    redirect: "/",
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

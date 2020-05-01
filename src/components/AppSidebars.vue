@@ -12,29 +12,29 @@ export default {
   data: () => ({
     isIndex: false,
     isBrowse: false,
-    isPlayer: false
+    isPlayer: false,
   }),
   components: {
     BrowserSidebar,
-    defaultSidebar
+    defaultSidebar,
   },
   created() {
     this.init();
     console.log("composite", this.$route.name);
   },
   methods: {
-    init() {
-      this.isIndex = this.drawerContent("index");
-      this.isBrowse = this.drawerContent("browse");
-      this.isPlayer = this.drawerContent("proplayer");
-    },
-    drawerContent: function(name) {
+    // init() {
+    //   this.isIndex = this.drawerContent("index");
+    //   this.isBrowse = this.drawerContent("browse");
+    //   this.isPlayer = this.drawerContent("proplayer");
+    // },
+    drawerContent: function (name) {
       this.$route.name === name;
-    }
+    },
   },
   watch: {
-    $route: "init"
-  }
+    $route: "init",
+  },
 };
 </script>
 

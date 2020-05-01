@@ -24,14 +24,14 @@ export default {
   props: {
     title: String,
     data: String,
-    id: Number
+    id: Number,
   },
   mounted() {
     console.log("slice", this.getSliceBacon);
   },
   methods: {
-    ...mapGetters["getSliceBacon"]
-  }
+    ...mapGetters["getSliceBacon"],
+  },
 };
 </script>
 <style>

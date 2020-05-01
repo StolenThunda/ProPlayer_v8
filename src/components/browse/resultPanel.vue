@@ -1,4 +1,5 @@
 <template>
+  <v-card class='searchResults'>
   <v-list-item :to="{ name: 'proplayer', params: { packageID: this.id } }">
     <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
       <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
@@ -6,7 +7,7 @@
     <v-img
       max-height="150"
       max-width="75"
-      class="ma-5 "
+      class="ma-5"
       :src="this.avatar"
       v-if="this.avatar"
       contain
@@ -19,18 +20,19 @@
     </v-list-item-content>
 
     <v-list-item-action>
-          <v-btn icon>
-            <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
-          </v-btn>
-        </v-list-item-action>
+      <v-btn icon>
+        <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
+      </v-btn>
+    </v-list-item-action>
   </v-list-item>
+  </v-card>
 </template>
 
 <script>
 export default {
   name: "BaseListItem",
   data: () => ({
-    show: false
+    show: false,
   }),
   props: {
     isFav: Boolean,
@@ -38,39 +40,18 @@ export default {
     data: String,
     subtitle: String,
     title: String,
-    id: Number
+    id: Number,
   },
   computed: {
     goto(id) {
       return `/proplayer/${id}`;
-    }
+    },
   },
   methods: {
-    toggleFavoriteInBrowser() {}
-  }
+    toggleFavoriteInBrowser() {},
+  },
 };
 </script>
 
 <style>
-/* .v-icon {
-  margin-right: 10px;
- } 
-.browser-result-meta {
-  font-size: 0.7em;
-  font-weight: 700;
-  color: #aaa;
-  margin-top: 0.25em;
-}
-
-.meta-key {
-  text-transform: uppercase;
-  color: white;
-  font-weight: 900;
-  margin-right: 0.25em;
-}
-
-.meta-wrapper {
-  white-space: nowrap;
-  margin-right: 0.5em;
-} */
 </style>
