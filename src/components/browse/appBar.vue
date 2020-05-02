@@ -1,4 +1,7 @@
 <template>
+<v-container>
+<v-row>
+  <v-col>
   <v-toolbar>
     <v-btn to="/" class="ma-2" text icon>
       <v-icon>mdi-home</v-icon>
@@ -16,12 +19,21 @@
         <v-avatar left> <v-icon>mdi-youtube</v-icon> </v-avatar>Youtube
       </v-chip>
     </v-chip-group>
+    <v-spacer></v-spacer>
+    <v-btn @click="$root.$emit('toggleSearching')">
+      <v-icon>mdi-dots-vertical</v-icon>
+    </v-btn>
   </v-toolbar>
+  </v-col>
+</v-row>
+
+</v-container>
 </template>
 
 <script>
 export default {
   name: "BrowserAppbar",
+  data: () =>({ searching: false})
 };
 </script>
 

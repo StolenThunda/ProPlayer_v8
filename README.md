@@ -51,7 +51,7 @@
 ## Browser 
 
 ##### AppBar
-        [ ] Working Chip filters 
+        [x] Working Chip filters 
 
 ##### ResultPanel
         [ ] Reflect Actual favs
@@ -61,6 +61,8 @@
 ##### Search
         [x] Injest/Generate search criteria
                 [ ] add seachable functionality
+        [ ] Selection/Display(appbar of selected chips)
+                [ ] TODO: adds doesn't remove
         [ ] functional basic search
         [ ] fuzzy search
   

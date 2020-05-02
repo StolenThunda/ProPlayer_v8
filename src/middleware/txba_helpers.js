@@ -901,10 +901,11 @@ class SearchUtils {
             collection[section.sectionId]['tags'] = [];
             collection[section.sectionId]['chips'] = [];
             $(e).find('.filter-checkbox').each((i, itm) => {
+                // console.log('chip0itm', itm)
                 const chip = {
-                    id: itm.id,
-                    name: itm.name,
-                    value: itm.value,
+                    id: itm.attribs.id,
+                    name: itm.attribs.name,
+                    value: itm.attribs.value,
                     text: $(itm).next().text()
                 };
                 collection[section.sectionId]['chips'].push(chip)
