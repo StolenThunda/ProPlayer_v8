@@ -11,11 +11,11 @@ export default new Vuex.Store({
     bacon: [],
     drawerState: false,
     _spinnerState: false,
-    favsPopulated: false,
     favorites: null,
     currentCourse: {},
     previousCourses: [],
-    default_browser_entries: null
+    default_browser_entries: null,
+    criteria: null
   },
   mutations: {
     TOGGLE_SIDEBAR(ctx, data) {
@@ -25,16 +25,17 @@ export default new Vuex.Store({
       this.state._spinnerState = !this.state._spinnerState;
     },
     SET_DEFAULT_BROWSER_ENTRIES(ctx,  data ) {
-      console.log("SettingBrower:", data);
+      // console.log("SettingBrower:", data);
       if (data) this.state.default_browser_entries = data;
+    },
+    SET_CRITERIA(ctx, data) {
+      // console.log("SettingCriteria:", data);     
+      if (data.auth) Vue.set(this.state, 'auth',data.auth);
+      if (data.funnels) this.state.criteria = data.funnels;
     },
     SET_FAVS(ctx, { favs }) {
       // console.log("SettingFAVS:", favs);
       this.state.favorites = favs;
-
-      //TODO: remove hard coded favs
-      this.state.favsPopulated =
-        favs.Courses.length > 0 || favs.Imported.length > 0;
     },
     SET_BACON_DATA(ctx, { data }) {
       this.state.bacon = data;
@@ -102,6 +103,13 @@ export default new Vuex.Store({
     async fetchDefaultSearch(ctx) {
       return await ctx.dispatch("fetchDefaultSearchData")
         .then(data => ctx.commit("SET_DEFAULT_BROWSER_ENTRIES", data));
+    },
+    fetchCriteriaData() {
+      return new Vue.helpers.SearchUtils();
+    },
+    async fetchSearchCriteria(ctx) {
+      return await ctx.dispatch("fetchCriteriaData")
+        .then(data => ctx.commit("SET_CRITERIA", data));
     },
     drawerState: (ctx, data) => ctx.commit("TOGGLE_SIDEBAR", ctx, data),
   },

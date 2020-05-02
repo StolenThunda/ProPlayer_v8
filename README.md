@@ -12,6 +12,7 @@
       - [Favorites List](#favorites-list)
 - [Browser](#browser)
       - [AppBar](#appbar)
+      - [ResultPanel](#resultpanel)
     - [*Sidebar*](#sidebar-1)
       - [Search](#search)
 
@@ -52,10 +53,14 @@
 ##### AppBar
         [ ] Working Chip filters 
 
+##### ResultPanel
+        [ ] Reflect Actual favs
+        [x] Pull live TXBA DATA
 
 #### *Sidebar*
 ##### Search
-        [ ] Injest/Generate search criteria
+        [x] Injest/Generate search criteria
+                [ ] add seachable functionality
         [ ] functional basic search
         [ ] fuzzy search
   

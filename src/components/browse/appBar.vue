@@ -6,7 +6,7 @@
     <v-toolbar-title>Browse...</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-chip-group>
-      <v-chip class="ma-2">Courses</v-chip>
+      <v-chip class="ma-2" @click="load('courses')">Courses</v-chip>
       <v-chip class="ma-2">Free Lesson Friday</v-chip>
       <v-chip class="ma-2">Tone Tuesday</v-chip>
       <v-chip class="ma-2">Performances</v-chip>

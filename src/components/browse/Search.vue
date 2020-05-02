@@ -1,9 +1,10 @@
 <template>
   <v-card>
     <v-sheet class="pa-4 lighten-2">
-      <!-- v-model="search" -->
+      
       <v-text-field
-        label="Search P"
+        label="Search"
+        v-model="search"
         dark
         flat
         solo-inverted
@@ -11,18 +12,16 @@
         clearable
         clear-icon="mdi-close-circle-outline"
       ></v-text-field>
-      <!-- v-model="caseSensitive" -->
-      <v-checkbox dark hide-details label="Case sensitive search"></v-checkbox>
+     
+      <v-checkbox v-model="caseSensitive" dark hide-details label="Case sensitive search"></v-checkbox>
     </v-sheet>
     <v-expansion-panels>
-      <v-expansion-panel v-for="(item, i) in funnels" :key="i">
-        <v-expansion-panel-header class="capital">{{
-          i
-        }}</v-expansion-panel-header>
+      <v-expansion-panel v-for="criterion in this.criteria" :key="criterion.sectionId">
+        <v-expansion-panel-header class="capital" v-html="criterion.sectionId"></v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-sheet elevation="10" class="pa-2">
             <v-chip-group column active-class="primary--text">
-              <v-chip v-for="tag in tags" :key="tag">
+              <v-chip v-for="tag in criterion.tags" :key="tag">
                 {{ tag }}
               </v-chip>
             </v-chip-group>
@@ -30,13 +29,17 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+    <!-- <v-card>{{ this.criteria }}</v-card> -->
   </v-card>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 export default {
   name: "BrowserSidebar",
   data: () => ({
+    caseSensitive: null,
+    search: null,
     tags: [
       "Work",
       "Home Improvement",
@@ -48,21 +51,20 @@ export default {
       "Tech",
       "Creative Writing",
     ],
-    funnels: {
-      collections: [],
-      artists: [],
-      songs: [],
-      difficulty: [],
-      tuning: [],
-    },
   }),
+  created() {
+    this.fetchSearchCriteria();
+  },
   mounted() {
-    this.getFunnels();
+     console.log('crit',this.criteria);
+  },
+  computed: {
+    ...mapState(["criteria"])
   },
   methods: {
-    async getFunnels() {
-      return await new Promise(() => {});
-    },
+   ...mapActions([
+     "fetchSearchCriteria"
+   ])
   },
 };
 </script>

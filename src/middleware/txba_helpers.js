@@ -1,55 +1,58 @@
 import axios from "axios";
 // import Vue from 'vue';
+
+const cheerio = require('cheerio');
+
 class FavUtils {
-  constructor() {
-    this.favs = this.getFavs();
-    return this.favs;
-  }
+    constructor() {
+        this.favs = this.getFavs();
+        return this.favs;
+    }
 
-  getFavs() {
-    // "https://texasbluesalley.com/proplayer74-tony/--ajax-load-favorites-list"
-    return this.parseFavoriteHtml(this.fakeFavHTML());
-  }
+    getFavs() {
+        // "https://texasbluesalley.com/proplayer74-tony/--ajax-load-favorites-list"
+        return this.parseFavoriteHtml(this.fakeFavHTML());
+    }
 
-  async parseFavoriteHtml(html) {
-    return await new Promise((resolve, reject) => {
-      try {
+    async parseFavoriteHtml(html) {
+        return await new Promise((resolve, reject) => {
+            try {
+                const cheerio = require("cheerio");
+                const $ = cheerio.load(html);
+                resolve(this.parseFavoriteData($(".accordion-title")));
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    parseFavoriteData(group) {
         const cheerio = require("cheerio");
-        const $ = cheerio.load(html);
-        resolve(this.parseFavoriteData($(".accordion-title")));
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
+        const $ = cheerio.load(group.html());
+        let favOBJ = { favs: {} };
 
-  parseFavoriteData(group) {
-    const cheerio = require("cheerio");
-    const $ = cheerio.load(group.html());
-    let favOBJ = { favs: {} };
+        group.each((idx, e) => {
+            let title = $(e).text().split(" ")[0];
+            favOBJ.favs[title] = [];
+            let items = $(e).parent().find(".sidebar-list li");
+            items.each((index, val) => {
+                // console.log('val', $(val).find('.sidebar-list-item-link').text())
+                const itm = {
+                    id: $(val).find("form").data("id"),
+                    title: $(val).find(".sidebar-list-item-link").text(),
+                    //subtitle: $(e).find(".notification-body p").text(),
+                };
+                // console.log('item', itm);
+                favOBJ.favs[title].push({ ...itm });
+            });
+        });
+        // console.log('obj', favOBJ)
+        return favOBJ;
+    }
 
-    group.each((idx, e) => {
-      let title = $(e).text().split(" ")[0];
-      favOBJ.favs[title] = [];
-      let items = $(e).parent().find(".sidebar-list li");
-      items.each((index, val) => {
-        // console.log('val', $(val).find('.sidebar-list-item-link').text())
-        const itm = {
-          id: $(val).find("form").data("id"),
-          title: $(val).find(".sidebar-list-item-link").text(),
-          //subtitle: $(e).find(".notification-body p").text(),
-        };
-        // console.log('item', itm);
-        favOBJ.favs[title].push({ ...itm });
-      });
-    });
-    // console.log('obj', favOBJ)
-    return favOBJ;
-  }
-
-  fakeFavHTML() {
-    //#region
-    return `<ul class="accordion sidebar-accordion" id="favoritesListAccordion" data-accordion data-allow-all-closed="true"
+    fakeFavHTML() {
+        //#region
+        return `<ul class="accordion sidebar-accordion" id="favoritesListAccordion" data-accordion data-allow-all-closed="true"
     data-multi-expand="false">
 
 
@@ -737,69 +740,66 @@ class FavUtils {
         </div>
     </li>
 </ul>`;
-    //#endregion
-  }
+        //#endregion
+    }
 }
 
 class NoteUtils {
-  constructor() {
-    this.notification = this.getNotification();
-    return this.notification;
-  }
-
-  async getNotification() {
-    try {
-      const responseonse = await axios.get(
-        "https://texasbluesalley.com/proplayer74-tony/--ajax-load-default-page"
-      );
-      return this.parseNotificationHtml(responseonse.data);
-    } catch (error) {
-      console.error(error);
+    constructor() {
+        this.notification = this.getNotification();
+        return this.notification;
     }
-  }
 
-  parseNotificationHtml(html) {
-    // console.log(html)
-    const cheerio = require("cheerio");
-    const $ = cheerio.load(html);
-    // console.log('ann', $("#announcements li"))
-    return {
-      announcements: this.parseNotificationData($, $("#announcements li")),
-      updates: this.parseNotificationData(
-        $,
-        $("#course-updates li.notification")
-      ),
-    };
-  }
+    async getNotification() {
+        try {
+            const responseonse = await axios.get(
+                "https://texasbluesalley.com/proplayer74-tony/--ajax-load-default-page"
+            );
+            return this.parseNotificationHtml(responseonse.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
-  parseNotificationData($, group) {
-    // console.log(group)
-    let collection = [];
-    group.each((idx, e) => {
-      const itm = {
-        id: idx,
-        title: $(e).find(".notification-title span").text(),
-        subtitle: $(e).find(".notification-body p").text(),
-        actionText: $(e).find(".notification-body a").text(),
-        action: $(e).find(".notification-body a").attr("href"),
-      };
-      collection.push({ ...itm });
-    });
-    // console.log("col", collection);
-    return collection;
-  }
+    parseNotificationHtml(html) {
+        // console.log(html)
+        const cheerio = require("cheerio");
+        const $ = cheerio.load(html);
+        // console.log('ann', $("#announcements li"))
+        return {
+            announcements: this.parseNotificationData($, $("#announcements li")),
+            updates: this.parseNotificationData(
+                $,
+                $("#course-updates li.notification")
+            ),
+        };
+    }
+
+    parseNotificationData($, group) {
+        // console.log(group)
+        let collection = [];
+        group.each((idx, e) => {
+            const itm = {
+                id: idx,
+                title: $(e).find(".notification-title span").text(),
+                subtitle: $(e).find(".notification-body p").text(),
+                actionText: $(e).find(".notification-body a").text(),
+                action: $(e).find(".notification-body a").attr("href"),
+            };
+            collection.push({ ...itm });
+        });
+        // console.log("col", collection);
+        return collection;
+    }
 }
 
 class BrowserResults {
     constructor() {
         this.baseURL = "https://texasbluesalley.com/proplayer74-tony/";
         this.default_entries_slug = "--ajax-browser-default-entries";
-        return  this.getDefaults()
-        //     .then(data => { return data });
-        // console.log(t);
-        // return this.default_entries;
+        return this.getDefaults()
     }
-     getDefaults() {
+    getDefaults() {
         const url = `${this.baseURL}${this.default_entries_slug}`;
         return axios
             .get(url)
@@ -814,7 +814,7 @@ class BrowserResults {
     }
     async parseHtml(html, mode) {
         mode = typeof mode === "undefined" ? "default" : mode;
-        const cheerio = require("cheerio");
+        // const cheerio = require("cheerio");
         const $ = cheerio.load(html);
         // console.log('html',html);
         return this.getInfo(
@@ -860,4 +860,59 @@ class BrowserResults {
         return pkg;
     }
 }
-export default { NoteUtils, FavUtils, BrowserResults };
+
+class SearchUtils {
+    constructor() {
+        this.baseURL = "https://texasbluesalley.com/proplayer74-tony/";
+        this.courses_slug = "--ajax-browser-filters/courses";
+        return this.getCourses();
+    }
+    async getCourses() {
+        return axios.get(`${this.baseURL}${this.courses_slug}`)
+            .then(async (response) => await response.data)
+            .then(response => this.parseCoursesCriteria(response))
+    }
+    parseCoursesCriteria(html) {
+        const $ = cheerio.load(html)
+        let hiddenFields = this.parseHiddenData($('.hiddenFields input'));
+        let acc1 = this.parseFunnels($('.filter-list'));
+        // console.log(acc1)
+
+        return {
+            auth: hiddenFields,
+            funnels: acc1
+        };
+    }
+    parseHiddenData(group) {
+        const $ = cheerio.load(group.html())
+        const collection = {};
+        group.each((idx, e) => {
+            collection[$(e).attr('name')] = $(e).attr('value')
+        })
+        return collection;
+    }
+    parseFunnels(group) {
+        // console.log('group', group)
+        const $ = cheerio.load(group.html())
+        const collection = {};
+        group.each((idx, e) => {
+            const section = $(e).data()
+            collection[section.sectionId] = section;
+            collection[section.sectionId]['tags'] = [];
+            collection[section.sectionId]['chips'] = [];
+            $(e).find('.filter-checkbox').each((i, itm) => {
+                const chip = {
+                    id: itm.id,
+                    name: itm.name,
+                    value: itm.value,
+                    text: $(itm).next().text()
+                };
+                collection[section.sectionId]['chips'].push(chip)
+                collection[section.sectionId]['tags'].push(chip.text);
+            })
+        })
+        return collection;
+    }
+}
+
+export default { NoteUtils, FavUtils, BrowserResults, SearchUtils };

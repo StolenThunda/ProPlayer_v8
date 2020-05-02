@@ -14,12 +14,12 @@
       />
 
       <v-list-item-content>
-        <v-list-item-title v-html="this.title"></v-list-item-title>
+        <v-list-item-title v-html="this.title" class="resultTitle" ></v-list-item-title>
         <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
-        <v-container v-if="this.data" v-html="this.data"></v-container>
+        <v-container v-if="this.data" v-html="this.data" class="resultDesc"></v-container>
       </v-list-item-content>
 
-      <v-list-item-action>
+      <v-list-item-action v-if="this.action">
         <v-btn icon>
           <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
         </v-btn>
@@ -41,6 +41,7 @@ export default {
     subtitle: String,
     title: String,
     id: Number,
+    action: String
   },
   computed: {
     goto(id) {
@@ -50,7 +51,24 @@ export default {
   methods: {
     toggleFavoriteInBrowser() {},
   },
+  
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.resultTitle {
+  color: #00aaff !important;
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  line-height: 1.7rem !important;
+}
+.resultDesc {
+  font: outline;
+  line-height: 1.5rem;
+}
+.browser-result-meta {
+  align-items: stretch;
+  display: flex;
+  // float: left;
+}
+</style>
