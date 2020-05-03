@@ -1,12 +1,24 @@
+/*
+*   Purpose: enables a draggable sidebar
+*   Requirements: a vue sidebar control with a v
+* 
+*/
+
 const Draggable = {
+
   mounted() {
     this.$root.$on("toggleSidebar", () => {
       this.toggleSidebar();
     });
+    this.init()
   },
   methods: {
+    init() {
+      this.setBorderWidth();
+      this.setEvents();
+    },
     toggleSidebar() {
-      console.log("toggling");
+      // console.log("toggling");
       this.drawer = !this.drawer;
     },
     drawerContent: function (name) {

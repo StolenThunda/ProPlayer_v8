@@ -10,7 +10,7 @@ import Default from "./views/";
 
 Vue.component("default-layout", Default);
 Vue.component("browser-layout", Browser);
-Vue.use(helpers);
+// Vue.use(helpers);
 
 Vue.config.productionTip = false;
 new Vue({

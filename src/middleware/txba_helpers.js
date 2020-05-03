@@ -10,6 +10,7 @@ class FavUtils {
     }
 
     getFavs() {
+        // TODO: figure out auth and switch out fake html
         // "https://texasbluesalley.com/proplayer74-tony/--ajax-load-favorites-list"
         return this.parseFavoriteHtml(this.fakeFavHTML());
     }

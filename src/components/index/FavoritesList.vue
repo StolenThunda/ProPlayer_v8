@@ -38,13 +38,19 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('default')
 export default {
   name: "FavList",
   computed: {
     ...mapState(["favorites"]),
   },
+  created(){
+    this.fetchFavorites();
+  },
   methods: {
+    ...mapActions(["fetchFavorites"]),
     playMedia(el) {
       console.dir(el);
     },

@@ -20,9 +20,6 @@
       </v-chip>
     </v-chip-group>
     <v-spacer></v-spacer>
-    <v-btn @click="$root.$emit('toggleSearching')">
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn>
   </v-toolbar>
   </v-col>
 </v-row>
@@ -33,7 +30,6 @@
 <script>
 export default {
   name: "BrowserAppbar",
-  data: () =>({ searching: false})
 };
 </script>
 

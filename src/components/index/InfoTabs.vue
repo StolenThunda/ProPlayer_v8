@@ -38,6 +38,9 @@
 
 <script>
 import NotificationItem from "@/components/base/NotificationItem";
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions } = createNamespacedHelpers('default')
+
 export default {
   data() {
     return {
@@ -55,11 +58,12 @@ export default {
   },
   methods: {
     async getNotifications() {
-      const notifications = await this.$store.dispatch("fetchNotifications");
+      const notifications = await this.fetchNotifications();
       //  console.log(notifications);
       this.announcements = notifications.announcements;
       this.updates = notifications.updates;
     },
+    ...mapActions(['fetchNotifications'])
   },
 };
 </script>

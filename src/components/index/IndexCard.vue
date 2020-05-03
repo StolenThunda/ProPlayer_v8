@@ -26,9 +26,6 @@ export default {
     data: String,
     id: Number,
   },
-  mounted() {
-    console.log("slice", this.getSliceBacon);
-  },
   methods: {
     ...mapGetters["getSliceBacon"],
   },

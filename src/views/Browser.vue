@@ -51,16 +51,6 @@ export default {
   },
   created() {
     this.$vuetify.theme.dark = true;
-    this.$store.dispatch("fetchFavorites");
-  },
-  mounted() {
-    this.setBorderWidth();
-    this.setEvents();
-  },
-  computed: {
-    direction() {
-      return this.drawer === false ? "Open" : "Closed";
-    },
-  },
+  }
 };
 </script>

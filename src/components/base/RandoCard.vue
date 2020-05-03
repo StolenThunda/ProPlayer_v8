@@ -21,52 +21,52 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "RandoCardItem",
   data: () => ({
     info: null,
   }),
-  created() {
-    axios
-      .get("https://baconipsum.com/api/?callback=?", {
-        type: "meat-and-filler",
-        "start-with-lorem": "1",
-        paras: "1",
-      })
-      .then((res) => (this.info = this.buildInfo(res.data)));
-  },
-  computed: {
-    itemURL: function () {
-      alert(this.name);
-      const url = `https://randomuser.me/api/portraits/women/${this.id}.jpg`;
-      console.log(url);
-      return url;
-    },
-  },
-  methods: {
-    getUrl(id) {
-      return `https://randomuser.me/api/portraits/men/${id}.jpg`;
-      // console.log(url);
-    },
-    buildInfo(data) {
-      const info = [];
-      data.forEach((text, idx) => {
-        // let text = data[0];
-        // let idx = 1;
-        data = {
-          src: this.getUrl(Math.floor(Math.random() * 94) + idx),
-          title: text.split(" ").slice(0, 3).join(" "),
-          subtitle: text.split(" ").splice(3, 2).join(" ").toUpperCase(),
-          data: text.split(" ").slice(3).join(" "),
-        };
-        data.id = data.title + "_" + idx;
-        info.push(data);
-      });
-      // console.info(info);
-      return info;
-    },
-  },
+  // created() {
+  //   axios
+  //     .get("https://baconipsum.com/api/?callback=?", {
+  //       type: "meat-and-filler",
+  //       "start-with-lorem": "1",
+  //       paras: "1",
+  //     })
+  //     .then((res) => (this.info = this.buildInfo(res.data)));
+  // },
+  // computed: {
+  //   itemURL: function () {
+  //     alert(this.name);
+  //     const url = `https://randomuser.me/api/portraits/women/${this.id}.jpg`;
+  //     console.log(url);
+  //     return url;
+  //   },
+  // },
+  // methods: {
+  //   getUrl(id) {
+  //     return `https://randomuser.me/api/portraits/men/${id}.jpg`;
+  //     // console.log(url);
+  //   },
+  //   buildInfo(data) {
+  //     const info = [];
+  //     data.forEach((text, idx) => {
+  //       // let text = data[0];
+  //       // let idx = 1;
+  //       data = {
+  //         src: this.getUrl(Math.floor(Math.random() * 94) + idx),
+  //         title: text.split(" ").slice(0, 3).join(" "),
+  //         subtitle: text.split(" ").splice(3, 2).join(" ").toUpperCase(),
+  //         data: text.split(" ").slice(3).join(" "),
+  //       };
+  //       data.id = data.title + "_" + idx;
+  //       info.push(data);
+  //     });
+  //     // console.info(info);
+  //     return info;
+  //   },
+  // },
 };
 </script>
 
