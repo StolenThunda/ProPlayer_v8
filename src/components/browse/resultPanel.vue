@@ -1,38 +1,33 @@
 <template>
-  <v-card class="searchResults">
-    <v-list-item :to="{ name: 'proplayer', params: { packageID: this.id } }">
-      <v-btn class="mx-2" dark icon color="error" :disabled="this.isFav">
-        <v-icon>fa fa-inverse fa-heart fa-stack-1x</v-icon>
-      </v-btn>
-      <v-img
-        max-height="150"
-        max-width="75"
-        class="ma-5"
-        :src="this.avatar"
-        v-if="this.avatar"
-        contain
-      />
-
-      <v-list-item-content>
-        <v-list-item-title v-html="this.title" class="resultTitle" ></v-list-item-title>
-        <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
-        <v-container v-if="this.data" v-html="this.data" class="resultDesc"></v-container>
-      </v-list-item-content>
-
-      <v-list-item-action v-if="this.action">
-        <v-btn icon>
-          <v-icon color="error lighten-1">fas fa-minus-circle</v-icon>
-        </v-btn>
-      </v-list-item-action>
-    </v-list-item>
-  </v-card>
+  <v-container>
+    <v-row dense align-content="center">
+      <v-col cols="12">
+        <v-card raised :to="{ name: 'watch', params: { packageID: this.id } }">
+          <v-row class="d-flex justify-center pa-2" >
+            <v-col cols="2"  class="d-flex justify-center pa-2">              
+                <v-icon color="grey" large>mdi-heart-circle</v-icon>
+              {{ this.isFav }}
+            </v-col>
+            <v-col cols="2">
+              <v-img height="30vh" class="ma-1" :src="this.avatar" v-if="this.avatar" contain />
+            </v-col>
+            <v-col cols="8">
+              <span v-html="this.title" class="browser-result-title" />
+              <p><span v-html="this.subtitle" class='browser-result-description' /></p>
+              <p><span v-html="this.data" class='browser-results-meta' /></p>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
   name: "BaseListItem",
   data: () => ({
-    show: false,
+    show: false
   }),
   props: {
     isFav: Boolean,
@@ -46,29 +41,54 @@ export default {
   computed: {
     goto(id) {
       return `/proplayer/${id}`;
-    },
+    }
   },
   methods: {
-    toggleFavoriteInBrowser() {},
-  },
-  
+    toggleFavoriteInBrowser() {}
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-.resultTitle {
-  color: #00aaff !important;
-  font-size: 1.5rem !important;
-  font-weight: 500 !important;
-  line-height: 1.7rem !important;
+<style scoped>
+.browser-result-title {
+    font-size: 1.1rem !important;
+    font-family: inherit !important;
+    text-align: left !important;
+    line-height: 1.1em !important;
+    margin-top: 0 !important;
+    color: #00aaff !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
 }
-.resultDesc {
-  font: outline;
-  line-height: 1.5rem;
+.browser-result-description {
+    font-size: .85rem !important;
+    color: #888 !important;
+    font-weight: 600 !important;
+    line-height: 1.25em !important;
+    margin: .25em 0 .5em 0 !important;
 }
-.browser-result-meta {
-  align-items: stretch;
-  display: flex;
-  // float: left;
+.browser-result-meta  {
+    font-size: .7em !important;
+    font-weight: 700 !important;
+    color: #aaa !important;
+    margin-top: .25em !important;
+}
+
+.browser-results-meta .meta-key {
+    text-transform: uppercase !important;
+    color: white !important;
+    font-weight: 900 !important;
+    margin-right: .25em !important;
+}
+.browser-results-meta .meta-wrapper {
+    white-space: nowrap;
+    margin-right: .5em;
+}
+.browser-results-meta .meta-value {
+    font-size: .85rem !important;
+    color: #888 !important;
+    font-weight: 600 !important;
+    line-height: 1.25em !important;
+    margin: .25em 0 .5em 0 !important;
 }
 </style>

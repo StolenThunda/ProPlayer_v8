@@ -1,17 +1,13 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar app flat>
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <BrowserAppbar />
+  <v-app>
+    <v-app-bar app>
+      <BrowserToolbar />
+      <template v-slot:extension>
+        <CurrentSearch v-if="showCurrentSearches" />
+      </template>
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      ref="drawer"
-      :width="navCfg.width"
-      app
-      clipped
-    >
+    <v-navigation-drawer ref="drawer" :width="navCfg.width" permanent app>
       <BrowserSidebar />
     </v-navigation-drawer>
 
@@ -27,30 +23,34 @@
 
 <script>
 import BrowserSidebar from "@/components/browse/Search";
-import BrowserAppbar from "@/components/browse/appBar";
+import BrowserToolbar from "@/components/browse/appBar";
 import Browser from "@/components/browse/Browse";
 import Draggable from "@/views/lib/DraggableMixin";
+import CurrentSearch from "@/components/browse/CurrentSearch";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("browser");
 
 export default {
   name: "AppLayout",
   mixins: [Draggable],
   props: {
-    source: String,
+    source: String
   },
   data: () => ({
-    drawer: false,
+    // drawer: false,
     navCfg: {
-      width: 350,
-      borderSize: 3,
-    },
+      width: 250,
+      borderSize: 5
+    }
   }),
   components: {
     BrowserSidebar,
-    BrowserAppbar,
+    BrowserToolbar,
     Browser,
+    CurrentSearch
   },
-  created() {
-    this.$vuetify.theme.dark = true;
+  computed: {
+    ...mapGetters(["showCurrentSearches"])
   }
 };
 </script>

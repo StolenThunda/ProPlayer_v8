@@ -5,14 +5,30 @@ const cheerio = require('cheerio');
 
 class FavUtils {
     constructor() {
+        this.baseURL = "https://texasbluesalley.com/proplayer74-tony/";
         this.favs = this.getFavs();
+        this.fav_slug = "--ajax-browser-load-favorite-forms";
+
         return this.favs;
     }
 
     getFavs() {
         // TODO: figure out auth and switch out fake html
+        // https://texasbluesalley.com/proplayer74-tony/--ajax-browser-load-favorite-forms/7766%7C4302%7C5527%7C5285%7C4957%7C8497%7C8386%7C8337%7C8303%7C8234
         // "https://texasbluesalley.com/proplayer74-tony/--ajax-load-favorites-list"
+        // let forms = this.getFavForms();
+        // console.log('forms', forms)
         return this.parseFavoriteHtml(this.fakeFavHTML());
+    }
+    getFavForms() {
+        const code = '7766%7C4302%7C5527%7C5285%7C4957%7C8497%7C8386%7C8337%7C8303%7C8234';
+        const url = `${this.baseURL}--ajax-browser-load-favorite-forms/${code}`;
+        // console.log(url)
+        return axios.get(url)
+            .then(async (response) => await response.data)
+            .then((response) => console.log(response))
+            .then(response => { return response });
+        // .then(response => this.parseCriteria(response));
     }
 
     async parseFavoriteHtml(html) {
@@ -798,7 +814,17 @@ class BrowserResults {
     constructor() {
         this.baseURL = "https://texasbluesalley.com/proplayer74-tony/";
         this.default_entries_slug = "--ajax-browser-default-entries";
-        return this.getDefaults()
+        this.filter_slug = "--ajax-browser-filters"
+        this.package_slug = "--ajax-get-package-info";
+        this.search_slug = "--ajax-browser-search-entries"; this.slug_code = {
+            pro_player_packages: 'wcm9fcGxheWVyX3BhY2thZ2VzXC8iLCJjaGFubmVsIjoicHJvX3BsYXllcl9wYWNrYWdlcyJ9',
+            free_lesson_friday: 'mcmVlX2xlc3Nvbl9mcmlkYXlcLyIsImNoYW5uZWwiOiJmcmVlX2xlc3Nvbl9mcmlkYXkifQ',
+            tone_tuesday: '0b25lX3R1ZXNkYXlcLyIsImNoYW5uZWwiOiJ0b25lX3R1ZXNkYXkifQ',
+            performances: 'wZXJmb3JtYW5jZXNcLyIsImNoYW5uZWwiOiJwZXJmb3JtYW5jZXMifQ',
+            backing_tracks: 'iYWNraW5nX3RyYWNrc1wvIiwiY2hhbm5lbCI6ImJhY2tpbmdfdHJhY2tzIn0',
+            youtube_videos: '5b3V0dWJlX3ZpZGVvc1wvIiwiY2hhbm5lbCI6InlvdXR1YmVfdmlkZW9zIn0'
+        };
+        return this;
     }
     getDefaults() {
         const url = `${this.baseURL}${this.default_entries_slug}`;
@@ -808,25 +834,48 @@ class BrowserResults {
                 return await this.parseHtml(response.data);
             });
     }
-    getFilteredByCode(code) {
-        axios
-            .get(`${this.baseURL}--ajax-browser-filters/${code}`)
-            .then((response) => this.parseHtml(response.data));
+
+    searchEntries(code, auth) {
+        const url = `${this.baseURL}${this.search_slug}/${code}/${auth}${this.slug_code[code]}`;
+        // console.log(url)
+        return axios
+            .get(url)
+            .then(async (response) => await response.data)
+            // .then((response) => console.log(response))
+            .then((response) => this.parseHtml(response));
     }
+
+    async getFiltersByCategory(code) {
+        code = (code === 'pro_player_packages') ? 'courses' : code;
+        const url = `${this.baseURL}${this.filter_slug}/${code}`;
+        // console.log(url)
+        return await axios.get(url)
+            .then(async (response) => await response.data)
+            .then(response => this.parseCriteria(response));
+    }
+
+    // async getFavForms() {
+    //     const code = '7766%7C4302%7C5527%7C5285%7C4957%7C8497%7C8386%7C8337%7C8303%7C8234';
+    //     const url = `${this.baseURL}${this.fav_slug}/${code}`;
+    //     // console.log(url)
+    //     return await axios.get(url)
+    //         .then(async (response) => await response.data)
+    //         .then((response) => console.log(response));
+    //     // .then(response => this.parseCriteria(response));
+    // }
     async parseHtml(html, mode) {
         mode = typeof mode === "undefined" ? "default" : mode;
-        // const cheerio = require("cheerio");
         const $ = cheerio.load(html);
-        // console.log('html',html);
-        return this.getInfo(
-            $,
+        // console.log('html', html);
+        return this.getFilterInfo(
             $("div[id^=browserResultItem]"),
             mode
         );
-        // console.log(html);
-        // console.dir()
     }
-    getInfo($, group, mode) {
+    getFilterInfo(group, mode) {
+        // console.log("gfi:group", group)
+        // console.log("gfi:mode", mode)
+        const $ = cheerio.load(group.html())
         let collection = [];
         switch (mode) {
             case " ":
@@ -843,7 +892,7 @@ class BrowserResults {
                         isFav: false,
                         avatar: "http:" + $(e).find("img").attr("src"),
                         title: $(e).find(".browser-result-title a").text(),
-                        subtitle: $(e).find(".notification-body p").text(),
+                        subtitle: $(e).find(".browser-result-description").text(),
                         data: $(e).find(".browser-result-meta").html(),
                     };
                     // console.log();
@@ -860,31 +909,31 @@ class BrowserResults {
         pkg.packageID = parseInt(pkg.packageID);
         return pkg;
     }
-}
 
-class SearchUtils {
-    constructor() {
-        this.baseURL = "https://texasbluesalley.com/proplayer74-tony/";
-        this.courses_slug = "--ajax-browser-filters/courses";
-        return this.getCourses();
+    async getCourse(ID) {
+        // console.log('id', ID)
+        if (!ID) return ID;
+        const response = await axios.get(`${this.baseURL}${this.package_slug}/${ID}`);
+        const response_1 = await await response.data;
+        this.currentCourseID = ID;
+        // console.log(`Course (${ID})`, response_1);
+        return response_1;
     }
-    async getCourses() {
-        return axios.get(`${this.baseURL}${this.courses_slug}`)
-            .then(async (response) => await response.data)
-            .then(response => this.parseCoursesCriteria(response))
-    }
-    parseCoursesCriteria(html) {
+
+    parseCriteria(html) {
         const $ = cheerio.load(html)
         let hiddenFields = this.parseHiddenData($('.hiddenFields input'));
-        let acc1 = this.parseFunnels($('.filter-list'));
-        // console.log(acc1)
+        // console.log(hiddenFields)
+        let funnelList = this.parseFunnels($('.filter-list'));
+        // console.log(funnelList)
 
         return {
             auth: hiddenFields,
-            funnels: acc1
+            funnels: funnelList
         };
     }
     parseHiddenData(group) {
+        // console.log("grp", group)
         const $ = cheerio.load(group.html())
         const collection = {};
         group.each((idx, e) => {
@@ -917,4 +966,4 @@ class SearchUtils {
     }
 }
 
-export default { NoteUtils, FavUtils, BrowserResults, SearchUtils };
+export default { NoteUtils, FavUtils, BrowserResults };

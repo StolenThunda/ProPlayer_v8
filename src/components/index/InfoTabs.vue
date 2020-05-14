@@ -1,6 +1,7 @@
 <template>
-  <v-layout justify-center>
-    <v-card>
+  <v-row align='center' no-gutters>
+
+    <v-card class='pa-5 col-md-8 offset-md-2'>
       <v-tabs id="site-updates" v-model="tab" centered dark icons-and-text>
         <v-tabs-slider></v-tabs-slider>
 
@@ -15,7 +16,8 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab" ou>
+      <v-tabs-items v-model="tab" outlined>
+        
         <v-tab-item
           id="announcements"
           v-for="item in announcements"
@@ -33,7 +35,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-  </v-layout>
+  </v-row>
 </template>
 
 <script>
@@ -67,8 +69,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-// #site-updates {
-// }
-</style>

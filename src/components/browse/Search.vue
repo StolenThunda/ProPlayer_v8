@@ -1,7 +1,8 @@
 <template>
   <v-card v-model="this.search.categories">
-    <v-sheet class="pa-4 lighten-2">
+    <v-sheet class="pa-4 lighten-2" v-if="this.search.criteria != null">
       <v-text-field
+        
         label="Search"
         v-model="searchText"
         dark
@@ -49,22 +50,20 @@ export default {
     caseSensitive: null,
     searchText: null,
   }),
-  created() {
-    this.fetchSearchCriteria();
-  },
   computed: {
+
     ...mapState(["search"]),
   },
+  // created(){
+  //   this.setCriteria();
+  // },
   methods: {
     toggle(chipData){
       // console.log(chipData)
       this.toggleSearchCriteria(chipData);
       if (!this.isSearching) this.$root.$emit('toggleSearching');
     },
-   ...mapActions([
-     "fetchSearchCriteria", 
-     "toggleSearchCriteria", 
-   ])
+   ...mapActions(["toggleSearchCriteria", 'setCriteria'])
   },
 };
 </script>

@@ -5,13 +5,7 @@
       <DefaultAppBar />
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      ref="drawer"
-      :width="navCfg.width"
-      app
-      clipped
-    >
+    <v-navigation-drawer v-model="drawer" ref="drawer" :width="navCfg.width" app clipped>
       <DefaultNavBar />
     </v-navigation-drawer>
 
@@ -21,6 +15,16 @@
 
     <v-footer>
       <span>&copy; 2020</span>
+      <v-spacer />
+      <v-btn icon fab @click="toggleLightDark">
+        <div ref="moon" hidden>
+
+          <v-icon>fas fa-moon</v-icon>
+        </div>
+        <div ref="sun">
+          <v-icon>fas fa-sun</v-icon>
+        </div>
+      </v-btn>
     </v-footer>
   </v-app>
 </template>
@@ -35,20 +39,27 @@ export default {
   name: "DefaultLayout",
   mixins: [Draggable],
   props: {
-    source: String,
+    source: String
   },
   data: () => ({
     drawer: false,
     navCfg: {
       width: 350,
-      borderSize: 3,
-    },
+      borderSize: 3
+    }
   }),
   components: {
     DefaultNavBar,
     DefaultAppBar,
-    Default,
+    Default
   },
+  methods: {
+    toggleLightDark() {
+      this.$refs.moon.toggleAttribute('hidden') 
+      this.$refs.sun.toggleAttribute('hidden') 
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    }
+  }
 };
 </script>
 

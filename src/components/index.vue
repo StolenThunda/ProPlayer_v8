@@ -1,21 +1,18 @@
 <template>
-  <v-card>
-    <v-row>
-      <v-col>
-        <Welcome />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <Resume />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col offset-md="2" md="8">
-        <InfoTabs />
-      </v-col>
-    </v-row>
-  </v-card>
+ <v-container>
+    <v-layout row>
+      <v-flex ><Welcome />
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex ><Resume />
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex ><InfoTabs />
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

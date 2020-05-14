@@ -1,38 +1,46 @@
 <template>
   <v-card>
-    <v-row>
+    <v-row v-if="isLoaded">
       <v-col>
-        <v-toolbar v-if="showCurrentSearches">
-          <v-toolbar-title>Current Searches</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-chip-group v-model="this.search.searchCategories">
-            <v-chip
-              v-for="chip in this.search.searchCategories"
-              :key="chip.text"
-              pill
-              close
-              @click:close="toggle(chip)"
-            >{{ chip.text }}</v-chip>
-          </v-chip-group>
-        </v-toolbar>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-sheet class="mx-auto" max-width="75vw" outlined v-if="this.default_browser_entries">
-          <v-list
+        <!-- <v-data-table 
+          :headers="dataTableEntries.headers"
+          :items="entryRows(dataTableEntries.items)"  
+          :items-per-page="5" 
+          class="elevation-1"></v-data-table> -->
+        <!-- <v-sheet class="mx-auto" max-width="75vw" outlined > -->
+          <p
             id="content"
             dense
+            v-for="search_entry in this.search_entries"
+            :key="search_entry.id"
+          >
+            <ResultPanel v-bind="search_entry" />
+          </p>
+        <!-- </v-sheet> -->
+      </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col>
+        <h1 class="pt-5 header">Latest Additions</h1>
+        <v-carousel height="80vh" cycle hide-delimiter-background show-arrows-on-hover>
+          <v-carousel-item
             v-for="default_entry in this.default_browser_entries"
             :key="default_entry.id"
+            reverse-transition="fade-transition"
+            transition="fade-transition"
           >
-            <ResultPanel v-bind="default_entry" />
-          </v-list>
-        </v-sheet>
+            <v-sheet height="100%">
+              <v-row class="fill-height" align="center" justify="center">
+                <ResultPanel v-bind="default_entry" />
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel>
       </v-col>
     </v-row>
   </v-card>
 </template>
+
 
 <script>
 /* 
@@ -42,7 +50,7 @@ TODO - enable/disable favorites
 
 import ResultPanel from "@/components/browse/resultPanel";
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers("browser");
+const { mapState, mapGetters } = createNamespacedHelpers("browser");
 
 export default {
   name: "Browser",
@@ -53,23 +61,23 @@ export default {
     ResultPanel
   },
   computed: {
-    ...mapGetters(["showCurrentSearches"]),
-    ...mapState(["search", "default_browser_entries"])
-  },
-  methods: {
-    toggle(chip) {
-      this.toggleSearchCriteria(chip);
+    isLoaded() {
+      return this.search.criteria !== null;
     },
-    ...mapActions(["toggleSearchCriteria"])
-  }
+    // entryRows(items){
+
+    // },
+    dataTableEntries(){
+      return this.getDTEntries;
+    }, 
+    ...mapGetters(['getDTEntries']),
+    ...mapState(["default_browser_entries", "search", "search_entries"])
+  },
 };
 </script>
 
-<style>
-#content {
-  display: flex;
-  flex-direction: column;
-  align-content: space-around;
-  justify-content: center;
+<style  scoped>
+.header {
+  text-align: center !important;
 }
 </style>

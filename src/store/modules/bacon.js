@@ -7,11 +7,11 @@ Vue.use(VueAxios, axios)
 export default {
     namespaced: true,
     state: {
-        bacon: []
+        bacon: null
     },
     mutations: {
-        SET_BACON_DATA(ctx, { data }) {
-            this.state.bacon = data;
+        SET_BACON_DATA(ctx, data ) {
+            ctx.bacon = data;
         },
     },
     actions: {
@@ -32,7 +32,7 @@ export default {
                     };
                 });
                 // console.log("obj", newData);
-                ctx.commit("SET_BACON_DATA", { data: newData });
+                ctx.commit("SET_BACON_DATA",  newData );
                 return newData;
             });
         },
@@ -40,8 +40,6 @@ export default {
     },
     getters: {
         getBacon: (state) => state.bacon,
-        getSliceBacon: (state) => {
-            if (state.bacon) state.bacon[Math.floor(Math.random() * state.bacon.length)]
-        }
+        getSliceBacon: (state) => state.bacon[Math.floor(Math.random() * state.bacon.length)]
     }
 }

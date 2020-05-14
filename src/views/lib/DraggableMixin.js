@@ -5,7 +5,17 @@
 */
 
 const Draggable = {
-
+  data: () => ({ 
+    defaults: {
+      width: 350,
+      borderSize: 3
+    }
+  }),
+  computed: {
+    getWidth: () => {
+      return (!this.navCfg) ? this.defaults.width : this.navCfg.width
+    }
+  },  
   mounted() {
     this.$root.$on("toggleSidebar", () => {
       this.toggleSidebar();
@@ -28,12 +38,12 @@ const Draggable = {
       let i = this.$refs.drawer.$el.querySelector(
         ".v-navigation-drawer__border"
       );
-      i.style.width = this.navCfg.borderSize + "px";
+      i.style.width = (this.navCfg) ? this.navCfg.borderSize : this.defaults.borderSize + "px";
       i.style.cursor = "ew-resize";
       i.style.backgroundColor = "grey";
     },
     setEvents() {
-      const minSize = this.navCfg.borderSize;
+      const minSize = this.navCfg.borderSize || this.defaults.borderSize;
       const el = this.$refs.drawer.$el;
       const drawerBorder = el.querySelector(".v-navigation-drawer__border");
       // const vm = this;

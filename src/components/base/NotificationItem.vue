@@ -1,32 +1,30 @@
 <template>
-  <v-list-item>
-    <v-img
-      max-height="125"
-      max-width="50"
-      class="ma-5"
-      :src="this.avatar"
-      v-if="this.avatar"
-      contain
-    />
-    <v-list-item-avatar v-else>
-      <v-icon dense large>mdi-email</v-icon>
-    </v-list-item-avatar>
-    <v-list-item-content>
-      <v-list-item-title v-html="this.title"></v-list-item-title>
-      <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
-      <v-container v-if="this.data" v-html="this.data"></v-container>
-      <v-list-item-action v-if="this.action" left>
-        <router-link :to="this.action">{{ this.actionText }} </router-link>
-      </v-list-item-action>
-    </v-list-item-content>
-  </v-list-item>
+  <v-card class="my-3 pa-2" elevation="15" outlined>
+    <v-row>
+      <v-col cols="1">
+        <div class="d-flex flex-no-wrap justify-start">
+          <v-list-item-avatar>
+            <v-icon dense large>mdi-email</v-icon>
+          </v-list-item-avatar>
+        </div>
+      </v-col>
+      <v-col class="mb-auto">
+        <v-card-title>{{ this.title }}</v-card-title>
+        <v-card-subtitle>
+          {{ this.subtitle }}
+          <router-link v-if="this.action" :to="this.action">{{ this.actionText }}</router-link>
+        </v-card-subtitle>
+        <v-container v-if="this.data" v-html="this.data"></v-container>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
 export default {
   name: "BaseListItem",
   data: () => ({
-    show: false,
+    show: false
   }),
   props: {
     action: String,
@@ -35,31 +33,16 @@ export default {
     data: String,
     subtitle: String,
     title: String,
-    id: Number,
-  },
+    id: Number
+  }
 };
 </script>
 
-<style>
-.v-icon {
-  margin-right: 10px;
-}
-.browser-result-meta {
-  font-size: 0.7em;
-  font-weight: 700;
-  color: #aaa;
-  margin-top: 0.25em;
-}
-
-.meta-key {
+<style  scoped>
+.v-card-title {
+  font-size: 0.85em;
   text-transform: uppercase;
-  color: white;
   font-weight: 900;
-  margin-right: 0.25em;
-}
-
-.meta-wrapper {
-  white-space: nowrap;
-  margin-right: 0.5em;
+  color: white;
 }
 </style>

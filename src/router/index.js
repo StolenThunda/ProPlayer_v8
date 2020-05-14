@@ -24,14 +24,36 @@ const routes = [
       import(/* webpackChunkName: "browser" */ "../views/Browser.vue"),
   },
   {
-    path: "/proplayer/:packageID",
-    name: "proplayer",
+    path: "/watch/:packageID/pdf/:file",
+    name: "pdf",
+    props: true,
+    meta: {
+      layout: "watch",
+      plugin: "pdfviewer",
+    },
+    component: () =>
+      import(/* webpackChunkName: "watch" */ "../views/Watch.vue"),
+  },
+  {
+    path: "/watch/:packageID/play/:file",
+    name: "player",
+    props: true,
+    meta: {
+      layout: "watch",
+      plugin: "player",
+    },
+    component: () =>
+      import(/* webpackChunkName: "watch" */ "../views/Watch.vue"),
+  },
+  {
+    path: "/watch/:packageID",
+    name: "watch",
     props: true,
     meta: {
       layout: "watch",
     },
     component: () =>
-      import(/* webpackChunkName: "proplayer" */ "../views/Proplayer.vue"),
+      import(/* webpackChunkName: "watch" */ "../views/Watch.vue"),
   },
   {
     path: "/404",
@@ -41,10 +63,10 @@ const routes = [
         /* webpackChunkName: "pagenotfound" */ "../views/PageNotFound.vue"
       ),
   },
-  {
-    path: "*",
-    redirect: "/",
-  },
+  // {
+  //   path: "*",
+  //   redirect: "/",
+  // },
 ];
 
 const router = new VueRouter({

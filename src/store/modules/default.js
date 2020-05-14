@@ -1,4 +1,3 @@
-// import Vue from "vue";
 import helpers from '../../middleware/txba_helpers';
 export default {    
     namespaced: true,

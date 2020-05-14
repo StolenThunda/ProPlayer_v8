@@ -1,35 +1,43 @@
 <template>
-<v-container>
-<v-row>
-  <v-col>
-  <v-toolbar>
-    <v-btn to="/" class="ma-2" text icon>
+  <v-toolbar flat>
+    <slot name="drawerToggle"></slot>
+    <v-btn to="/" class="pa-8" icon fab>
       <v-icon>mdi-home</v-icon>
     </v-btn>
     <v-toolbar-title>Browse...</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-chip-group>
-      <v-chip class="ma-2" @click="load('courses')">Courses</v-chip>
-      <v-chip class="ma-2">Free Lesson Friday</v-chip>
-      <v-chip class="ma-2">Tone Tuesday</v-chip>
-      <v-chip class="ma-2">Performances</v-chip>
-      <v-chip class="ma-2">Backing Tracks</v-chip>
-      <v-chip class="ma-2">Imported</v-chip>
-      <v-chip class="ma-2">
-        <v-avatar left> <v-icon>mdi-youtube</v-icon> </v-avatar>Youtube
+    <v-chip-group
+    active-class="primary--text"
+    >
+      <v-chip class="ma-2" @click="load('pro_player_packages')">Courses</v-chip>
+      <v-chip class="ma-2" @click="load('free_lesson_friday')">Free Lesson Friday</v-chip>
+      <v-chip class="ma-2" @click="load('tone_tuesday')">Tone Tuesday</v-chip>
+      <v-chip class="ma-2" @click="load('performances')">Performances</v-chip>
+      <v-chip class="ma-2" @click="load('backing_tracks')">Backing Tracks</v-chip>
+      <v-chip class="ma-2" @click="load('youtube_videos')">Imported</v-chip>
+      <v-chip class="ma-2" @click="load('youtube')">
+        <v-avatar left>
+          <v-icon>mdi-youtube</v-icon>
+        </v-avatar>Youtube
       </v-chip>
     </v-chip-group>
     <v-spacer></v-spacer>
   </v-toolbar>
-  </v-col>
-</v-row>
-
-</v-container>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("browser");
+
 export default {
-  name: "BrowserAppbar",
+  name: "BrowserToolbar",
+  methods: {
+    load(category){
+      this.setCriteria(category);
+      this.$root.$emit('toggleSidebar')
+    },
+    ...mapActions(["setCriteria"])
+  }
 };
 </script>
 
