@@ -1,12 +1,15 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app flat>
-      <v-app-bar-nav-icon @click="toggleSidebar" @showFavs="toggleSidebar" />
-      <DefaultAppBar />
+      <DefaultAppBar>
+        <template v-slot:toggle>
+          <v-app-bar-nav-icon @click="toggleSidebar" @showFavs="toggleSidebar" />
+        </template>
+      </DefaultAppBar>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" ref="drawer" :width="navCfg.width" app clipped>
-      <DefaultNavBar />
+    <v-navigation-drawer v-model="drawer" ref="drawer" :width="navCfg.width" app>
+      <DefaultSideBar />
     </v-navigation-drawer>
 
     <v-content>
@@ -18,7 +21,6 @@
       <v-spacer />
       <v-btn icon fab @click="toggleLightDark">
         <div ref="moon" hidden>
-
           <v-icon>fas fa-moon</v-icon>
         </div>
         <div ref="sun">
@@ -30,7 +32,7 @@
 </template>
 
 <script>
-import DefaultNavBar from "@/components/index/DefaultNavBar";
+import DefaultSideBar from "@/components/index/DefaultSideBar";
 import DefaultAppBar from "@/components/index/DefaultAppBar";
 import Default from "@/components/index/";
 import Draggable from "@/views/lib/DraggableMixin.js";
@@ -49,14 +51,14 @@ export default {
     }
   }),
   components: {
-    DefaultNavBar,
+    DefaultSideBar,
     DefaultAppBar,
     Default
   },
   methods: {
     toggleLightDark() {
-      this.$refs.moon.toggleAttribute('hidden') 
-      this.$refs.sun.toggleAttribute('hidden') 
+      this.$refs.moon.toggleAttribute("hidden");
+      this.$refs.sun.toggleAttribute("hidden");
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     }
   }

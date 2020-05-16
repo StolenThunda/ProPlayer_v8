@@ -37,6 +37,13 @@ export default {
         initStore: (ctx) => ctx.dispatch('fetchFavorites')
     },
     getters: {
-        getFavorites: (state) => state.favorites,
+        getFavorites: (state) => {
+            const fav = {};
+            for (let category in state.favorites) {
+                fav[category] = category.length;
+            }
+            // console.log("getFavs", fav)
+            return fav;
+        },
     }
 }

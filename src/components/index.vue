@@ -4,7 +4,7 @@
       <v-flex ><Welcome />
       </v-flex>
     </v-layout>
-    <v-layout row>
+    <v-layout row >
       <v-flex ><Resume />
       </v-flex>
     </v-layout>

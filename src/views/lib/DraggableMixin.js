@@ -6,15 +6,14 @@
 
 const Draggable = {
   data: () => ({ 
+    navCfg: null,
     defaults: {
       width: 350,
       borderSize: 3
-    }
+    },
   }),
   computed: {
-    getWidth: () => {
-      return (!this.navCfg) ? this.defaults.width : this.navCfg.width
-    }
+    
   },  
   mounted() {
     this.$root.$on("toggleSidebar", () => {
@@ -27,8 +26,11 @@ const Draggable = {
       this.setBorderWidth();
       this.setEvents();
     },
+    // getWidth: () => {
+    //   debu
+    //   return  (this.navCfg) ? this.navCfg.width : this.defaults.width;
+    // },
     toggleSidebar() {
-      // console.log("toggling");
       this.drawer = !this.drawer;
     },
     drawerContent: function (name) {
@@ -38,15 +40,14 @@ const Draggable = {
       let i = this.$refs.drawer.$el.querySelector(
         ".v-navigation-drawer__border"
       );
-      i.style.width = (this.navCfg) ? this.navCfg.borderSize : this.defaults.borderSize + "px";
+      i.style.width = (this.navCfg) ? this.navCfg.borderSize :  this.defaults.borderSize + "px";
       i.style.cursor = "ew-resize";
       i.style.backgroundColor = "grey";
     },
     setEvents() {
-      const minSize = this.navCfg.borderSize || this.defaults.borderSize;
+      const minSize = (this.navCfg)  ? this.navCfg.borderSize : this.defaults.borderSize;
       const el = this.$refs.drawer.$el;
       const drawerBorder = el.querySelector(".v-navigation-drawer__border");
-      // const vm = this;
       const direction = el.classList.contains("v-navigation-drawer--right")
         ? "right"
         : "left";
@@ -75,7 +76,8 @@ const Draggable = {
         "mouseup",
         () => {
           el.style.transition = "";
-          this.navCfg.width = el.style.width;
+          if (this.navCfg) this.navCfg.width = el.style.width;
+          this.defaults.width = el.style.width;
           document.body.style.cursor = "";
           document.removeEventListener("mousemove", resize, false);
         },

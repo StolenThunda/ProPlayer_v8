@@ -1,5 +1,6 @@
 <template>
   <v-toolbar>
+    <slot name="toggle" />
     <v-icon>mdi-home</v-icon>
     <v-spacer></v-spacer>
     <v-toolbar-title>TXBA ProPlayer v8</v-toolbar-title>

@@ -3,11 +3,11 @@
     <v-tabs v-model='tab' icons-and-text centered>
       <v-tabs-slider></v-tabs-slider>
 
-      <v-tab href="#segments">
+      <v-tab key="segments" href="#segments">
         Segments
         <v-icon>mdi-menu</v-icon>
       </v-tab>
-      <v-tab ref="favorites" href="#favorites">
+      <v-tab key="favorites" href="#favorites">
         Favorites
         <v-icon>mdi-heart</v-icon>
       </v-tab>

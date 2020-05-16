@@ -4,15 +4,15 @@
         <v-expansion-panel v-for="section in sections" :key="section.sectionID">
           <v-expansion-panel-header>{{section.sectionTitle}}</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-list dense shaped>
+            <v-list dense nav rounded subheader>
               <v-list-item
                 v-for="seg in section.segments"
                 :key="seg.segmentID"
                 :to="getSegInfo(seg).to"
+                color="getSegInfo(seg).color"
                 link
                 ripple
               >
-                <!-- color="getSegInfo(seg).color" -->
                 <v-list-item-icon>
                   <v-icon>{{getSegInfo(seg).icon}}</v-icon>
                 </v-list-item-icon>
@@ -33,7 +33,7 @@ const { mapState } = createNamespacedHelpers("watch");
 export default {
   name: "SegmentTabContent",
   computed: {
-    ...mapState(["sections", "currentCourse"])
+    ...mapState(["sections","currentCourse"])
   },
   methods: {
     getSegInfo(seg) {

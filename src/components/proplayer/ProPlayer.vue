@@ -9,19 +9,6 @@
 
             </v-card-actions>
         </v-card>
-    <v-card 
-   
-    >
-     
-        <v-card-text v-model="this.currentCourse"> 
-            <div>
-                <pre>
-                    {{ this.currentCourse }}
-                </pre>
-            </div>
-            
-        </v-card-text>
-    </v-card>
     </v-container>
     
 </template>

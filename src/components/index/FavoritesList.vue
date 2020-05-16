@@ -1,53 +1,62 @@
 <template>
-  <v-container fluid>
-    <v-expansion-panels v-if="favorites">
+  <v-card flat tile>
+    <v-expansion-panels v-if="favorites" popout>
       <v-expansion-panel v-for="(item, i) in Object.keys(favorites)" :key="i">
-        <v-expansion-panel-header class="text-capitalize">
-          <v-badge :content="favorites[item].length">{{ item }}</v-badge>
-        </v-expansion-panel-header>
+        <v-tooltip right>
+          <template v-slot:activator="{ on }">
+            <v-expansion-panel-header v-on="on" class="text-capitalize">
+              <span>{{ item }}</span>
+            </v-expansion-panel-header>
+          </template>
+          <v-badge :content="favorites[item].length" offset-x="13" bordered></v-badge>
+        </v-tooltip>
         <v-expansion-panel-content>
-          <v-card>
-            <v-list dense>
-              <v-list-item-group>
-                <v-list-item
-                  v-for="favorite in favorites[item]"
-                  :key="favorite.name"
-                >
-                  <v-icon small @click="playMedia">mdi-play-circle</v-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-subtitle
-                      v-text="favorite.title"
-                    ></v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-list-item-action>
-                    <v-list-item-icon>
-                      <v-icon color="error" @click="removeFavorite" small
-                        >fas fa-minus-circle</v-icon
-                      >
-                    </v-list-item-icon>
-                  </v-list-item-action>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
+          <v-list dense nav rounded subheader>
+            <v-list-item v-for="favorite in favorites[item]" :key="favorite.name">
+              <v-list-item-avatar>
+                <v-icon class="ma-4" @click="playMedia" small>mdi-play-circle</v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-subtitle v-html="favorite.title"></v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-list-item-icon>
+                  <v-list-item-avatar>
+                    <v-icon
+                      class="pb-2"
+                      color="error"
+                      @click="removeFavorite"
+                      small
+                    >mdi-minus-circle</v-icon>
+                  </v-list-item-avatar>
+                </v-list-item-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-  </v-container>
+  </v-card>
 </template>
 
 <script>
-
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('default')
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers("default");
 export default {
   name: "FavList",
+  data: () => ({
+    favs: null,
+    hover: true
+  }),
   computed: {
-    ...mapState(["favorites"]),
+    ...mapGetters(["getFavorites"]),
+    ...mapState(["favorites"])
   },
-  created(){
+  created() {
     this.fetchFavorites();
+  },
+  mounted() {
+    // this.favs = this.getFavorites();
   },
   methods: {
     ...mapActions(["fetchFavorites"]),
@@ -56,8 +65,8 @@ export default {
     },
     removeFavorite(id) {
       console.log(id ? id : "hello");
-    },
-  },
+    }
+  }
 };
 </script>
 

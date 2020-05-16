@@ -915,7 +915,6 @@ class BrowserResults {
         if (!ID) return ID;
         const response = await axios.get(`${this.baseURL}${this.package_slug}/${ID}`);
         const response_1 = await await response.data;
-        this.currentCourseID = ID;
         // console.log(`Course (${ID})`, response_1);
         return response_1;
     }

@@ -1,4 +1,4 @@
-// import helpers from '../../middleware/txba_helpers';
+import Vue from 'vue';
 export default {
     namespaced: true,
     state: {
@@ -10,9 +10,14 @@ export default {
         SET_COURSE_DATA(ctx, data) {
             if (!data) return;
             // console.log("SettingCourse:", data);
-            ctx.sections = data['sections'];
             if (ctx.currentCourse !== null) ctx.previousCourses.push(ctx.currentCourse);
             ctx.currentCourse = data;
+
+            // map course to state
+            for (let [k, v] of Object.entries(data)) {
+                Vue.set(ctx, k, v);
+            }
+            Object.assign({}, ctx, data);
         },
     },
     actions: {
