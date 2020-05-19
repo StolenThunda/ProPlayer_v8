@@ -5,7 +5,7 @@ const plugin = {
   install() {
     Vue.helpers = Helpers;
     Vue.prototype.$helpers = Helpers;
-  },
+  }
 };
 Vue.use(plugin);
 export default plugin;

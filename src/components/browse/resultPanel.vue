@@ -5,13 +5,22 @@
         <v-card raised :to="{ name: 'watch', params: { packageID: this.id } }">
           <v-row class="d-flex justify-center pa-2" >
             <v-col cols="2"  class="d-flex justify-center pa-2">              
-                <v-icon color="grey" large>mdi-heart-circle</v-icon>
-              {{ this.isFav }}
+                <v-icon  :color="this.favColor" large>mdi-heart-circle</v-icon>
             </v-col>
             <v-col cols="2">
-              <v-img height="30vh" class="ma-1" :src="this.avatar" v-if="this.avatar" contain />
+              <v-img height="30vh" class="ma-1" :src="this.avatar" v-model="this.avatar" contain>
+      <template v-slot:placeholder>
+        <v-row
+        class="fill-height ma-0"
+        align="center"
+        justify="center"
+        >
+        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+        </v-row>
+      </template>
+              </v-img>
             </v-col>
-            <v-col cols="8">
+            <v-col cols="8"> 
               <span v-html="this.title" class="browser-result-title" />
               <p><span v-html="this.subtitle" class='browser-result-description' /></p>
               <p><span v-html="this.data" class='browser-results-meta' /></p>
@@ -27,10 +36,11 @@
 export default {
   name: "BaseListItem",
   data: () => ({
-    show: false
+    // color: 'pink'
   }),
   props: {
-    isFav: Boolean,
+    // isFav: Boolean,
+    favColor: String,
     avatar: String,
     data: String,
     subtitle: String,
@@ -38,12 +48,21 @@ export default {
     id: Number,
     action: String
   },
+  created(){
+    console.log('this', this._self)
+    debugger
+    // this.color = this._self.isFav ? this.color : 'grey';
+  },
   computed: {
     goto(id) {
       return `/proplayer/${id}`;
+    },
+    isFavorite:(bool) => {
+      this.color = (bool) ? 'red' : 'grey';
     }
   },
   methods: {
+   
     toggleFavoriteInBrowser() {}
   }
 };

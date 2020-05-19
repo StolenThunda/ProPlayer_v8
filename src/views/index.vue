@@ -3,12 +3,20 @@
     <v-app-bar app flat>
       <DefaultAppBar>
         <template v-slot:toggle>
-          <v-app-bar-nav-icon @click="toggleSidebar" @showFavs="toggleSidebar" />
+          <v-app-bar-nav-icon
+            @click="toggleSidebar"
+            @showFavs="toggleSidebar"
+          />
         </template>
       </DefaultAppBar>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" ref="drawer" :width="navCfg.width" app>
+    <v-navigation-drawer
+      v-model="drawer"
+      ref="drawer"
+      :width="navCfg.width"
+      app
+    >
       <DefaultSideBar />
     </v-navigation-drawer>
 
@@ -64,6 +72,3 @@ export default {
   }
 };
 </script>
-
-<style  scoped>
-</style>

@@ -1,26 +1,27 @@
-
 <template>
   <v-app @showTab="showTab">
     <!-- APPBAR -->
-    <AppBar  :drawer="drawer">
+    <AppBar :drawer="drawer">
       <template v-slot:toggle>
-       <v-app-bar-nav-icon @click="toggleSidebar" />
+        <v-app-bar-nav-icon @click="toggleSidebar" />
       </template>
     </AppBar>
     <!-- END APPBAR -->
 
     <!-- NAV DRAWER -->
-    <v-navigation-drawer v-model="drawer"  ref="drawer"  app>
-      <SBTabs  :tab="currentTab" :sectionData="this.sections" />
+    <v-navigation-drawer
+      v-model="drawer"
+      ref="drawer"
+      class="ma-50 mx-auto"
+      app
+    >
+      <SBTabs :tab="currentTab" :sectionData="this.sections" />
     </v-navigation-drawer>
     <!-- END NAV DRAWER -->
-<!-- class="ma-50 mx-auto" -->
+
     <!-- CONTENT -->
-    <v-content >
-      <component 
-        :is="plugin" 
-        :options="videoOptions"
-      ></component>
+    <v-content>
+      <component :is="plugin" :options="videoOptions"></component>
     </v-content>
     <!-- END CONTENT -->
 
@@ -82,8 +83,7 @@ export default {
     ...mapState(["sections"])
   },
   methods: {
-    showTab(tab){
-      debugger
+    showTab(tab) {
       this.currentTab = tab;
     },
     goBack() {

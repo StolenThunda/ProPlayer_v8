@@ -1,12 +1,11 @@
-<template>
+.<template>
   <v-container>
     <v-layout row justify="center" align="center">
       <v-flex xs10 md4 class="offset-md-2">
         <div class="greeting">
           <H2>
-            Welcome
-            <span v-if="user">{{ user }}</span>
-            <span v-else>, please LOGIN</span>
+            Welcome, <span v-if="user" >{{  user }}</span>
+            <span v-else> please LOGIN</span>
           </H2>
         </div>
       </v-flex>

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="fill-height" align="center" justify="center">
     <v-row v-if="isLoaded">
       <v-col>
         <!-- <v-data-table 
@@ -8,34 +8,43 @@
           :items-per-page="5" 
           class="elevation-1"></v-data-table> -->
         <!-- <v-sheet class="mx-auto" max-width="75vw" outlined > -->
-          <p
+          <div
             id="content"
             dense
             v-for="search_entry in this.search_entries"
             :key="search_entry.id"
           >
             <ResultPanel v-bind="search_entry" />
-          </p>
+          </div>
         <!-- </v-sheet> -->
       </v-col>
     </v-row>
     <v-row v-else>
       <v-col>
-        <h1 class="pt-5 header">Latest Additions</h1>
-        <v-carousel height="80vh" cycle hide-delimiter-background show-arrows-on-hover>
-          <v-carousel-item
-            v-for="default_entry in this.default_browser_entries"
-            :key="default_entry.id"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
-          >
-            <v-sheet height="100%">
-              <v-row class="fill-height" align="center" justify="center">
-                <ResultPanel v-bind="default_entry" />
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
+        <v-row align="center" justify="center">
+          <div width="50vw">
+          <h1 class="pt-5 header">Latest Additions</h1>
+          <v-carousel 
+            v-if='this.default_browser_entries'
+            cycle 
+            hide-delimiter-background 
+            show-arrows-on-hover
+            >
+            <v-carousel-item
+              height="100%"
+              v-for="default_entry in this.default_browser_entries"
+              :key="default_entry.id"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+            >
+              <v-sheet height="100%">
+                  <ResultPanel v-bind="default_entry" />
+                
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
+          </div>
+        </v-row>
       </v-col>
     </v-row>
   </v-card>
@@ -64,9 +73,6 @@ export default {
     isLoaded() {
       return this.search.criteria !== null;
     },
-    // entryRows(items){
-
-    // },
     dataTableEntries(){
       return this.getDTEntries;
     }, 

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar flat app>
       <BrowserToolbar />
       <template v-slot:extension>
         <CurrentSearch v-if="showCurrentSearches" />
@@ -24,7 +24,7 @@
 <script>
 import BrowserSidebar from "@/components/browse/Search";
 import BrowserToolbar from "@/components/browse/appBar";
-import Browser from "@/components/browse/Browse";
+import Browser from "@/components/browse/Browser";
 import Draggable from "@/views/lib/DraggableMixin";
 import CurrentSearch from "@/components/browse/CurrentSearch";
 import { createNamespacedHelpers } from "vuex";

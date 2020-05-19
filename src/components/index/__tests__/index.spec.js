@@ -27,5 +27,8 @@ describe('Home Component', () => {
     expect(wrapper.isVueInstance).toBeTruthy();
   });
 
+  test('should contain child components', () => {
+    
+  });
 
 });

@@ -1,7 +1,7 @@
 <template>
  <v-container>
     <v-layout row>
-      <v-flex ><Welcome :user="Antonio" />
+      <v-flex ><Welcome user="Antonio" />
       </v-flex>
     </v-layout>
     <v-layout row >

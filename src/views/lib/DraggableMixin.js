@@ -1,51 +1,48 @@
 /*
-*   Purpose: enables a draggable sidebar
-*   Requirements: a vue sidebar control with a v
-* 
-*/
+ *   Purpose: enables a draggable sidebar
+ *   Requirements: a vue sidebar control with a v
+ *
+ */
 
 const Draggable = {
-  data: () => ({ 
+  data: () => ({
     navCfg: null,
     defaults: {
       width: 350,
       borderSize: 3
-    },
+    }
   }),
-  computed: {
-    
-  },  
   mounted() {
     this.$root.$on("toggleSidebar", () => {
       this.toggleSidebar();
     });
-    this.init()
+    this.init();
   },
   methods: {
     init() {
       this.setBorderWidth();
       this.setEvents();
     },
-    // getWidth: () => {
-    //   debu
-    //   return  (this.navCfg) ? this.navCfg.width : this.defaults.width;
-    // },
     toggleSidebar() {
       this.drawer = !this.drawer;
     },
-    drawerContent: function (name) {
+    drawerContent: name => {
       return (this[name] = this.$route.name === name);
     },
     setBorderWidth() {
       let i = this.$refs.drawer.$el.querySelector(
         ".v-navigation-drawer__border"
       );
-      i.style.width = (this.navCfg) ? this.navCfg.borderSize :  this.defaults.borderSize + "px";
+      i.style.width = this.navCfg
+        ? this.navCfg.borderSize
+        : this.defaults.borderSize + "px";
       i.style.cursor = "ew-resize";
       i.style.backgroundColor = "grey";
     },
     setEvents() {
-      const minSize = (this.navCfg)  ? this.navCfg.borderSize : this.defaults.borderSize;
+      const minSize = this.navCfg
+        ? this.navCfg.borderSize
+        : this.defaults.borderSize;
       const el = this.$refs.drawer.$el;
       const drawerBorder = el.querySelector(".v-navigation-drawer__border");
       const direction = el.classList.contains("v-navigation-drawer--right")
@@ -63,7 +60,7 @@ const Draggable = {
 
       drawerBorder.addEventListener(
         "mousedown",
-        (e) => {
+        e => {
           if (e.offsetX < minSize) {
             el.style.transition = "initial";
             document.addEventListener("mousemove", resize, false);
@@ -83,7 +80,7 @@ const Draggable = {
         },
         false
       );
-    },
-  },
+    }
+  }
 };
 export default Draggable;
