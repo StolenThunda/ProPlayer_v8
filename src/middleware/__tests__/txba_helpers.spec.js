@@ -1,42 +1,29 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify'
-import helpers from '../txba_helpers';
+import { createLocalVue, shallowMount } from "@vue/test-utils";
+import helpers from "../txba_helpers";
+import Vuex from "vuex";
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuetify)
+let wrapper;
+let Helpers = new helpers();
 const localVue = createLocalVue();
-localVue.use(helpers);
 localVue.use(Vuex);
 
+describe("TXBA Helper functions", () => {
+  let store;
+  let mutations = {};
 
-// removes vuetify warnings
-// document.body.setAttribute('data-app', true)
-describe('TXBA Helper functions', () => {
-
-    let vuetify
-    let store
-    let mutations = {
-
-    }
-
-    beforeEach(() => {
-        vuetify = new Vuetify();
-        store = new Vuex.Store({
-            state: {
-            },
-            mutations
-        })
-    })
-    it('helpers loaded', () => {
-        // const wrapper = shallowMount(helpers, {
-        //     store,
-        //     localVue, vuetify,
-        // })
-        expect(typeof helpers === 'object').toBe(true)
-    })
-
-
-
-})
+  beforeEach(() => {
+    store = new Vuex.Store({
+      state: {},
+      mutations
+    });
+    wrapper = shallowMount(Helpers, {
+      store,
+      localVue
+    });
+  });
+  it("helpers loaded", () => {
+    // expect(wrapper).toBe(true);
+    console.log("helpers", Helpers)
+    expect(typeof Helpers === "object").toBe(true);
+  });
+});

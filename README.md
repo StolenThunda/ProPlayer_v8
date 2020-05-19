@@ -1,4 +1,4 @@
-# ProPlayer_v8 <!-- omit in toc --> 
+# ProPlayer_v8 <!-- omit in toc -->
 
 
 ## **Functionality Checklist** <!-- omit in toc -->
@@ -16,12 +16,12 @@
     - [*Sidebar*](#sidebar-1)
       - [Search](#search)
 
-## ***Index page*** 
+## ***Index page***
 
 ##### Welcome.vue
-        [x] Favorites button 
+        [x] Favorites button
         [x] Browse button
-        [x] Orientation button 
+        [x] Orientation button
         [x] Get "real" user name for welcome message
 
 ##### Resume.vue (*Last course worked on*)
@@ -29,7 +29,7 @@
         [ ] PULL Resume data
         [ ] Resume Button
 
-##### InfoTabs (*Notifications - announcements/course updates*)  
+##### InfoTabs (*Notifications - announcements/course updates*)
 
         [ ] Add correct Links to InfoTabs
 
@@ -37,21 +37,21 @@
         [ ] Guitar Tuner
         [ ] Spider Drills
         [ ] Load Youtube
-        [ ] Account Dashboard
-        [ ] Locals Forums
-        [ ] Force Refresh
+        [x] Account Dashboard
+        [x] Locals Forums
+        [x] Force Refresh
 
 #### *Sidebar*
  ##### Favorites List
         [ ] toggle favorites
         [ ] play favorite from menu
-        
+
 ---
 
-## Browser 
+## Browser
 
 ##### AppBar
-        [x] Working Chip filters 
+        [x] Working Chip filters
 
 ##### ResultPanel
         [ ] Reflect Actual favs
@@ -61,8 +61,18 @@
 ##### Search
         [x] Injest/Generate search criteria
                 [ ] add seachable functionality
-        [ ] Selection/Display(appbar of selected chips)
+        [x] Selection/Display(appbar of selected chips)
                 [ ] TODO: adds doesn't remove
         [ ] functional basic search
         [ ] fuzzy search
-  
+
+##### Testing
+        [x] added preliminary component unit tests
+        [ ] Components
+                [ ] Home Page
+                [ ] Welcome Component
+                [ ] Resume Component
+                [ ] InfoTabs Component
+        [ ] Stores
+        [ ] Views
+        [ ] Libs/Plugins
