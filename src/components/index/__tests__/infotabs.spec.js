@@ -1,28 +1,21 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import InfoTabs from "@/components/index/InfoTabs"; //home page
-import Vuex from 'vuex';
-import Vuetify from 'vuetify'
+import Vuex from "vuex";
+import Vuetify from "vuetify";
 
 let wrapper;
 let store;
 let actions;
-let mutations
+let mutations;
 let state;
-
 
 beforeEach(() => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   localVue.use(Vuetify);
-  actions = {
-
-  };
-  mutations = {
-
-  };
-  state = {
-
-  };
+  actions = {};
+  mutations = {};
+  state = {};
   store = new Vuex.Store({
     actions,
     mutations,
@@ -43,10 +36,8 @@ afterEach(() => {
   wrapper.destroy();
 });
 
-describe('InfoTabs Component (Announcement/Course Updates)', () => {
-  test('is a Vue instance', () => {
+describe("InfoTabs Component (Announcement/Course Updates)", () => {
+  test("is a Vue instance", () => {
     expect(wrapper.isVueInstance).toBeTruthy();
   });
-
-
 });

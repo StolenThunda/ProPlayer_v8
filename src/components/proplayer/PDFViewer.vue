@@ -8,7 +8,7 @@
       </v-card-actions>
     </v-card>
     <v-card v-model="iframe.loaded" outlined>
-      <iframe        
+      <iframe
         id="pdf-viewer"
         type="application/pdf"
         width="1000"
@@ -23,15 +23,15 @@
 
 <script>
 export default {
-  data: () => ({      
+  data: () => ({
     iframe: {
       file: null,
       loaded: false
     }
   }),
   mounted() {
-      let url = `https://texasbluesalley.com/includes/pdfjs/web/viewer.html?file=/assets/pdfs/${this.$route.params.file}`;
-    document.getElementById('pdf-viewer').src = url;
+    let url = `https://texasbluesalley.com/includes/pdfjs/web/viewer.html?file=/assets/pdfs/${this.$route.params.file}`;
+    document.getElementById("pdf-viewer").src = url;
     this.iframe.loaded = true;
   },
   methods: {
@@ -43,5 +43,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

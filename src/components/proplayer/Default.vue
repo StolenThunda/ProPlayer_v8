@@ -9,12 +9,15 @@
           <v-list-item-title class="headline mb-1">
             <span :v-html="currentCourse.packageDescription"></span>
           </v-list-item-title>
-          <v-list-item-subtitle :v-html="currentCourse.packageOverview"></v-list-item-subtitle>
+          <v-list-item-subtitle
+            :v-html="currentCourse.packageOverview"
+          ></v-list-item-subtitle>
           <v-expand-transition>
             <v-card v-show="expand" class="mx-auto">
               <pre>
                     {{ this.currentCourse }}
-                </pre>
+                </pre
+              >
               <v-card-actions></v-card-actions>
             </v-card>
           </v-expand-transition>
@@ -27,10 +30,11 @@
 
       <v-card-actions>
         <v-btn @click="test">
-          Tree
-          View (console.log)
+          Tree View (console.log)
         </v-btn>
-        <v-btn class="ma-2" color="primary" @click="expand = !expand">Expand Transition</v-btn>
+        <v-btn class="ma-2" color="primary" @click="expand = !expand"
+          >Expand Transition</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-container>
@@ -50,7 +54,6 @@ export default {
   },
 
   computed: {
-    
     ...mapState(["currentCourse"])
   },
   methods: {

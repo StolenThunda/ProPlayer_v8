@@ -25,8 +25,8 @@
 export default {
   name: "RandoCardItem",
   data: () => ({
-    info: null,
-  }),
+    info: null
+  })
   // created() {
   //   axios
   //     .get("https://baconipsum.com/api/?callback=?", {

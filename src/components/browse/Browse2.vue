@@ -12,15 +12,20 @@
               pill
               close
               @click:close="toggle(chip)"
-            >{{ chip.text }}</v-chip>
+              >{{ chip.text }}</v-chip
+            >
           </v-chip-group>
         </v-toolbar>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        
-        <v-sheet class="mx-auto" max-width="75vw" outlined v-if="this.default_browser_entries">
+        <v-sheet
+          class="mx-auto"
+          max-width="75vw"
+          outlined
+          v-if="this.default_browser_entries"
+        >
           <v-list
             id="content"
             dense
@@ -34,7 +39,6 @@
     </v-row>
   </v-card>
 </template>
-
 
 <script>
 /* 

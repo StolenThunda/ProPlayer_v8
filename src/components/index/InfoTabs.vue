@@ -1,7 +1,6 @@
 <template>
-  <v-row align='center' no-gutters>
-
-    <v-card class='pa-5 col-md-8 offset-md-2'>
+  <v-row align="center" no-gutters>
+    <v-card class="pa-5 col-md-8 offset-md-2">
       <v-tabs id="site-updates" v-model="tab" centered dark icons-and-text>
         <v-tabs-slider></v-tabs-slider>
 
@@ -17,7 +16,6 @@
       </v-tabs>
 
       <v-tabs-items v-model="tab" outlined>
-        
         <v-tab-item
           id="announcements"
           v-for="item in announcements"
@@ -40,8 +38,8 @@
 
 <script>
 import NotificationItem from "@/components/base/NotificationItem";
-import { createNamespacedHelpers } from 'vuex';
-const { mapActions } = createNamespacedHelpers('default')
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("default");
 
 export default {
   data() {
@@ -49,11 +47,11 @@ export default {
       tab: null,
       show: false,
       announcements: null,
-      updates: null,
+      updates: null
     };
   },
   components: {
-    NotificationItem,
+    NotificationItem
   },
   created() {
     this.getNotifications();
@@ -65,7 +63,7 @@ export default {
       this.announcements = notifications.announcements;
       this.updates = notifications.updates;
     },
-    ...mapActions(['fetchNotifications'])
-  },
+    ...mapActions(["fetchNotifications"])
+  }
 };
 </script>

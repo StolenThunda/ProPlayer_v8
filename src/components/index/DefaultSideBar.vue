@@ -1,14 +1,14 @@
 <template>
-      <v-tabs v-model="tab" icons-and-text centered>
-        <v-tabs-slider></v-tabs-slider>
-        <v-tab href="#favorites">
-          Favorites          
-          <v-icon>mdi-heart</v-icon>
-        </v-tab>
-        <v-tabs-items v-model="tab">
-          <FavList />
-        </v-tabs-items>
-      </v-tabs>
+  <v-tabs v-model="tab" icons-and-text centered>
+    <v-tabs-slider></v-tabs-slider>
+    <v-tab href="#favorites">
+      Favorites
+      <v-icon>mdi-heart</v-icon>
+    </v-tab>
+    <v-tabs-items v-model="tab">
+      <FavList />
+    </v-tabs-items>
+  </v-tabs>
 </template>
 
 <script>

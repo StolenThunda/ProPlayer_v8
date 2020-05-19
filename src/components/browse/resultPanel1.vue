@@ -12,20 +12,26 @@
         v-if="this.avatar"
         contain
       >
-      <template v-slot:placeholder>
-        <v-row
-        class="fill-height ma-0"
-        align="center"
-        justify="center"
-        >
-        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-        </v-row>
-      </template>
+        <template v-slot:placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
       </v-img>
       <v-list-item-content>
-        <v-list-item-title v-html="this.title" class="resultTitle" ></v-list-item-title>
+        <v-list-item-title
+          v-html="this.title"
+          class="resultTitle"
+        ></v-list-item-title>
         <v-list-item-subtitle v-html="this.subtitle"></v-list-item-subtitle>
-        <v-container v-if="this.data" v-html="this.data" class="resultDesc"></v-container>
+        <v-container
+          v-if="this.data"
+          v-html="this.data"
+          class="resultDesc"
+        ></v-container>
       </v-list-item-content>
 
       <v-list-item-action v-if="this.action">
@@ -41,7 +47,7 @@
 export default {
   name: "BaseListItem",
   data: () => ({
-    show: false,
+    show: false
   }),
   props: {
     isFav: Boolean,
@@ -55,12 +61,11 @@ export default {
   computed: {
     goto(id) {
       return `/proplayer/${id}`;
-    },
+    }
   },
   methods: {
-    toggleFavoriteInBrowser() {},
-  },
-  
+    toggleFavoriteInBrowser() {}
+  }
 };
 </script>
 

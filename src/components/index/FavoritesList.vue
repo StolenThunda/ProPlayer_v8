@@ -8,16 +8,27 @@
               <span>{{ item }}</span>
             </v-expansion-panel-header>
           </template>
-          <v-badge :content="favorites[item].length" offset-x="13" bordered></v-badge>
+          <v-badge
+            :content="favorites[item].length"
+            offset-x="13"
+            bordered
+          ></v-badge>
         </v-tooltip>
         <v-expansion-panel-content>
           <v-list dense nav rounded subheader>
-            <v-list-item v-for="favorite in favorites[item]" :key="favorite.name">
+            <v-list-item
+              v-for="favorite in favorites[item]"
+              :key="favorite.name"
+            >
               <v-list-item-avatar>
-                <v-icon class="ma-4" @click="playMedia" small>mdi-play-circle</v-icon>
+                <v-icon class="ma-4" @click="playMedia" small
+                  >mdi-play-circle</v-icon
+                >
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-subtitle v-html="favorite.title"></v-list-item-subtitle>
+                <v-list-item-subtitle
+                  v-html="favorite.title"
+                ></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-list-item-icon>
@@ -27,7 +38,8 @@
                       color="error"
                       @click="removeFavorite"
                       small
-                    >mdi-minus-circle</v-icon>
+                      >mdi-minus-circle</v-icon
+                    >
                   </v-list-item-avatar>
                 </v-list-item-icon>
               </v-list-item-action>

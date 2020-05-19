@@ -1,6 +1,6 @@
 <template>
   <v-sheet>
-    <v-tabs v-model='tab' icons-and-text centered>
+    <v-tabs v-model="tab" icons-and-text centered>
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab key="segments" href="#segments">
@@ -28,12 +28,12 @@ import Segments from "@/components/proplayer/Segments";
 import Favs from "@/components/index/FavoritesList";
 export default {
   name: "PlayerTabs",
-  data: () => ({ 
+  data: () => ({
     tab: null
   }),
   components: {
-   favorites: Favs,
-   segments: Segments
+    favorites: Favs,
+    segments: Segments
   }
 };
 </script>

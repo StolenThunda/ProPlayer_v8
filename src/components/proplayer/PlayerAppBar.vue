@@ -6,7 +6,7 @@
       <v-icon>mdi-home</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
-    <v-toolbar-title >
+    <v-toolbar-title>
       <span v-if="packageTitle" v-html="packageTitle"></span>
       <span v-else>No Course Data</span>
     </v-toolbar-title>
@@ -38,11 +38,11 @@ export default {
   //   this.title = this.getTitle();
   // },
   computed: {
-    ...mapState(['packageTitle'])
+    ...mapState(["packageTitle"])
   },
   methods: {
     gotoFavs() {
-      this.$root.$emit("showTab", 'favorites');
+      this.$root.$emit("showTab", "favorites");
       this.$root.$emit("toggleSidebar");
       // this.$refs.favorites.click();
     }
@@ -50,5 +50,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

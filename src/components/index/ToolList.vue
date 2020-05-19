@@ -75,8 +75,8 @@ export default {
     },
     go(dest) {
       window.open(`https://texasbluesalley.com/${dest}`);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -23,15 +23,15 @@
 export default {
   name: "BaseListItem",
   data: () => ({
-    show: false,
+    show: false
   }),
   props: {
     avatar: String,
     data: String,
     subtitle: String,
     title: String,
-    id: Number,
-  },
+    id: Number
+  }
 };
 </script>
 

@@ -25,9 +25,9 @@ import ToolList from "@/components/index/ToolList";
 export default {
   name: "DefaultAppBar",
   components: {
-    ToolList,
+    ToolList
   },
-  computed: {},
+  computed: {}
 };
 </script>
 

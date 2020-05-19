@@ -6,19 +6,19 @@
     </v-btn>
     <v-toolbar-title>Browse...</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-chip-group
-    active-class="primary--text"
-    >
+    <v-chip-group active-class="primary--text">
       <v-chip class="ma-2" @click="load('pro_player_packages')">Courses</v-chip>
-      <v-chip class="ma-2" @click="load('free_lesson_friday')">Free Lesson Friday</v-chip>
+      <v-chip class="ma-2" @click="load('free_lesson_friday')"
+        >Free Lesson Friday</v-chip
+      >
       <v-chip class="ma-2" @click="load('tone_tuesday')">Tone Tuesday</v-chip>
       <v-chip class="ma-2" @click="load('performances')">Performances</v-chip>
-      <v-chip class="ma-2" @click="load('backing_tracks')">Backing Tracks</v-chip>
+      <v-chip class="ma-2" @click="load('backing_tracks')"
+        >Backing Tracks</v-chip
+      >
       <v-chip class="ma-2" @click="load('youtube_videos')">Imported</v-chip>
       <v-chip class="ma-2" @click="load('youtube')">
-        <v-avatar left>
-          <v-icon>mdi-youtube</v-icon>
-        </v-avatar>Youtube
+        <v-avatar left> <v-icon>mdi-youtube</v-icon> </v-avatar>Youtube
       </v-chip>
     </v-chip-group>
     <v-spacer></v-spacer>
@@ -32,9 +32,9 @@ const { mapActions } = createNamespacedHelpers("browser");
 export default {
   name: "BrowserToolbar",
   methods: {
-    load(category){
+    load(category) {
       this.setCriteria(category);
-      this.$root.$emit('toggleSidebar')
+      this.$root.$emit("toggleSidebar");
     },
     ...mapActions(["setCriteria"])
   }

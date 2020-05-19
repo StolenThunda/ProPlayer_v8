@@ -12,7 +12,9 @@
         <v-card-title>{{ this.title }}</v-card-title>
         <v-card-subtitle>
           {{ this.subtitle }}
-          <router-link v-if="this.action" :to="this.action">{{ this.actionText }}</router-link>
+          <router-link v-if="this.action" :to="this.action">{{
+            this.actionText
+          }}</router-link>
         </v-card-subtitle>
         <v-container v-if="this.data" v-html="this.data"></v-container>
       </v-col>
@@ -38,7 +40,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .v-card-title {
   font-size: 0.85em;
   text-transform: uppercase;

@@ -1,16 +1,13 @@
 <template>
- <v-container>
+  <v-container>
     <v-layout row>
-      <v-flex ><Welcome user="Antonio" />
-      </v-flex>
-    </v-layout>
-    <v-layout row >
-      <v-flex ><Resume />
-      </v-flex>
+      <v-flex><Welcome user="Antonio" /> </v-flex>
     </v-layout>
     <v-layout row>
-      <v-flex ><InfoTabs />
-      </v-flex>
+      <v-flex><Resume /> </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex><InfoTabs /> </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -24,8 +21,8 @@ export default {
   components: {
     Welcome,
     Resume,
-    InfoTabs,
-  },
+    InfoTabs
+  }
 };
 </script>
 

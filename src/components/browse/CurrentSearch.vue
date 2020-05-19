@@ -9,7 +9,8 @@
         pill
         close
         @click:close="toggle(chip)"
-      >{{ chip.text }}</v-chip>
+        >{{ chip.text }}</v-chip
+      >
     </v-chip-group>
   </v-toolbar>
 </template>
@@ -31,5 +32,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
