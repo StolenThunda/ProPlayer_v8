@@ -37,7 +37,7 @@ const { mapState } = createNamespacedHelpers("watch");
 export default {
   name: "SegmentTabContent",
   computed: {
-    ...mapState(["sections", "currentCourse"])
+    ...mapState(["sections"])
   },
   methods: {
     getSegInfo(seg) {

@@ -1,25 +1,22 @@
 export default {
   namespaced: true,
   state: {
-    favorites: []
-    // TODO: enable for caching
-    // notifications: {
-    //     announcements: [],
-    //     updates: []
-    // }
+    favorites: [],
+    notifications: null
   },
   mutations: {
-    SET_FAVS(ctx, { favs }) {
+    SET_FAVS(ctx, favs ) {
       // console.log("SettingFAVS:", favs);
       if (favs) ctx.favorites = favs;
+    },
+    SET_NOTIFICATIONS(ctx, notes ) {
+      // console.log("SettingNotes:", notes);
+      if (notes) ctx.notifications = notes;
     }
   },
   actions: {
-    setFavs(ctx, collection) {
-      return ctx.commit("SET_FAVS", ctx, collection.favs);
-    },
     fetchFavoritesData(ctx) {
-      return ctx.rootState.TXBA_UTILS.getFavs();
+     return ctx.rootState.TXBA_UTILS.getFavs();
     },
     fetchNotificationData(ctx) {
       return ctx.rootState.TXBA_UTILS.getNotification();
@@ -30,18 +27,18 @@ export default {
         .then(data => ctx.commit("SET_FAVS", data));
     },
     async fetchNotifications(ctx) {
-      return await ctx.dispatch("fetchNotificationData");
+      await ctx
+        .dispatch("fetchNotificationData")
+        .then(data => ctx.commit("SET_NOTIFICATIONS", data));
     },
-    initStore: ctx => ctx.dispatch("fetchFavorites")
+    initStore: ctx => {
+      ctx.dispatch("fetchFavorites");
+      ctx.dispatch("fetchNotifications");
+    }
   },
   getters: {
-    getFavorites: state => {
-      const fav = {};
-      for (let category in state.favorites) {
-        fav[category] = category.length;
-      }
-      // console.log("getFavs", fav)
-      return fav;
-    }
+    getAnnouncements: ctx => ctx.notifications.announcements || [],
+    getUpdates: ctx => ctx.notifications.updates || [],
+    loaded: (ctx) => ctx.notifications.announcements.length > 0 || ctx.notifications.updates
   }
 };

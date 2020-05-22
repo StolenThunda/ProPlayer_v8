@@ -15,7 +15,7 @@ export default {
       ctx.searching = bool;
     },
     SET_DEFAULT_BROWSER_ENTRIES(ctx, data) {
-      // console.log("SettingDefEntries:", data);
+      console.log("SettingDefEntries:", data);
       if (data) ctx.default_browser_entries = data;
     },
     SET_SEARCH_ENTRIES(ctx, data) {
@@ -45,8 +45,8 @@ export default {
     toggleSearchCriteria(ctx, itm) {
       ctx.dispatch("setSearching", true);
       return ctx.commit("TOGGLE_CURRENT_SEARCH", itm);
-    },
-    async fetchDefaultSearch(ctx) {
+    },   async fetchDefaultSearch(ctx) {
+      // debugger
       return ctx.commit(
         "SET_DEFAULT_BROWSER_ENTRIES",
         await ctx.rootState.TXBA_UTILS.getDefaultSearchEntries()
@@ -71,12 +71,6 @@ export default {
     }
   },
   getters: {
-    getFavorites: (state, getters, rootState) => {
-      console.log(state);
-      console.log("getters", getters);
-      console.log("rState", rootState);
-      return {};
-    },
     default_browser_entries: state => state.default_browser_entries,
     showCurrentSearches: state => {
       return (

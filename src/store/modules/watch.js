@@ -3,6 +3,7 @@ export default {
   namespaced: true,
   state: {
     currentCourse: null,
+    currentSegment: null,
     sections: null,
     previousCourses: []
   },
@@ -19,14 +20,23 @@ export default {
         Vue.set(ctx, k, v);
       }
       Object.assign({}, ctx, data);
+    },
+    SET_USER_LOOP_DATA(ctx, data) {
+      ctx.currentSegment = data;
     }
   },
   actions: {
-    async fetchCourseData(ctx, ID) {
-      const response = await ctx.rootState.TXBA_UTILS.getCourse(ID);
+    async fetchUserLoopData(ctx, ID) {
+      const response = await ctx.rootState.TXBA_UTILS.getUserLoopData(ID);
+      // console.log('courseData', response)
+      ctx.commit("SET_USER_LOOP_DATA", response);
+    },
+    fetchUserLoop: (ctx, ID) => ctx.dispatch("fetchUserLoopData", ID),
+    async fetchPackageData(ctx, ID) {
+      const response = await ctx.rootState.TXBA_UTILS.getPackage(ID);
       // console.log('courseData', response)
       ctx.commit("SET_COURSE_DATA", response);
     },
-    fetchCourse: (ctx, ID) => ctx.dispatch("fetchCourseData", ID)
+    fetchPackage: (ctx, ID) => ctx.dispatch("fetchPackageData", ID)
   }
-};
+}

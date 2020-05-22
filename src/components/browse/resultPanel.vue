@@ -49,11 +49,7 @@
 <script>
 export default {
   name: "BaseListItem",
-  data: () => ({
-    // color: 'pink'
-  }),
   props: {
-    // isFav: Boolean,
     favColor: String,
     avatar: String,
     data: String,
@@ -62,17 +58,9 @@ export default {
     id: Number,
     action: String
   },
-  created() {
-    console.log("this", this._self);
-    debugger;
-    // this.color = this._self.isFav ? this.color : 'grey';
-  },
   computed: {
     goto(id) {
       return `/proplayer/${id}`;
-    },
-    isFavorite: bool => {
-      this.color = bool ? "red" : "grey";
     }
   },
   methods: {

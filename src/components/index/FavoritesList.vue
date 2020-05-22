@@ -21,7 +21,7 @@
               :key="favorite.name"
             >
               <v-list-item-avatar>
-                <v-icon class="ma-4" @click="playMedia" small
+                <v-icon class="ma-4" @click="playMedia(favorite.id)" small
                   >mdi-play-circle</v-icon
                 >
               </v-list-item-avatar>
@@ -36,7 +36,7 @@
                     <v-icon
                       class="pb-2"
                       color="error"
-                      @click="removeFavorite"
+                      @click="removeFavorite(favorite.id)"
                       small
                       >mdi-minus-circle</v-icon
                     >
@@ -53,27 +53,18 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers("default");
+const { mapState } = createNamespacedHelpers("default");
 export default {
   name: "FavList",
   data: () => ({
-    favs: null,
     hover: true
   }),
   computed: {
-    ...mapGetters(["getFavorites"]),
     ...mapState(["favorites"])
   },
-  created() {
-    this.fetchFavorites();
-  },
-  mounted() {
-    // this.favs = this.getFavorites();
-  },
   methods: {
-    ...mapActions(["fetchFavorites"]),
-    playMedia(el) {
-      console.dir(el);
+    playMedia(id) {
+      console.dir(id);
     },
     removeFavorite(id) {
       console.log(id ? id : "hello");

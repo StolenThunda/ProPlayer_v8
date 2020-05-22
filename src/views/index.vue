@@ -27,19 +27,15 @@
     <v-footer>
       <span>&copy; 2020</span>
       <v-spacer />
-      <v-btn icon fab @click="toggleLightDark">
-        <div ref="moon" hidden>
-          <v-icon>fas fa-moon</v-icon>
-        </div>
-        <div ref="sun">
-          <v-icon>fas fa-sun</v-icon>
-        </div>
-      </v-btn>
+      <v-list>
+        <LightDark/>
+      </v-list>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import LightDark from "@/components/base/LightDark";
 import DefaultSideBar from "@/components/index/DefaultSideBar";
 import DefaultAppBar from "@/components/index/DefaultAppBar";
 import Default from "@/components/index/";
@@ -59,16 +55,10 @@ export default {
     }
   }),
   components: {
+    LightDark,
     DefaultSideBar,
     DefaultAppBar,
     Default
-  },
-  methods: {
-    toggleLightDark() {
-      this.$refs.moon.toggleAttribute("hidden");
-      this.$refs.sun.toggleAttribute("hidden");
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-    }
   }
 };
 </script>

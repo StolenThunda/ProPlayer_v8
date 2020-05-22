@@ -1,5 +1,4 @@
 import Index from "../views/";
-
 export default [
   {
     path: "/",
@@ -46,7 +45,8 @@ export default [
     name: "watch",
     props: true,
     meta: {
-      layout: "watch"
+      layout: "watch",
+      plugin: "player"
     },
     component: () =>
       import(/* webpackChunkName: "watch" */ "../views/Watch.vue")

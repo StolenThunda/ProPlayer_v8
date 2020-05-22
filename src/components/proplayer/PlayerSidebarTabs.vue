@@ -1,6 +1,6 @@
 <template>
   <v-sheet>
-    <v-tabs v-model="tab" icons-and-text centered>
+    <v-tabs v-model="tab" icons-and-text centered grow>
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab key="segments" href="#segments">
@@ -14,7 +14,7 @@
     </v-tabs>
     <v-tabs-items v-model="tab" outlined>
       <v-tab-item id="segments">
-        <segments />
+        <segments :sections="sections" />
       </v-tab-item>
       <v-tab-item id="favorites">
         <favorites />
@@ -26,11 +26,16 @@
 <script>
 import Segments from "@/components/proplayer/Segments";
 import Favs from "@/components/index/FavoritesList";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("watch");
 export default {
-  name: "PlayerTabs",
+  name: "PlayerSideBarTabs",
   data: () => ({
     tab: null
   }),
+  computed: {
+    ...mapState(["sections"])
+  },
   components: {
     favorites: Favs,
     segments: Segments

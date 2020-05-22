@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto pa-5" outlined tiled>
+  <v-card class="my-5 pa-5 col-md-8 offset-md-2" outlined tiled>
     <v-flex row xs12 class="justify-center pa-3">
       <v-card>
         <v-btn color="primary">

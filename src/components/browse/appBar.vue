@@ -1,7 +1,7 @@
 <template>
   <v-toolbar flat>
     <slot name="drawerToggle"></slot>
-    <v-btn to="/" class="pa-8" icon fab>
+    <v-btn :to="{name: 'index'}" class="pa-8" >
       <v-icon>mdi-home</v-icon>
     </v-btn>
     <v-toolbar-title>Browse...</v-toolbar-title>
@@ -18,19 +18,24 @@
       >
       <v-chip class="ma-2" @click="load('youtube_videos')">Imported</v-chip>
       <v-chip class="ma-2" @click="load('youtube')">
-        <v-avatar left> <v-icon>mdi-youtube</v-icon> </v-avatar>Youtube
+        <v-icon class="pr-2">mdi-youtube</v-icon>Youtube
       </v-chip>
     </v-chip-group>
     <v-spacer></v-spacer>
+    <ToolList />
   </v-toolbar>
 </template>
 
 <script>
+import ToolList from "@/components/base/ToolList";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("browser");
 
 export default {
   name: "BrowserToolbar",
+  components: {
+    ToolList
+  },
   methods: {
     load(category) {
       this.setCriteria(category);

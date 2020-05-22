@@ -5,23 +5,15 @@
     <v-spacer></v-spacer>
     <v-toolbar-title>TXBA ProPlayer v8</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn to="browser" class="ma-2" text icon>
+    <v-btn :to="{name: 'browser'}" class="ma-2" text icon>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
-    <v-menu left bottom>
-      <template v-slot:activator="{ on }">
-        <v-btn v-on="on" class="ma-2" text icon>
-          <v-icon>mdi-cogs</v-icon>
-        </v-btn>
-      </template>
-
-      <ToolList />
-    </v-menu>
+    <ToolList />
   </v-toolbar>
 </template>
 
 <script>
-import ToolList from "@/components/index/ToolList";
+import ToolList from "@/components/base/ToolList";
 export default {
   name: "DefaultAppBar",
   components: {

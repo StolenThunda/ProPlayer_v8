@@ -1,7 +1,7 @@
-.<template>
-  <v-container>
-    <v-layout row justify="center" align="center">
-      <v-flex xs10 md4 class="offset-md-2">
+<template>
+  <v-card class="my-5 pa-5 col-md-8 offset-md-2">
+   <v-layout row justify="center" align="center">
+      <v-flex row class="pa-3">
         <div class="greeting">
           <H2>
             Welcome, <span v-if="user">{{ user }}</span>
@@ -9,7 +9,7 @@
           </H2>
         </div>
       </v-flex>
-      <v-flex xs10 md4 class="offset-md-2">
+      <v-flex class="offset-md-2">
         <v-container>
           <v-row class="justify-space-between">
             <v-btn id="orientation" color="success">
@@ -22,14 +22,14 @@
             >
               <v-icon left>mdi-heart</v-icon>Favorites </v-btn
             ><v-spacer></v-spacer>
-            <v-btn id="browse" color="primary" to="browser">
+            <v-btn id="browse" color="primary" :to="{name: 'browser'}">
               <v-icon left>mdi-magnify</v-icon>Browse
             </v-btn>
           </v-row>
         </v-container>
       </v-flex>
     </v-layout>
-  </v-container>
+  </v-card>
 </template>
 
 <script>

@@ -2,10 +2,10 @@
   <v-card class="fill-height" align="center" justify="center">
     <v-row v-if="isLoaded">
       <v-col>
-        <!-- <v-data-table 
+        <!-- <v-data-table
           :headers="dataTableEntries.headers"
-          :items="entryRows(dataTableEntries.items)"  
-          :items-per-page="5" 
+          :items="entryRows(dataTableEntries.items)"
+          :items-per-page="5"
           class="elevation-1"></v-data-table> -->
         <!-- <v-sheet class="mx-auto" max-width="75vw" outlined > -->
         <div
@@ -29,6 +29,7 @@
               cycle
               hide-delimiter-background
               show-arrows-on-hover
+              dak
             >
               <v-carousel-item
                 height="100%"
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-/* 
+/*
 TODO - enable/disable favorites
 
 */
