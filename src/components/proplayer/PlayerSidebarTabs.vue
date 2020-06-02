@@ -1,44 +1,62 @@
 <template>
-  <v-sheet>
-    <v-tabs v-model="tab" icons-and-text centered grow>
+    <v-tabs
+      v-model="sections"
+      centered
+      grow
+      icons-and-text
+    >
       <v-tabs-slider></v-tabs-slider>
 
-      <v-tab key="segments" href="#segments">
-        Segments
-        <v-icon>mdi-menu</v-icon>
+      <v-tab>
+        segments
+        <v-icon>
+          fa fa-server
+        </v-icon>
       </v-tab>
-      <v-tab key="favorites" href="#favorites">
+      <v-tab  left>
         Favorites
         <v-icon>mdi-heart</v-icon>
       </v-tab>
-    </v-tabs>
-    <v-tabs-items v-model="tab" outlined>
-      <v-tab-item id="segments">
-        <segments :sections="sections" />
+
+      <v-tab-item>
+
+        <v-card v-for="i in playSections" :key="i.sectionID">
+          <segments :segments="i.segments" :title="i.sectionTitle" />
+        </v-card>
       </v-tab-item>
-      <v-tab-item id="favorites">
+      <v-tab-item>
         <favorites />
       </v-tab-item>
-    </v-tabs-items>
-  </v-sheet>
+  </v-tabs>
 </template>
 
 <script>
-import Segments from "@/components/proplayer/Segments";
-import Favs from "@/components/index/FavoritesList";
-import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("watch");
-export default {
-  name: "PlayerSideBarTabs",
-  data: () => ({
-    tab: null
-  }),
-  computed: {
-    ...mapState(["sections"])
-  },
-  components: {
-    favorites: Favs,
-    segments: Segments
-  }
-};
+  import Segments from "@/components/proplayer/Segments";
+  import Favs from "@/components/index/FavoritesList";
+  import { createNamespacedHelpers } from "vuex";
+  const { mapState, mapGetters } = createNamespacedHelpers("watch");
+  export default {
+    name: "PlayerSideBarTabs",
+    data: () => ({
+      tab: true,
+      sections: null,
+    }),
+    mounted() {
+      this.fetchSections();
+    },
+    computed: {
+      ...mapState(["playSections"]),
+    },
+    components: {
+      favorites: Favs,
+      segments: Segments,
+    },
+
+    methods: {
+      fetchSections() {
+        this.sections =  this.getPlaySections();
+      },
+      ...mapGetters(["getPlaySections", ]),
+    },
+  };
 </script>

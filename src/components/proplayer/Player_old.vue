@@ -9,15 +9,8 @@
             <div class="player_container mx-auto">
               <div class="c-video">
                 <video
-                  class="mejs__player"
-                  height="100%"
-                  width="100%"
                   ref="thePlayer"
-                  id="thePlayer"
-                  webkit-playsinline
-                  playsinline
-                  allowfullscreen
-                  crossorigin="anonymous"
+                  id="videoPlayer"
                   controls
                 >
                   <source :src="currentSetup.src" :type="currentSetup.type" />
@@ -77,60 +70,87 @@
 
 <script>
   // import VideoPlayer from "@/components/proplayer/VideoPlayer";
-  import "mediaelement/src/css/mediaelementplayer.css"
   import { createNamespacedHelpers } from "vuex";
   const { mapState } = createNamespacedHelpers("watch");
-  // import "mediaelement";
-
+  import jquery from 'jquery';
+  // import "mediaelement/full";
+  if (process.browser){
+    require("mediaelement")
+  }
   export default {
     name: "PlayerWrapper",
     data: () => ({
       isPlaying: false,
       player: null
     }),
+    components: {
+      // "video-player": VideoPlayer
+    },
+    mounted() {
+      this.init();
+    },
     computed: {
       ...mapState(["currentSetup"])
     },
-    mounted() {
-      this.player = this.$refs.thePlayer;
-      // this.player = new MediaElement(this.$refs.thePlayer, {
-      //   pluginPath: "https://cdnjs.com/libraries/mediaelement/",
-      //   success: function(mediaelement, origNode, instance) {
-      //     console.info(mediaelement, origNode, instance)
-      //   }
-      // });
-    },
-    watch:{
-      player() {
-
-        this.playerInit()
-      }
-    },
     methods: {
-      playerInit(){
-        this.playerSetPoster(this.currentSetup.poster);
-        this.playerSetSrc(this.currentSetup.src);
+      init() {
+        if (this.componentDidMount){
+        console.log("Initializing player");
+        this.player = this.$refs.thePlayer;
+        // this.playerInitialize();
+        console.log("Initialized player", this.player);
+        }
       },
+      playerInitialize() {
+        const $ = jquery;
+        console.log("cSetup", this.currentSetup);
+        if (this.currentSetup) {
+          const setup = {
+            pluginPath: "https://cdnjs.com/libraries/mediaelement/",
+            shimScriptAccess: "always",
+            ...this.currentSetup,
+            success: function(mediaelement, originalNode, instance) {
+              console.log("me", mediaelement);
+              console.log("on", originalNode);
+              console.log("i", instance);
+              this.player = instance;
+            }
+          };
+          console.log("config", setup)
+          this.player = $("#videoPlayer").mediaelementplayer(setup);
+          console.log("this.player", this.player);
+          return this;
+        } else {
+          setTimeout(() => this.init(), 3000);
+        }
+      },
+
       playerDispose() {
         this.player.dispose();
       },
+      componentDidMount(){
+        let loaded = false;
+        if (!loaded){
+          const tag = document.createElement('script');
+          tag.src = '//www.youtube.com/player_api';
+          const firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          loaded = true;
+          console.log('script added')
+          }
+          return loaded;
+      },
       playerPlay() {
-        if (this.player?.play) {
-          this.player.play();
-          if (this.isPlaying) this.playerPause();
-          this.isPlaying = !this.isPlaying;
-        } else {
-          console.log("play broke");
-        }
+        this.player.play();
+        if (this.isPlaying) this.playerPause();
+        this.isPlaying = !this.isPlaying;
       },
       playerPause() {
         this.player.pause();
       },
-      playerSetSrc(url) {
+      playerSetSrc() {
         // console.log("player url", url);
-        debugger
-        this.player.src(url);
-        return this;
+        this.player.src();
       },
       playerSetVolume(float) {
         this.player.volume(float);

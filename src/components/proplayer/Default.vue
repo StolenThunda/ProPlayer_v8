@@ -1,42 +1,28 @@
 <template>
-  <v-container fluid>
-    <v-banner
-      @toggleCourseInfo.stop="show = !show"
+  <v-card
+    @toggleCourseInfo.stop="show = !show"
     >
+    <v-card-text>
       <course-info />
-    </v-banner>
-    <!-- <pro-player /> -->
-  </v-container>
+    </v-card-text>
+    </v-card>
 </template>
 
 <script>
-// import Player from "@/components/proplayer/Player";
 import CourseInfo from "@/components/proplayer/CourseInfo";
 export default {
-  name: "VideoPlayerLayout",
-  data: () => ({
-    show: false,
-    player: null
-  }),
+  name: "PackageInfo",
   components: {
-    // "pro-player": Player,
     "course-info": CourseInfo
   },
   mounted() {
-    this.$root.$on("toggleCourseInfo", () => {
-      this.show = !this.show;
-    });
+    this.$root.$emit("toggleSidebar")
   },
   computed: {
     display(objCourse) {
       return JSON.stringify(objCourse, null, 4);
     }
   },
-  beforeDestroy() {
-    if (this.player) {
-      this.player.dispose();
-    }
-  }
 };
 </script>
 

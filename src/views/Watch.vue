@@ -1,19 +1,24 @@
 <template>
-  <v-app @showTab="showTab">
+  <v-app @showTab="showTab" class="page">
     <!-- APPBAR -->
-    <watch-app-bar :drawer="drawer">
-      <template v-slot:toggle>
-        <v-app-bar-nav-icon @click="toggleSidebar" />
-      </template>
-    </watch-app-bar>
+    <v-app-bar app fixed >
+      <watch-app-bar :drawer="drawer">
+        <template v-slot:toggle>
+          <v-app-bar-nav-icon
+          @click="toggleSidebar" />
+        </template>
+      </watch-app-bar>
+    </v-app-bar>
+
     <!-- END APPBAR -->
 
     <!-- NAV DRAWER -->
     <v-navigation-drawer
       v-model="drawer"
       ref="drawer"
-      class="ma-50 mx-auto"
-      app
+      :width="navCfg.width"
+      fixed
+     app
     >
       <watch-side-bar-tabs :tab="currentTab" :sectionData="this.sections" />
     </v-navigation-drawer>
@@ -21,7 +26,13 @@
 
     <!-- CONTENT -->
     <v-content>
-      <component :is="plugin"></component>
+      <component :is="plugin">
+          <template v-slot:default>
+          <v-btn @click="toggleSidebar">
+            <v-icon>fa fa-ellipsis-v</v-icon>
+          </v-btn>
+        </template>
+      </component>
     </v-content>
     <!-- END CONTENT -->
 
@@ -47,6 +58,10 @@
       drawer: false,
       currentTab: null,
       favs: false,
+      navCfg: {
+        width: 350,
+        borderSize: 3,
+      },
     }),
     components: {
       "watch-app-bar": AppBar,

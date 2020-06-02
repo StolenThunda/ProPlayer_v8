@@ -15,14 +15,14 @@ Vue.component("default-layout", Default);
 Vue.component("browser-layout", Browser);
 Vue.component("watch-layout", Watch);
 
-// Vue.component("default-plugin", () => import("./components/proplayer/Default"));
+Vue.component("default-plugin", () => import("./components/proplayer/Default"));
 Vue.component("pdfviewer-plugin", () =>
   import("./components/proplayer/PDFViewer")
 );
 Vue.component("player-plugin", () =>
-  import("./components/proplayer/ProPlayer")
+  import("./components/proplayer/Player")
 );
-
+window.axios = require( 'axios' );
 Vue.config.productionTip = false;
 new Vue({
   helpers,

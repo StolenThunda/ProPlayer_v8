@@ -1,9 +1,12 @@
 <template>
   <v-toolbar flat>
     <slot name="drawerToggle"></slot>
-    <v-btn :to="{name: 'index'}" class="pa-8" >
+
+    <v-btn :to="{name: 'index'}" icon>
       <v-icon>mdi-home</v-icon>
     </v-btn>
+
+    <v-spacer></v-spacer>
     <v-toolbar-title>Browse...</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-chip-group active-class="primary--text">

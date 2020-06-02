@@ -1,14 +1,13 @@
 <template>
   <!-- src="https://i.picsum.photos/id/307/1920/1080.jpg" -->
-  <v-app-bar flat app>
+    <v-toolbar flat>
     <slot name="toggle" />
-    <v-btn :to="{name: 'index'}" class="pa-8" fab icon>
+    <v-btn icon :to="{name: 'index'}">
       <v-icon>mdi-home</v-icon>
     </v-btn>
-    <v-btn @click="$root.$emit('toggleCourseInfo')" fab icon>
-      <v-icon>mdi-information</v-icon>
-    </v-btn>
+
     <v-spacer></v-spacer>
+
     <v-toolbar-title>
       <span v-if="packageTitle" v-html="packageTitle"></span>
       <span v-else>No Course Data</span>
@@ -28,7 +27,7 @@
       <i class="fa fa-arrows-alt"></i>
     </v-btn>
     <ToolList />
-  </v-app-bar>
+    </v-toolbar>
 </template>
 
 <script>
@@ -49,9 +48,8 @@ export default {
     gotoFavs() {
       this.$root.$emit("showTab", "favorites");
       this.$root.$emit("toggleSidebar");
-    }
+    },
+    goto: (lnk) => this.$route.push(lnk)
   }
 };
 </script>
-
-<style lang="scss" scoped></style>

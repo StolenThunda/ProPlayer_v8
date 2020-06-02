@@ -3,7 +3,7 @@ import axios from "axios";
 
 const cheerio = require("cheerio");
 
-class TXBA_Utilities {
+export default class TXBA_Utilities {
   constructor() {
     this.baseURL = "https://texasbluesalley.com/proplayer74-tony/";
     this.default_entries_slug = "--ajax-browser-default-entries";
@@ -13,6 +13,9 @@ class TXBA_Utilities {
     this.package_slug = "--ajax-get-package-info";
     this.search_slug = "--ajax-browser-search-entries";
     this.user_loops_slug = "--ajax-get-segment-user-loops";
+    this.segment_slug = "--ajax-get-segment-info";
+    this.load_media_slug = "--ajax-load-media";
+    this.load_vimeo_slug = "/--ajax-load-media/vimeo/";
     this.slug_code = {
       pro_player_packages:
         "wcm9fcGxheWVyX3BhY2thZ2VzXC8iLCJjaGFubmVsIjoicHJvX3BsYXllcl9wYWNrYWdlcyJ9",
@@ -31,7 +34,9 @@ class TXBA_Utilities {
   async getAsyncData(slug, callback) {
     try {
       const url = `${this.baseURL}${slug}`;
-      const response = await axios.get(url).then(response => response.data);
+      const response = await axios
+        .get(url)
+        .then(async response => await response.data);
       return callback ? callback.call(this, response) : response;
     } catch (e) {
       console.error(e);
@@ -39,10 +44,7 @@ class TXBA_Utilities {
     }
   }
   getFavs() {
-    return this.getAsyncData(
-      this.favorites_slug,
-      this.parseFavoriteHtml
-    );
+    return this.getAsyncData(this.favorites_slug, this.parseFavoriteHtml);
   }
 
   getNotification() {
@@ -57,12 +59,12 @@ class TXBA_Utilities {
     return this.getAsyncData(slug);
   }
 
-  async getDefaultSearchEntries() {
-      return this.getAsyncData(
-        this.default_entries_slug,
-        this.parseSearchResults
-      );
-    } 
+  getDefaultSearchEntries() {
+    return this.getAsyncData(
+      this.default_entries_slug,
+      this.parseSearchResults
+    );
+  }
 
   async getSearchFiltersByCategory(code) {
     code = code === "pro_player_packages" ? "courses" : code;
@@ -80,7 +82,125 @@ class TXBA_Utilities {
     const response = await axios.get(
       `${this.baseURL}${this.package_slug}/${ID}`
     );
-    return await await response.data;
+    let pkg = await await response.data;
+    pkg.playSections = this.parseSections(pkg.sections, pkg.packageImage);
+    // console.log("pack", pkg);
+    return pkg;
+  }
+
+  async getSegment(ID) {
+    const slug = `${this.segment_slug}/${ID}`;
+    const seg = await this.getAsyncData(slug);
+    console.log("retr Seg", seg)
+    return seg;
+  }
+
+  parseSections(sections, poster) {
+    const newSections = [];
+    sections.forEach(section => {
+      // remove unnecessary segment entries (= "")
+      const testSegments = section.segments.map(segment => {
+        return Object.entries(segment).reduce((relevant, [k, v]) => {
+          if (v !== "") relevant[k] = v;
+          return relevant;
+        }, {});
+      });
+
+      // filter segs without Filename or Code in the keys
+      const segments = testSegments.filter(segment =>
+        Object.keys(segment).some(function(k) {
+          return ~k.indexOf("Filename") || ~k.indexOf("Code");
+        })
+      );
+      const newSection = {
+        sectionTitle: section.sectionTitle,
+        sectionID: section.sectionID,
+        segments: segments.map(seg => {
+          let segData = this.parseSegmentData(seg);
+          let tmp = {
+            title: seg.segmentTitle,
+            id: seg.segmentID,
+            poster: poster
+          };
+          let whole = Object.assign({}, tmp, segData)
+          // console.log('compare', tmp, whole)
+          return whole;
+        })
+      };
+
+      newSections.push(newSection);
+    });
+    return newSections;
+  }
+
+  parseSegmentData(seg) {
+    let type = {};
+    const yt_slug = "https://www.youtube.com/watch?v=";
+
+    if (this.objectHaveKeyLike(seg, "Vimeo"))
+      type = {
+        to: `vimeo/${seg.segmentID}`,
+        // sources: [
+        //   {
+            type: "video/vimeo",
+            src: seg.segmentVimeoCode,
+        //   }
+        // ],
+        color: "orange"
+      };
+    if (this.objectHaveKeyLike(seg, "YouTube"))
+      type = {
+        to: `youtube/${seg.segmentID}`,
+            type: "video/youtube",
+            src: `${yt_slug}${seg.segmentYouTubeCode}&html5=true`,
+        color: "red"
+      };
+    if (this.objectHaveKeyLike(seg, "MP3"))
+      type = {
+        to: seg.segmentID,
+        // sources: [
+        //   {
+            type: "audio/mp3",
+            src: `https://cdn.texasbluesalley.com/audio/${seg.segmentMP3Filename}`,
+        //   }
+        // ],
+        color: "teal"
+      };
+    if (this.objectHaveKeyLike(seg, "SoundSlice"))
+      type = {
+        to: `soundslice/${seg.segmentID}`,
+        // sources: [
+        //   {
+            src: seg.segmentSoundSliceCode,
+            type: "soundslice",
+        //   }
+        // ],
+        color: "orange"
+      };
+    if (this.objectHaveKeyLike(seg, "PDF"))
+      type = {
+        to: `pdf/${seg.segmentID}`,
+        // sources: [
+        //   {
+            src: seg.segmentPDFCode,
+            type: "pdf",
+        //   }
+        // ],
+        color: "yellow"
+      };
+    if (this.objectHaveKeyLike(seg, "GPX"))
+      type = {
+        to: `soundslice/${seg.segmentID}`,
+        // sources: [
+        //   {
+            type: "application/gpx+xml",
+            src: seg.segmentGPXFilename,
+        //   }
+        // ],
+        color: "purple"
+      };
+
+    return type;
   }
 
   parseIdx(clickString) {
@@ -102,7 +222,8 @@ class TXBA_Utilities {
     group.each((idx, e) => {
       let title = $(e)
         .text()
-        .split(" ")[0];
+        .split( " " )[0]
+        .trim();
       this.favs[title] = [];
       let items = $(e)
         .parent()
@@ -278,6 +399,11 @@ class TXBA_Utilities {
     }
 
     return found;
+  }
+  objectHaveKeyLike(obj, testString) {
+    return Object.keys(obj).some(key => {
+      return ~key.indexOf(testString);
+    });
   }
 
   fakeFavHTML() {
@@ -889,4 +1015,3 @@ class TXBA_Utilities {
     return mockHtml;
   }
 }
-export default TXBA_Utilities;

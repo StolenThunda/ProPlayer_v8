@@ -2,12 +2,6 @@
   <v-card class="fill-height" align="center" justify="center">
     <v-row v-if="isLoaded">
       <v-col>
-        <!-- <v-data-table
-          :headers="dataTableEntries.headers"
-          :items="entryRows(dataTableEntries.items)"
-          :items-per-page="5"
-          class="elevation-1"></v-data-table> -->
-        <!-- <v-sheet class="mx-auto" max-width="75vw" outlined > -->
         <div
           id="content"
           dense
@@ -58,7 +52,7 @@ TODO - enable/disable favorites
 
 import ResultPanel from "@/components/browse/resultPanel";
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapGetters } = createNamespacedHelpers("browser");
+const { mapState, mapActions } = createNamespacedHelpers("browser");
 
 export default {
   name: "Browser",
@@ -68,6 +62,9 @@ export default {
   components: {
     ResultPanel
   },
+  mounted() {
+    this.loadDefaults();
+  },
   computed: {
     isLoaded() {
       return this.search.criteria !== null;
@@ -75,8 +72,12 @@ export default {
     dataTableEntries() {
       return this.getDTEntries;
     },
-    ...mapGetters(["getDTEntries"]),
     ...mapState(["default_browser_entries", "search", "search_entries"])
+  },
+  methods:{
+    ...mapActions({
+      loadDefaults: "fetchDefaultSearch"
+    })
   }
 };
 </script>

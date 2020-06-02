@@ -1,73 +1,105 @@
 <template>
-  <v-card flat tile>
-    <v-expansion-panels v-if="sections" popout>
-      <v-expansion-panel v-for="section in sections" :key="section.sectionID">
-        <v-expansion-panel-header>{{
-          section.sectionTitle
-        }}</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-list dense nav rounded subheader>
-            <v-list-item
-              v-for="seg in section.segments"
-              :key="seg.segmentID"
-              :to="getSegInfo(seg).to"
-              color="getSegInfo(seg).color"
-              link
-              ripple
-            >
-              <v-list-item-icon>
-                <v-icon>{{ getSegInfo(seg).icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-subtitle>{{
-                  seg.segmentFullTitle
-                }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-card>
+  <v-list dense>
+    <v-list-group>
+      <template v-slot:activator>
+        <v-list-item-content>
+          <v-list-item-title>{{ title }}</v-list-item-title>
+        </v-list-item-content>
+      </template>
+      <v-list-item
+        v-for="seg in segments"
+        :key="seg.id"
+        :set="(s = getSegInfo(seg))"
+        link
+        ripple
+        @click="playsegment($event)"
+      >
+        <v-list-item-icon>
+          <v-icon :color="seg.color">{{ s.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content
+          :data-setup="JSON.stringify(seg)"
+          :data-to="seg.to"
+        >
+          <v-list-item-subtitle>{{
+            seg.type + " " + s.icon
+          }}</v-list-item-subtitle>
+          {{ seg.title }}
+        </v-list-item-content>
+      </v-list-item>
+    </v-list-group>
+  </v-list>
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("watch");
-export default {
-  name: "SegmentTabContent",
-  computed: {
-    ...mapState(["sections"])
-  },
-  methods: {
-    getSegInfo(seg) {
-      var ico = { icon: "mdi-music", color: "blue", to: null };
-      ico.to =
-        seg.segmentSoundsliceCode !== "" ? seg.segmentSoundsliceCode : null;
-      if (seg.segmentMP3Filename !== "")
-        ico = {
-          icon: "mdi-volume-high",
-          color: "green",
-          to: `pdf/${seg.segmentMP3Filename}`
-        };
-      if (seg.segmentPDFCode !== "")
-        ico = {
-          icon: "mdi-file-pdf",
-          color: "yellow",
-          to: `${this.$route.params.packageID}/pdf/${seg.segmentPDFCode}`
-        };
-      if (seg.segmentVimeoCode !== "")
-        ico = {
-          icon: "mdi-video",
-          color: "red",
-          to: `play/${seg.segmentVimeoCode}`
-        };
-      if (seg.segmentYouTubeCode !== "")
-        ico = { icon: "mdi-youtube", color: "red", to: "" };
-      return ico;
+  import { createNamespacedHelpers } from "vuex";
+  const { mapActions } = createNamespacedHelpers("watch");
+  export default {
+    name: "SegmentTabContent",
+    props: {
+      title: String,
+      segments: Array
+    },
+    mounted() {
+        console.log("Seg Props", this.$props)
+
+    },
+    methods: {
+      ...mapActions(["setCurrentSegmentSetup"]),
+      playsegment(e) {
+        console.log("data-setup", e.target.dataset);
+        const data = e.target.dataset;
+        this.setCurrentSegmentSetup(data.setup);
+        console.log("seg.to", data.to )
+        this.$router.push(data.to);
+      },
+      getSegInfo(seg) {
+        var ico = {};
+        // console.log("seginfo", seg);
+        // const type = seg.sources ? seg.sources[0].type : "";
+        switch (seg.type) {
+          case "audio/mp3":
+            ico = {
+              icon: "fa fa-volume-up",
+            };
+            break;
+          case "video/vimeo":
+            ico = {
+              icon: "fa fa-video",
+            };
+            break;
+          case "video/youtube":
+            ico = {
+              icon: "fa fa-youtube",
+            };
+            break;
+          case "pdf":
+            ico = {
+              icon: "far fa-file-pdf",
+            };
+            break;
+          case "soundslice":
+            ico = {
+              icon: "mdi-guitar-pick",
+            };
+            break;
+          case "application/gpx+xml":
+            ico = {
+              icon: "mdi-guitar-pick",
+            };
+            break;
+          default:
+            ico = {
+              icon: "fa fa-video",
+            };
+            break;
+        }
+        // console.log("SEGINFO", seg, ico);
+        return ico;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped></style>

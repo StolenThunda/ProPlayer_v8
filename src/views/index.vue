@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app class="page">
     <v-app-bar app flat>
       <DefaultAppBar>
         <template v-slot:toggle>
@@ -21,6 +21,7 @@
     </v-navigation-drawer>
 
     <v-content>
+    
       <Default />
     </v-content>
 
@@ -28,7 +29,7 @@
       <span>&copy; 2020</span>
       <v-spacer />
       <v-list>
-        <LightDark/>
+        <light-dark />
       </v-list>
     </v-footer>
   </v-app>

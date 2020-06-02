@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="page">
     <v-app-bar flat app>
       <BrowserToolbar />
       <template v-slot:extension>
