@@ -19,10 +19,8 @@ Vue.component("default-plugin", () => import("./components/proplayer/Default"));
 Vue.component("pdfviewer-plugin", () =>
   import("./components/proplayer/PDFViewer")
 );
-Vue.component("player-plugin", () =>
-  import("./components/proplayer/Player")
-);
-window.axios = require( 'axios' );
+Vue.component("player-plugin", () => import("./components/proplayer/Player"));
+window.axios = require("axios");
 Vue.config.productionTip = false;
 new Vue({
   helpers,

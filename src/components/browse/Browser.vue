@@ -74,7 +74,7 @@ export default {
     },
     ...mapState(["default_browser_entries", "search", "search_entries"])
   },
-  methods:{
+  methods: {
     ...mapActions({
       loadDefaults: "fetchDefaultSearch"
     })

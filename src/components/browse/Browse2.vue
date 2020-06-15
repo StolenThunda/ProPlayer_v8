@@ -41,7 +41,7 @@
 </template>
 
 <script>
-/* 
+/*
 TODO - enable/disable favorites
 
 */

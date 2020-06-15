@@ -23,7 +23,7 @@ describe("TXBA Helper functions", () => {
   });
   it("helpers loaded", () => {
     // expect(wrapper).toBe(true);
-    console.log("helpers", Helpers)
+    console.log("helpers", Helpers);
     expect(typeof Helpers === "object").toBe(true);
   });
 });

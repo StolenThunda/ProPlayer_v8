@@ -12,7 +12,7 @@ export default {
       autoplay: false,
       controls: false,
       live: false,
-      aspectRatio: "16:9",
+      aspectRatio: "16:9"
     }
   },
   mutations: {
@@ -32,7 +32,7 @@ export default {
       ctx.currentLoops = data;
     },
     SET_CURRENT_SEGMENT_SETUP(ctx, data) {
-      ctx.currentSetup = Object.assign( {}, ctx.playerOpts, data);
+      ctx.currentSetup = Object.assign({}, ctx.playerOpts, data);
     }
   },
   actions: {
@@ -53,10 +53,10 @@ export default {
       // console.log('segData', response)
       ctx.commit("SET_CURRENT_SEGMENT", response);
     },
-    fetchSegment: ( ctx, ID ) => ctx.dispatch( "fetchSegmentData", ID ),
-    setCurrentSegmentSetup( ctx, setup ) {
-      console.log("store: ", setup)
-      if (setup) ctx.commit("SET_CURRENT_SEGMENT_SETUP", JSON.parse(setup))
+    fetchSegment: (ctx, ID) => ctx.dispatch("fetchSegmentData", ID),
+    setCurrentSegmentSetup(ctx, setup) {
+      console.log("store: ", setup);
+      if (setup) ctx.commit("SET_CURRENT_SEGMENT_SETUP", JSON.parse(setup));
     }
   },
   getters: {

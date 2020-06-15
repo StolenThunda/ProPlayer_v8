@@ -52,7 +52,7 @@ export default [
     //   import(/* webpackChunkName: "watch" */ "../views/Watch.vue"),
     children: [
       {
-        path: '',
+        path: "",
         name: "watch",
         props: true,
         meta: {

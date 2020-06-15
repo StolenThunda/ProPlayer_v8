@@ -30,19 +30,19 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      isPlaying: false,
-    }),
-    mounted() {
-      this.$root.$on("isPlaying", () => {
-        this.isPlaying = !this.isPlaying;
-      });
-    },
-    methods: {
-      send: (evt) => this.$emit(evt),
-    },
-  };
+export default {
+  data: () => ({
+    isPlaying: false
+  }),
+  mounted() {
+    this.$root.$on("isPlaying", () => {
+      this.isPlaying = !this.isPlaying;
+    });
+  },
+  methods: {
+    send: evt => this.$emit(evt)
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

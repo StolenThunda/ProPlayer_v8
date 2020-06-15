@@ -1,11 +1,10 @@
 <template>
   <v-app @showTab="showTab" class="page">
     <!-- APPBAR -->
-    <v-app-bar app fixed >
+    <v-app-bar app fixed>
       <watch-app-bar :drawer="drawer">
         <template v-slot:toggle>
-          <v-app-bar-nav-icon
-          @click="toggleSidebar" />
+          <v-app-bar-nav-icon @click="toggleSidebar" />
         </template>
       </watch-app-bar>
     </v-app-bar>
@@ -18,7 +17,7 @@
       ref="drawer"
       :width="navCfg.width"
       fixed
-     app
+      app
     >
       <watch-side-bar-tabs :tab="currentTab" :sectionData="this.sections" />
     </v-navigation-drawer>
@@ -27,7 +26,7 @@
     <!-- CONTENT -->
     <v-content>
       <component :is="plugin">
-          <template v-slot:default>
+        <template v-slot:default>
           <v-btn @click="toggleSidebar">
             <v-icon>fa fa-ellipsis-v</v-icon>
           </v-btn>
@@ -45,52 +44,50 @@
 </template>
 
 <script>
-  import AppBar from "@/components/proplayer/PlayerAppBar";
-  import SBTabs from "@/components/proplayer/PlayerSidebarTabs";
-  import Draggable from "@/views/lib/DraggableMixin";
-  import { createNamespacedHelpers } from "vuex";
-  const { mapState, mapActions } = createNamespacedHelpers("watch");
+import AppBar from "@/components/proplayer/PlayerAppBar";
+import SBTabs from "@/components/proplayer/PlayerSidebarTabs";
+import Draggable from "@/views/lib/DraggableMixin";
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("watch");
 
-  export default {
-    name: "WatchLayout",
-    mixins: [Draggable],
-    data: () => ({
-      drawer: false,
-      currentTab: null,
-      favs: false,
-      navCfg: {
-        width: 350,
-        borderSize: 3,
-      },
-    }),
-    components: {
-      "watch-app-bar": AppBar,
-      "watch-side-bar-tabs": SBTabs,
+export default {
+  name: "WatchLayout",
+  mixins: [Draggable],
+  data: () => ({
+    drawer: false,
+    currentTab: null,
+    favs: false,
+    navCfg: {
+      width: 350,
+      borderSize: 3
+    }
+  }),
+  components: {
+    "watch-app-bar": AppBar,
+    "watch-side-bar-tabs": SBTabs
+  },
+  created() {
+    this.getSegmentData();
+  },
+  computed: {
+    plugin() {
+      return (this.$route.meta.plugin || "default") + "-plugin";
     },
-    created() {
-      this.getSegmentData();
+    ...mapState(["sections", "currentCourse"])
+  },
+  methods: {
+    showTab(tab) {
+      this.currentTab = tab;
     },
-    computed: {
-      plugin() {
-        return (this.$route.meta.plugin || "default") + "-plugin";
-      },
-      ...mapState(["sections", "currentCourse"]),
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     },
-    methods: {
-      showTab(tab) {
-        this.currentTab = tab;
-      },
-      goBack() {
-        window.history.length > 1
-          ? this.$router.go(-1)
-          : this.$router.push("/");
-      },
-      async getSegmentData() {
-        return await this.fetchPackage(this.$route.params.packageID);
-      },
-      ...mapActions(["fetchPackage"]),
+    async getSegmentData() {
+      return await this.fetchPackage(this.$route.params.packageID);
     },
-  };
+    ...mapActions(["fetchPackage"])
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

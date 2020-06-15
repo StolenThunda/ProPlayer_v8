@@ -11,9 +11,7 @@
         <v-list-item-subtitle
           v-html="currentCourse.packageOverview"
         ></v-list-item-subtitle>
-         <v-btn  class="ma-4" @click="expand = !expand"
-        >Expand Details</v-btn
-      >
+        <v-btn class="ma-4" @click="expand = !expand">Expand Details</v-btn>
         <v-expand-transition>
           <v-card v-show="expand" class="mx-auto">
             <pre>
@@ -33,7 +31,6 @@
       <v-btn @click="test">
         Console Log Tree View
       </v-btn>
-
     </v-card-actions>
   </v-card>
 </template>
@@ -47,7 +44,7 @@ export default {
     expand: false,
     player: null
   }),
- computed:{
+  computed: {
     ...mapState(["currentCourse"])
   },
   methods: {

@@ -33,73 +33,72 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from "vuex";
-  const { mapActions } = createNamespacedHelpers("watch");
-  export default {
-    name: "SegmentTabContent",
-    props: {
-      title: String,
-      segments: Array
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("watch");
+export default {
+  name: "SegmentTabContent",
+  props: {
+    title: String,
+    segments: Array
+  },
+  mounted() {
+    console.log("Seg Props", this.$props);
+  },
+  methods: {
+    ...mapActions(["setCurrentSegmentSetup"]),
+    playsegment(e) {
+      console.log("data-setup", e.target.dataset);
+      const data = e.target.dataset;
+      this.setCurrentSegmentSetup(data.setup);
+      console.log("seg.to", data.to);
+      this.$router.push(data.to);
     },
-    mounted() {
-        console.log("Seg Props", this.$props)
-
-    },
-    methods: {
-      ...mapActions(["setCurrentSegmentSetup"]),
-      playsegment(e) {
-        console.log("data-setup", e.target.dataset);
-        const data = e.target.dataset;
-        this.setCurrentSegmentSetup(data.setup);
-        console.log("seg.to", data.to )
-        this.$router.push(data.to);
-      },
-      getSegInfo(seg) {
-        var ico = {};
-        // console.log("seginfo", seg);
-        // const type = seg.sources ? seg.sources[0].type : "";
-        switch (seg.type) {
-          case "audio/mp3":
-            ico = {
-              icon: "fa fa-volume-up",
-            };
-            break;
-          case "video/vimeo":
-            ico = {
-              icon: "fa fa-video",
-            };
-            break;
-          case "video/youtube":
-            ico = {
-              icon: "fa fa-youtube",
-            };
-            break;
-          case "pdf":
-            ico = {
-              icon: "far fa-file-pdf",
-            };
-            break;
-          case "soundslice":
-            ico = {
-              icon: "mdi-guitar-pick",
-            };
-            break;
-          case "application/gpx+xml":
-            ico = {
-              icon: "mdi-guitar-pick",
-            };
-            break;
-          default:
-            ico = {
-              icon: "fa fa-video",
-            };
-            break;
-        }
-        // console.log("SEGINFO", seg, ico);
-        return ico;
+    getSegInfo(seg) {
+      var ico = {};
+      // console.log("seginfo", seg);
+      // const type = seg.sources ? seg.sources[0].type : "";
+      switch (seg.type) {
+        case "audio/mp3":
+          ico = {
+            icon: "fa fa-volume-up"
+          };
+          break;
+        case "video/vimeo":
+          ico = {
+            icon: "fa fa-video"
+          };
+          break;
+        case "video/youtube":
+          ico = {
+            icon: "fa fa-youtube"
+          };
+          break;
+        case "pdf":
+          ico = {
+            icon: "far fa-file-pdf"
+          };
+          break;
+        case "soundslice":
+          ico = {
+            icon: "mdi-guitar-pick"
+          };
+          break;
+        case "application/gpx+xml":
+          ico = {
+            icon: "mdi-guitar-pick"
+          };
+          break;
+        default:
+          ico = {
+            icon: "fa fa-video"
+          };
+          break;
       }
+      // console.log("SEGINFO", seg, ico);
+      return ico;
     }
-  };
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       tab: null,
-      show: false,
+      show: false
     };
   },
   components: {

@@ -9,7 +9,7 @@
             class="mejs__player"
             id="videoPlayer"
             preload="true"
-            >
+          >
             <source :src="this.src" :type="this.type" />
             <!-- data-mejsoptions='{"pluginPath": "/mediaelement/build/ cd", "alwaysShowControls": "true"}'> -->
             <!-- ref="myPlayer"
@@ -26,23 +26,23 @@
                 supports HTML5 video</a
               >
             </p> -->
-
           </video>
           <v-btn @click="expand = !expand">
-          Options
-        </v-btn>
-        <v-expand-transition>
-          <v-card v-show="expand" class="mx-auto">
-            <v-card-text>
-              <span>
-                <pre>
+            Options
+          </v-btn>
+          <v-expand-transition>
+            <v-card v-show="expand" class="mx-auto">
+              <v-card-text>
+                <span>
+                  <pre>
                 {{ this.$props }}
-                </pre>
-              </span>
-            </v-card-text>
-            <v-card-actions></v-card-actions>
-          </v-card>
-        </v-expand-transition>
+                </pre
+                  >
+                </span>
+              </v-card-text>
+              <v-card-actions></v-card-actions>
+            </v-card>
+          </v-expand-transition>
         </div>
       </div>
     </v-card-text>
@@ -50,15 +50,15 @@
 </template>
 
 <script>
-  export default {
-    name: "VideoPlayer",
-    props: {
-      id: String,
-      poster: String,
-      src: String,
-      type: String,
-      title: String
-    },
-    data: () => ({ expand: false }),
-  };
+export default {
+  name: "VideoPlayer",
+  props: {
+    id: String,
+    poster: String,
+    src: String,
+    type: String,
+    title: String
+  },
+  data: () => ({ expand: false })
+};
 </script>

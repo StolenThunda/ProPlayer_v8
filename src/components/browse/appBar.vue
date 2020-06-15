@@ -2,7 +2,7 @@
   <v-toolbar flat>
     <slot name="drawerToggle"></slot>
 
-    <v-btn :to="{name: 'index'}" icon>
+    <v-btn :to="{ name: 'index' }" icon>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 

@@ -91,7 +91,7 @@ export default class TXBA_Utilities {
   async getSegment(ID) {
     const slug = `${this.segment_slug}/${ID}`;
     const seg = await this.getAsyncData(slug);
-    console.log("retr Seg", seg)
+    console.log("retr Seg", seg);
     return seg;
   }
 
@@ -122,7 +122,7 @@ export default class TXBA_Utilities {
             id: seg.segmentID,
             poster: poster
           };
-          let whole = Object.assign({}, tmp, segData)
+          let whole = Object.assign({}, tmp, segData);
           // console.log('compare', tmp, whole)
           return whole;
         })
@@ -140,19 +140,15 @@ export default class TXBA_Utilities {
     if (this.objectHaveKeyLike(seg, "Vimeo"))
       type = {
         to: `vimeo/${seg.segmentID}`,
-        // sources: [
-        //   {
-            type: "video/vimeo",
-            src: seg.segmentVimeoCode,
-        //   }
-        // ],
+        type: "video/vimeo",
+        src: seg.segmentVimeoCode,
         color: "orange"
       };
     if (this.objectHaveKeyLike(seg, "YouTube"))
       type = {
         to: `youtube/${seg.segmentID}`,
-            type: "video/youtube",
-            src: `${yt_slug}${seg.segmentYouTubeCode}&html5=true`,
+        type: "video/youtube",
+        src: `${yt_slug}${seg.segmentYouTubeCode}&html5=true`,
         color: "red"
       };
     if (this.objectHaveKeyLike(seg, "MP3"))
@@ -160,8 +156,8 @@ export default class TXBA_Utilities {
         to: seg.segmentID,
         // sources: [
         //   {
-            type: "audio/mp3",
-            src: `https://cdn.texasbluesalley.com/audio/${seg.segmentMP3Filename}`,
+        type: "audio/mp3",
+        src: `https://cdn.texasbluesalley.com/audio/${seg.segmentMP3Filename}`,
         //   }
         // ],
         color: "teal"
@@ -171,8 +167,8 @@ export default class TXBA_Utilities {
         to: `soundslice/${seg.segmentID}`,
         // sources: [
         //   {
-            src: seg.segmentSoundSliceCode,
-            type: "soundslice",
+        src: seg.segmentSoundSliceCode,
+        type: "soundslice",
         //   }
         // ],
         color: "orange"
@@ -182,8 +178,8 @@ export default class TXBA_Utilities {
         to: `pdf/${seg.segmentID}`,
         // sources: [
         //   {
-            src: seg.segmentPDFCode,
-            type: "pdf",
+        src: seg.segmentPDFCode,
+        type: "pdf",
         //   }
         // ],
         color: "yellow"
@@ -193,8 +189,8 @@ export default class TXBA_Utilities {
         to: `soundslice/${seg.segmentID}`,
         // sources: [
         //   {
-            type: "application/gpx+xml",
-            src: seg.segmentGPXFilename,
+        type: "application/gpx+xml",
+        src: seg.segmentGPXFilename,
         //   }
         // ],
         color: "purple"
@@ -222,7 +218,7 @@ export default class TXBA_Utilities {
     group.each((idx, e) => {
       let title = $(e)
         .text()
-        .split( " " )[0]
+        .split(" ")[0]
         .trim();
       this.favs[title] = [];
       let items = $(e)
@@ -237,7 +233,6 @@ export default class TXBA_Utilities {
           title: $(val)
             .find(".sidebar-list-item-link")
             .text()
-          //subtitle: $(e).find(".notification-body p").text(),
         };
         // console.log("item", itm);
         this.favs[title].push({ ...itm });

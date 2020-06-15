@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from "vue";
 export default {
   namespaced: true,
   state: {
@@ -33,20 +33,28 @@ export default {
         .then(data => ctx.commit("SET_NOTIFICATIONS", data));
     },
     removeFavorite(ctx, id) {
-      console.log( ctx.state.favorites )
-      const courseIdx = ctx.state.favorites?.Courses.findIndex( x => x.id === id );
-      if ( courseIdx > -1 ) {
+      console.log(ctx.state.favorites);
+      const courseIdx = ctx.state.favorites?.Courses.findIndex(
+        x => x.id === id
+      );
+      if (courseIdx > -1) {
         console.log(`Removing ID ${id} @ idx ${courseIdx} `);
-        ctx.state.favorites.Courses.splice( courseIdx, 1 );
-        Vue.set( ctx.state.favorites, "Courses", ...ctx.state.favorites.Courses );
+        ctx.state.favorites.Courses.splice(courseIdx, 1);
+        Vue.set(ctx.state.favorites, "Courses", ...ctx.state.favorites.Courses);
         return true;
       }
-      const importedIdx = ctx.state.favorites?.Imported.findIndex( x => x.id === id );
-      if ( importedIdx > -1 ) {
-        console.log( `Removing ID ${id} @ idx ${importedIdx} ` );
-        ctx.state.favorites.Imported.splice( importedIdx, 1 );
-        Vue.set( ctx.state.favorites.Imported, "Imported", ...ctx.state.favorites.Imported );
-        return true
+      const importedIdx = ctx.state.favorites?.Imported.findIndex(
+        x => x.id === id
+      );
+      if (importedIdx > -1) {
+        console.log(`Removing ID ${id} @ idx ${importedIdx} `);
+        ctx.state.favorites.Imported.splice(importedIdx, 1);
+        Vue.set(
+          ctx.state.favorites.Imported,
+          "Imported",
+          ...ctx.state.favorites.Imported
+        );
+        return true;
       }
       return false;
     },

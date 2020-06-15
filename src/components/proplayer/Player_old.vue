@@ -8,11 +8,7 @@
           <v-card-text>
             <div class="player_container mx-auto">
               <div class="c-video">
-                <video
-                  ref="thePlayer"
-                  id="videoPlayer"
-                  controls
-                >
+                <video ref="thePlayer" id="videoPlayer" controls>
                   <source :src="currentSetup.src" :type="currentSetup.type" />
                 </video>
               </div>
@@ -69,173 +65,173 @@
 </template>
 
 <script>
-  // import VideoPlayer from "@/components/proplayer/VideoPlayer";
-  import { createNamespacedHelpers } from "vuex";
-  const { mapState } = createNamespacedHelpers("watch");
-  import jquery from 'jquery';
-  // import "mediaelement/full";
-  if (process.browser){
-    require("mediaelement")
-  }
-  export default {
-    name: "PlayerWrapper",
-    data: () => ({
-      isPlaying: false,
-      player: null
-    }),
-    components: {
-      // "video-player": VideoPlayer
-    },
-    mounted() {
-      this.init();
-    },
-    computed: {
-      ...mapState(["currentSetup"])
-    },
-    methods: {
-      init() {
-        if (this.componentDidMount){
+// import VideoPlayer from "@/components/proplayer/VideoPlayer";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("watch");
+import jquery from "jquery";
+// import "mediaelement/full";
+if (process.browser) {
+  require("mediaelement");
+}
+export default {
+  name: "PlayerWrapper",
+  data: () => ({
+    isPlaying: false,
+    player: null
+  }),
+  components: {
+    // "video-player": VideoPlayer
+  },
+  mounted() {
+    this.init();
+  },
+  computed: {
+    ...mapState(["currentSetup"])
+  },
+  methods: {
+    init() {
+      if (this.componentDidMount) {
         console.log("Initializing player");
         this.player = this.$refs.thePlayer;
         // this.playerInitialize();
         console.log("Initialized player", this.player);
-        }
-      },
-      playerInitialize() {
-        const $ = jquery;
-        console.log("cSetup", this.currentSetup);
-        if (this.currentSetup) {
-          const setup = {
-            pluginPath: "https://cdnjs.com/libraries/mediaelement/",
-            shimScriptAccess: "always",
-            ...this.currentSetup,
-            success: function(mediaelement, originalNode, instance) {
-              console.log("me", mediaelement);
-              console.log("on", originalNode);
-              console.log("i", instance);
-              this.player = instance;
-            }
-          };
-          console.log("config", setup)
-          this.player = $("#videoPlayer").mediaelementplayer(setup);
-          console.log("this.player", this.player);
-          return this;
-        } else {
-          setTimeout(() => this.init(), 3000);
-        }
-      },
-
-      playerDispose() {
-        this.player.dispose();
-      },
-      componentDidMount(){
-        let loaded = false;
-        if (!loaded){
-          const tag = document.createElement('script');
-          tag.src = '//www.youtube.com/player_api';
-          const firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-          loaded = true;
-          console.log('script added')
-          }
-          return loaded;
-      },
-      playerPlay() {
-        this.player.play();
-        if (this.isPlaying) this.playerPause();
-        this.isPlaying = !this.isPlaying;
-      },
-      playerPause() {
-        this.player.pause();
-      },
-      playerSetSrc() {
-        // console.log("player url", url);
-        this.player.src();
-      },
-      playerSetVolume(float) {
-        this.player.volume(float);
-      },
-      playerSetPoster(url) {
-        this.player.poster(url);
-      },
-      playerSetTime(time) {
-        this.player.currentTime(time);
-      },
-      playerEventEnded() {
-        console.log("ended");
-      },
-      playerEventVolume() {
-        this.volume = this.player.volume();
-      },
-      playerEventError() {
-        console.log(this.playerGetError());
-      },
-      playerGetPaused() {
-        return this.player.paused();
-      },
-      playerGetTime() {
-        return this.player.currentTime();
-      },
-      playbackRestart() {
-        this.playerSetTime(0);
-      },
-      playbackRewind5() {
-        this.playerSetTime(this.playerGetTime() - 5);
-      },
-      playbackForward5() {
-        this.playerSetTime(this.playerGetTime() + 5);
-      },
-      setLoopStart() {},
-      setLoopEnd() {},
-      toggleLooping() {},
-      playerGetError() {
-        return this.player.error().message;
-      },
-      playerSetupEvents() {
-        this.player.on("ended", function() {
-          window.playerEvents.playerEventEnded();
-        });
-        this.player.on("volumechange", function() {
-          window.playerEvents.playerEventVolume();
-        });
-        this.player.on("error", function() {
-          window.playerEvents.playerEventError();
-        });
-      },
-      beforeDestroy() {
-        this.playerDispose();
       }
+    },
+    playerInitialize() {
+      const $ = jquery;
+      console.log("cSetup", this.currentSetup);
+      if (this.currentSetup) {
+        const setup = {
+          pluginPath: "https://cdnjs.com/libraries/mediaelement/",
+          shimScriptAccess: "always",
+          ...this.currentSetup,
+          success: function(mediaelement, originalNode, instance) {
+            console.log("me", mediaelement);
+            console.log("on", originalNode);
+            console.log("i", instance);
+            this.player = instance;
+          }
+        };
+        console.log("config", setup);
+        this.player = $("#videoPlayer").mediaelementplayer(setup);
+        console.log("this.player", this.player);
+        return this;
+      } else {
+        setTimeout(() => this.init(), 3000);
+      }
+    },
+
+    playerDispose() {
+      this.player.dispose();
+    },
+    componentDidMount() {
+      let loaded = false;
+      if (!loaded) {
+        const tag = document.createElement("script");
+        tag.src = "//www.youtube.com/player_api";
+        const firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        loaded = true;
+        console.log("script added");
+      }
+      return loaded;
+    },
+    playerPlay() {
+      this.player.play();
+      if (this.isPlaying) this.playerPause();
+      this.isPlaying = !this.isPlaying;
+    },
+    playerPause() {
+      this.player.pause();
+    },
+    playerSetSrc() {
+      // console.log("player url", url);
+      this.player.src();
+    },
+    playerSetVolume(float) {
+      this.player.volume(float);
+    },
+    playerSetPoster(url) {
+      this.player.poster(url);
+    },
+    playerSetTime(time) {
+      this.player.currentTime(time);
+    },
+    playerEventEnded() {
+      console.log("ended");
+    },
+    playerEventVolume() {
+      this.volume = this.player.volume();
+    },
+    playerEventError() {
+      console.log(this.playerGetError());
+    },
+    playerGetPaused() {
+      return this.player.paused();
+    },
+    playerGetTime() {
+      return this.player.currentTime();
+    },
+    playbackRestart() {
+      this.playerSetTime(0);
+    },
+    playbackRewind5() {
+      this.playerSetTime(this.playerGetTime() - 5);
+    },
+    playbackForward5() {
+      this.playerSetTime(this.playerGetTime() + 5);
+    },
+    setLoopStart() {},
+    setLoopEnd() {},
+    toggleLooping() {},
+    playerGetError() {
+      return this.player.error().message;
+    },
+    playerSetupEvents() {
+      this.player.on("ended", function() {
+        window.playerEvents.playerEventEnded();
+      });
+      this.player.on("volumechange", function() {
+        window.playerEvents.playerEventVolume();
+      });
+      this.player.on("error", function() {
+        window.playerEvents.playerEventError();
+      });
+    },
+    beforeDestroy() {
+      this.playerDispose();
     }
-  };
+  }
+};
 </script>
 
 <style scoped>
-  /* @import "mediaelement/src/css/MediaElementPlayer.css"; */
-  .player_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 65vh;
-  }
-  .controls {
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: stretch;
-    bottom: 0;
-    width: 100%;
-    flex-wrap: wrap;
-    background: rgba(0, 0, 0, 0.7);
-  }
+/* @import "mediaelement/src/css/MediaElementPlayer.css"; */
+.player_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+}
+.controls {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: stretch;
+  bottom: 0;
+  width: 100%;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.7);
+}
 
-  .video {
-    width: 100%;
-  }
+.video {
+  width: 100%;
+}
 
-  .c-video {
-    height: 100%;
-    width: 100%;
-    max-width: 90vw;
-    position: relative;
-  }
+.c-video {
+  height: 100%;
+  width: 100%;
+  max-width: 90vw;
+  position: relative;
+}
 </style>

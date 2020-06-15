@@ -5,7 +5,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-title>TXBA ProPlayer v8</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn :to="{name: 'browser'}" class="ma-2" text icon>
+    <v-btn :to="{ name: 'browser' }" class="ma-2" text icon>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
     <ToolList />

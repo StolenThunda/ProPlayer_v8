@@ -17,7 +17,7 @@ const store = new Vuex.Store({
   actions: {
     async initSearchUTIL(ctx) {
       ctx.commit("SET_UTILITIES");
-      },
+    },
     loadModules() {
       // auto init namespaced stores if the have an "initStore" action
       for (const moduleName of Object.keys(modules)) {
@@ -29,11 +29,11 @@ const store = new Vuex.Store({
         }
       }
     },
-      initStore(){
-          store.dispatch("initSearchUTIL");
-          store.dispatch("loadModules");
-      }
-    },
+    initStore() {
+      store.dispatch("initSearchUTIL");
+      store.dispatch("loadModules");
+    }
+  },
   modules
 });
 

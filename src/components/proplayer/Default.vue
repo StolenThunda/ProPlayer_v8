@@ -1,11 +1,9 @@
 <template>
-  <v-card
-    @toggleCourseInfo.stop="show = !show"
-    >
+  <v-card @toggleCourseInfo.stop="show = !show">
     <v-card-text>
       <course-info />
     </v-card-text>
-    </v-card>
+  </v-card>
 </template>
 
 <script>
@@ -16,13 +14,13 @@ export default {
     "course-info": CourseInfo
   },
   mounted() {
-    this.$root.$emit("toggleSidebar")
+    this.$root.$emit("toggleSidebar");
   },
   computed: {
     display(objCourse) {
       return JSON.stringify(objCourse, null, 4);
     }
-  },
+  }
 };
 </script>
 

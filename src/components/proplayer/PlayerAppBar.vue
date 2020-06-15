@@ -1,8 +1,8 @@
 <template>
   <!-- src="https://i.picsum.photos/id/307/1920/1080.jpg" -->
-    <v-toolbar flat>
+  <v-toolbar flat>
     <slot name="toggle" />
-    <v-btn icon :to="{name: 'index'}">
+    <v-btn icon :to="{ name: 'index' }">
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
@@ -15,7 +15,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon :to="{name: 'browser'}">
+    <v-btn icon :to="{ name: 'browser' }">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
@@ -27,7 +27,7 @@
       <i class="fa fa-arrows-alt"></i>
     </v-btn>
     <ToolList />
-    </v-toolbar>
+  </v-toolbar>
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
       this.$root.$emit("showTab", "favorites");
       this.$root.$emit("toggleSidebar");
     },
-    goto: (lnk) => this.$route.push(lnk)
+    goto: lnk => this.$route.push(lnk)
   }
 };
 </script>

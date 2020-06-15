@@ -21,7 +21,6 @@
     </v-navigation-drawer>
 
     <v-content>
-    
       <Default />
     </v-content>
 
