@@ -24,8 +24,7 @@
                 color="error"
                 @click="removeFavorite(favorite.id)"
                 small
-                >mdi-minus-circle</v-icon
-              >
+                >mdi-minus-circle</v-icon>
             </v-list-item-avatar>
           </v-list-item-icon>
         </v-list-item-action>

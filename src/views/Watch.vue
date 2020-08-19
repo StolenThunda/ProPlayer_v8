@@ -25,7 +25,7 @@
     <!-- END NAV DRAWER -->
 
     <!-- CONTENT -->
-    <v-content>
+    <v-main>
       <component :is="plugin">
           <template v-slot:default>
           <v-btn @click="toggleSidebar">
@@ -33,7 +33,7 @@
           </v-btn>
         </template>
       </component>
-    </v-content>
+    </v-main>
     <!-- END CONTENT -->
 
     <!-- FOOTER -->

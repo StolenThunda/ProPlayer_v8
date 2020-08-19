@@ -20,10 +20,10 @@
       <DefaultSideBar />
     </v-navigation-drawer>
 
-    <v-content>
+    <v-main>
     
       <Default />
-    </v-content>
+    </v-main>
 
     <v-footer>
       <span>&copy; 2020</span>
