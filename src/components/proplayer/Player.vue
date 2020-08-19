@@ -77,7 +77,7 @@
 
 <script>
 // import VideoPlayer from "@/components/proplayer/VideoPlayer";
-import "mediaelement/src/css/mediaelementplayer.css";
+// import "mediaelement/src/css/mediaelementplayer.css";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("watch");
 // import "mediaelement";
