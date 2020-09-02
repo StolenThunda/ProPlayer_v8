@@ -48,34 +48,34 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("browser");
+  import { createNamespacedHelpers } from "vuex";
+  const { mapState, mapActions } = createNamespacedHelpers("browser");
 
-export default {
-  name: "BrowserSidebar",
-  data: () => ({
-    caseSensitive: null,
-    searchText: null
-  }),
-  computed: {
-    ...mapState(["search"])
-  },
-  // created(){
-  //   this.setCriteria();
-  // },
-  methods: {
-    toggle(chipData) {
-      // console.log(chipData)
-      this.toggleSearchCriteria(chipData);
-      if (!this.isSearching) this.$root.$emit("toggleSearching");
+  export default {
+    name: "BrowserSidebar",
+    data: () => ({
+      caseSensitive: null,
+      searchText: null
+    }),
+    computed: {
+      ...mapState(["search"])
     },
-    ...mapActions(["toggleSearchCriteria", "setCriteria"])
-  }
-};
+    // created(){
+    //   this.setCriteria();
+    // },
+    methods: {
+      toggle(chipData) {
+        // console.log(chipData)
+        this.toggleSearchCriteria(chipData);
+        if (!this.isSearching) this.$root.$emit("toggleSearching");
+      },
+      ...mapActions(["toggleSearchCriteria", "setCriteria"])
+    }
+  };
 </script>
 
 <style scoped>
-.capital {
-  text-transform: capitalize;
-}
+  .capital {
+    text-transform: capitalize;
+  }
 </style>

@@ -1,11 +1,10 @@
 <template>
   <v-app @showTab="showTab" class="page">
     <!-- APPBAR -->
-    <v-app-bar app fixed >
+    <v-app-bar app fixed>
       <watch-app-bar :drawer="drawer">
         <template v-slot:toggle>
-          <v-app-bar-nav-icon
-          @click="toggleSidebar" />
+          <v-app-bar-nav-icon @click="toggleSidebar" />
         </template>
       </watch-app-bar>
     </v-app-bar>
@@ -18,7 +17,7 @@
       ref="drawer"
       :width="navCfg.width"
       fixed
-     app
+      app
     >
       <watch-side-bar-tabs :tab="currentTab" :sectionData="this.sections" />
     </v-navigation-drawer>
@@ -27,7 +26,7 @@
     <!-- CONTENT -->
     <v-main>
       <component :is="plugin">
-          <template v-slot:default>
+        <template v-slot:default>
           <v-btn @click="toggleSidebar">
             <v-icon>fa fa-ellipsis-v</v-icon>
           </v-btn>
@@ -60,12 +59,12 @@
       favs: false,
       navCfg: {
         width: 350,
-        borderSize: 3,
-      },
+        borderSize: 3
+      }
     }),
     components: {
       "watch-app-bar": AppBar,
-      "watch-side-bar-tabs": SBTabs,
+      "watch-side-bar-tabs": SBTabs
     },
     created() {
       this.getSegmentData();
@@ -74,7 +73,7 @@
       plugin() {
         return (this.$route.meta.plugin || "default") + "-plugin";
       },
-      ...mapState(["sections", "currentCourse"]),
+      ...mapState(["sections", "currentCourse"])
     },
     methods: {
       showTab(tab) {
@@ -88,8 +87,8 @@
       async getSegmentData() {
         return await this.fetchPackage(this.$route.params.packageID);
       },
-      ...mapActions(["fetchPackage"]),
-    },
+      ...mapActions(["fetchPackage"])
+    }
   };
 </script>
 

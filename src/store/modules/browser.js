@@ -48,29 +48,24 @@ export default {
     },
     async fetchDefaultSearch(ctx) {
       // debugger
-      const entries = await ctx.rootState.TXBA_UTILS.getDefaultSearchEntries()
+      const entries = await ctx.rootState.TXBA_UTILS.getDefaultSearchEntries();
       // console.log(JSON.stringify(entries, null,2))
-      return ctx.commit(
-        "SET_DEFAULT_BROWSER_ENTRIES", entries
-      );
+      return ctx.commit("SET_DEFAULT_BROWSER_ENTRIES", entries);
     },
     async setCriteria(ctx, category) {
       const filters = await ctx.rootState.TXBA_UTILS.getSearchFiltersByCategory(
         category
       );
-      ctx.commit( "SET_CRITERIA", filters );
+      ctx.commit("SET_CRITERIA", filters);
       const searchEntries = await ctx.rootState.TXBA_UTILS.getSearchEntries(
         category,
         ctx.getters.getAuth
       );
 
-      console.log(JSON.stringify(searchEntries, null, 4))
-      ctx.commit(
-        "SET_SEARCH_ENTRIES",
-        searchEntries
-      );
+      console.log(JSON.stringify(searchEntries, null, 4));
+      ctx.commit("SET_SEARCH_ENTRIES", searchEntries);
     },
-    setSearching: (ctx, bool) => ctx.commit("TOGGLE_SEARCHING", ctx, bool),
+    setSearching: (ctx, bool) => ctx.commit("TOGGLE_SEARCHING", ctx, bool)
     // initStore: ctx => {
     //   ctx.dispatch("fetchDefaultSearch");
     // }
